@@ -19,7 +19,7 @@ class DatosContratoUsuario {
     String apellidoPaterno
     String apellidoMaterno
 //    (Matricula)
-    Date fechaMatricula
+    String fechaMatricula
 
 //    Fila 2 (DireccionUsuario)
     String direccionUsuario
@@ -54,7 +54,7 @@ class DatosContratoUsuario {
     String ocupacion
 //    Sexo
     String sexo
-    Date fechaNacimiento
+    String fechaNacimiento
 
 //    Fila 5 (ContactoEmergencia)
     String nombreContactoEmergencia
@@ -77,20 +77,25 @@ class DatosContratoUsuario {
     String plan
 //    PromocionMatricula promocionDeMatricula
 //    Plan plan
-    Date fechaInicio
-    Date fechaFin
+    String fechaInicio
+    String fechaFin
 //    Date inicioBonificacion
 //    Date finBonificacion
 //    UserPersonalInstructor personalTrainerAsignado
     Integer monto
-    Integer montoMatricula
-    Integer montoPlan
-    Integer montoTotal
+    String montoMatricula
+    String montoPlan
+    String montoTotal
 
 //    Fila 9 (HistorialMembresias)
     Long diasCongelacion
 
+    String nombreBanco = ""
+    String numeroCheque = ""
+    String fechaVencimiento = ""
+    String montoCheque
 
+    String observacionesContrato
 
     static mapping = {
     }
@@ -164,16 +169,16 @@ class DatosContratoUsuario {
         ContactoEmergencia contactoEmergencia = socio.contactoEmergencia
         HistorialMembresias historialMembresias = socio.historialMembresias.last()
         Pago pago = historialMembresias.pago
-        Matricula matricula = socio.matricula
+        Matricula matricula = Matricula.findBySocio(socio)
 
         //    Fila 0
-        this.matriculaId = matricula.id
+        this.matriculaId = matricula?.id
         this.rut = (Integer.toString(socio.rut))+"-"+(Character.toString(socio.dv))
 //    Fila 1 (UserSocio)
         this.nombre = socio.nombre?:"-"
         this.apellidoPaterno = socio.apellidoPaterno
         this.apellidoMaterno = socio.apellidoMaterno
-        this.fechaMatricula = matricula.fechaMatricula
+        this.fechaMatricula = matricula?.fechaMatricula?.format('dd/MM/yyyy')
 //    Fila 2 (DireccionUsuario)
         this.direccionUsuario = direccionUsuario.toStringCalle()
         this.ciudadUsuario = direccionUsuario.ciudadUsuario
@@ -190,7 +195,7 @@ class DatosContratoUsuario {
         this.nombreEmpresa =  empresa?.nombreEmpresa
         this.ocupacion = socio.ocupacion?.nombre
         this.sexo = socio.sexo
-        this.fechaNacimiento = socio.fechaNacimiento
+        this.fechaNacimiento = socio?.fechaNacimiento?.format('dd/MM/yyyy')
 //    Fila 5 (ContactoEmergencia)
         this.nombreContactoEmergencia = contactoEmergencia.nombreContactoEmergencia
         this.apellidoPaternoContactoEmergencia = contactoEmergencia.apellidoPaternoContactoEmergencia
@@ -202,12 +207,41 @@ class DatosContratoUsuario {
 //    Fila 8
         this.numeroDeBoleta = pago.numeroDeBoleta
         this.plan = historialMembresias.plan
-        this.fechaInicio = historialMembresias.fechaInicio
-        this.fechaFin = historialMembresias.fechaFin
-        this.montoMatricula = pago.monto
-        this.montoPlan = pago.monto
-        this.montoTotal = this.montoMatricula + this.montoPlan
+        this.fechaInicio =  historialMembresias.fechaInicio.format('dd/MM/yyyy')
+        this.fechaFin = historialMembresias.fechaFin.format('dd/MM/yyyy')
+
+        Integer montoMatricula, montoPlan
+        if (matricula) {
+            if (matricula.pagoMatriculaId) {
+                this.montoMatricula =  String.format("\$ %,d", matricula.pagoMatricula.monto)
+                montoMatricula = matricula.pagoMatricula.monto
+            } else {
+                this.montoMatricula = String.format("\$ %,d", 0)
+                montoMatricula = 0
+            }
+        } else {
+            this.montoMatricula = String.format("\$ %,d", 0)
+            montoMatricula = 0
+        }
+
+        if (pago) {
+            this.montoPlan = String.format("\$ %,d", pago.monto)
+            montoPlan = pago.monto
+        } else {
+            this.montoPlan = String.format("\$ %,d", 0)
+            montoPlan = 0
+        }
+
+        this.montoTotal = String.format("\$ %,d", (montoMatricula + montoPlan))
+
 //    Fila 9 (HistorialMembresias)
         this.diasCongelacion = historialMembresias.diasCongelacion
+
+        this.nombreBanco = ""
+        this.numeroCheque = ""
+        this.fechaVencimiento = ""
+        this.montoCheque = ""
+
+        this.observacionesContrato = matricula?.observacionesMatricula
     }
 }

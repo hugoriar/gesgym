@@ -9,7 +9,8 @@ class Pago {
     Date dateCreated //fecha de creación
     Date lastUpdated //ultima actualización
 
-    static belongsTo = [HistorialMembresias]
+    static belongsTo = [HistorialMembresias, Matricula]
+    static hasMany = [cheque: Cheque]
 
     static constraints = {
         monto           blank: true, nullable: true

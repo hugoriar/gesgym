@@ -43,7 +43,7 @@
                         </td>
                         <td style="vertical-align: top; font-size: 16px;">
                             <p><i class="icon-list"></i><g:link controller="userSocio" action="list"> Listar Socios</g:link></p>
-                            <p><i class="icon-list"></i><g:link controller="historialMembresias" action="list"> Listar Membresia</g:link></p>
+                            %{--<p><i class="icon-list"></i><g:link controller="historialMembresias" action="list"> Listar Membresias</g:link></p>--}%
                             <p><i class="icon-plus-sign"></i><g:link controller="userSocio" action="create"> Matricular Socio</g:link></p>
                             %{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="delete"> Eliminar usuarios</g:link></p>--}%
                             %{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'eliminarUsuario']"> Eliminar usuarios</g:link></p>--}%

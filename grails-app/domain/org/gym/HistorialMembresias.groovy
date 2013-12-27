@@ -27,5 +27,5 @@ class HistorialMembresias {
         pago                    blank: false, nullable: false
     }
 
-    String toString() { return plan.nombre + " ("+ fechaInicio.dateString + " al " + fechaFin.dateString +")"}
+    String toString() { return plan.nombre + " ("+ fechaInicio.dateString + " al " + fechaFin.dateString + ", \$"+pago.monto+")"}
 }

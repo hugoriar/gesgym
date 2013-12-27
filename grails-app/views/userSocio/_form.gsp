@@ -146,7 +146,7 @@
     <g:render template="/contactoEmergencia/form"/>
 </fieldset>
 
-<fieldset class="form">
+%{--<fieldset class="form">
     <legend>Datos de Matrícula</legend>
     <g:render template="/matricula/form"/>
 </fieldset>
@@ -159,7 +159,7 @@
 <fieldset class="form">
     <legend>Detalles del pago del Plan</legend>
     <g:render template="/pago/form"/>
-</fieldset>
+</fieldset>--}%
 
 <fieldset class="form">
     <legend>Empresa</legend>

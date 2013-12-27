@@ -5,6 +5,8 @@ class Matricula {
     UserPersonal matriculadoPor
     UserSocio referidoPor
     Date lastUpdated //ultima actualización
+    Pago pagoMatricula
+    String observacionesMatricula
 
     static belongsTo = [socio: UserSocio]
 
@@ -13,6 +15,8 @@ class Matricula {
         matriculadoPor          blank: false, nullable: false
         referidoPor             blank: true, nullable: true
         lastUpdated             display: true, editable: false
+        pagoMatricula           blank: false, nullable: false
+        observacionesMatricula  blank: true, nullabñe: true, maxSize: 1000
     }
 
     static mapping = {

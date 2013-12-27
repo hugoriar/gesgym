@@ -46,6 +46,20 @@
 			</tr>
 		
 			<tr class="prop">
+				<td valign="top" class="name"><g:message code="matricula.pagoMatricula.label" default="Pago Matricula" /></td>
+				
+				<td valign="top" class="value"><g:link controller="pago" action="show" id="${matriculaInstance?.pagoMatricula?.id}">${matriculaInstance?.pagoMatricula?.encodeAsHTML()}</g:link></td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="matricula.observacionesMatricula.label" default="Observaciones Matricula" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: matriculaInstance, field: "observacionesMatricula")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
 				<td valign="top" class="name"><g:message code="matricula.socio.label" default="Socio" /></td>
 				
 				<td valign="top" class="value"><g:link controller="userSocio" action="show" id="${matriculaInstance?.socio?.id}">${matriculaInstance?.socio?.encodeAsHTML()}</g:link></td>

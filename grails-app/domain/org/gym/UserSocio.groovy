@@ -18,8 +18,8 @@ class UserSocio extends User {
         ocupacion           blank: false, nullable: false
         historialMembresias blank: true, nullable: true
         estadoMembresia     blank: false
-        matricula           blank: false, nullable: false
-        instructor          blank: false, nullable: false
+        matricula           blank: true, nullable: true
+        instructor          blank: true, nullable: true
         empresa             blank: true, nullable: true
         lastUpdated         display: false
         dateCreated         display: false

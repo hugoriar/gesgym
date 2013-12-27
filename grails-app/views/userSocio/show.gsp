@@ -13,7 +13,7 @@
 <body>
 
 <section id="show-userSocio" class="first">
-<g:jasperForm controller="userSocio" action="generateReport" name="datos_contrato" id="${userSocioInstance?.id}" jasper="datos_contrato" >
+<g:jasperForm controller="userSocio" action="generateReport" name="Contrato_${userSocioInstance?.rut+"-"+userSocioInstance?.dv}" id="${userSocioInstance?.id}" jasper="datos_contrato" >
 	<table class="table">
 		<tbody>
 
@@ -154,8 +154,10 @@
 
         </tbody>
 	</table>
-    <g:jasperButton controller="userSocio" action="generateReport" format="html" jasper="datos_contrato" text="HTML"/> |
-    <g:jasperButton controller="userSocio" action="generateReport" format="pdf" jasper="datos_contrato" text="PDF"/>
+    <g:link action="renovarPlan" id="${userSocioInstance.id}"><img border="0" src="${g.resource(dir: 'images/buttons', file: 'btn_renovarPlanAm.png')}"/></g:link> |
+    <g:link action="cambiarEstado" id="${userSocioInstance.id}"><img border="0" src="${g.resource(dir: 'images/buttons', file: 'btn_cambiarEstadoAm.png')}"/></g:link> |
+    <custom:jasperButtons delimiter=" " target="_blank" imgSrc="contrato_anversoAm.png" controller="userSocio" action="generateReport" format="pdf" jasper="datos_contrato" text="Contrato (Anverso)" class="btn3d"/>
+    <g:link action="downloadFile" id="contrato_reverso"><img border="0" src="${g.resource(dir: 'images/buttons', file: 'contrato_reversoAm.png')}"/></g:link>
 </g:jasperForm>
 </section>
 

@@ -20,17 +20,35 @@ class MatriculaController {
     }
 
     def create() {
-        [matriculaInstance: new Matricula(params)]
+        def userSocioInstance = UserSocio.get(params.id)
+        if (!userSocioInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
+            redirect(action: "list")
+            return
+        }
+        def lastHistorialMembresia = new HistorialMembresias()
+        def lastPago = new Pago()
+        if (userSocioInstance.historialMembresias?.size() > 0) {
+            lastHistorialMembresia = userSocioInstance.historialMembresias?.sort{it.id}?.last()
+            lastPago = userSocioInstance.historialMembresias.sort{it.id}?.last()?.pago
+        }
+
+        [matriculaInstance: new Matricula(params), userSocioInstance: userSocioInstance, historialMembresiasInstance: lastHistorialMembresia, pagoInstance: lastPago, next: "agregarPlan"]
     }
 
     def save() {
         def matriculaInstance = new Matricula(params)
+        matriculaInstance.pagoMatricula = new Pago(params)
+        matriculaInstance.socio = UserSocio.get(params.id)
         if (!matriculaInstance.save(flush: true)) {
             render(view: "create", model: [matriculaInstance: matriculaInstance])
             return
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'matricula.label', default: 'Matricula'), matriculaInstance.id])
+        if (params.next){
+            chain(controller: "userSocio", action: "renovarPlan", params: params)
+        }
         redirect(action: "show", id: matriculaInstance.id)
     }
 

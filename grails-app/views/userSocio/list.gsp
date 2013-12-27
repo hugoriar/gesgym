@@ -34,7 +34,11 @@
 				<td>${fieldValue(bean: userSocioInstance, field: "apellidoMaterno")}</td>
 				<td>${fieldValue(bean: userSocioInstance, field: "rut")}-${fieldValue(bean: userSocioInstance, field: "dv")}</td>
 				<td>${fieldValue(bean: userSocioInstance, field: "estadoMembresia")}</td>
-				<td>${userSocioInstance.historialMembresias.last().fechaFin?.getDateString()}</td>
+				<td>
+                    <g:if test="${userSocioInstance?.historialMembresias}">
+                        ${userSocioInstance.historialMembresias.last().fechaFin?.getDateString()}
+                    </g:if>
+                </td>
 			</tr>
 		</g:each>
 		</tbody>

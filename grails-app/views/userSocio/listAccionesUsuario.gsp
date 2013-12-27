@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'userSocio.label', default: 'UserSocio')}" />
-	<title><g:message code="default.list.label" args="[entityName]" /></title>
+	<title>${message(code: 'userSocio.'+accion+'.label', default: 'Acción')}</title>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 				<g:sortableColumn property="apellidoMaterno"    title="${message(code: 'userSocio.apellidoMaterno.label', default: 'Apellido Materno')}" />
 				<g:sortableColumn property="rut"                title="${message(code: 'userSocio.rut.label', default: 'Rut')}" />
 				<g:sortableColumn property="estadoMembresia"                title="${message(code: 'userSocio.estadoMembresia.label', default: 'Estado')}" />
-				<td title="${message(code: 'userSocio.accion.label', default: 'Acción')}" >Acción</td>
+				<td title="Acción" >Acción</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,12 +33,14 @@
                 <td>${fieldValue(bean: userSocioInstance, field: "rut")}</td>
                 <td>${fieldValue(bean: userSocioInstance, field: "estadoMembresia.estado")}</td>
                 <td>
+                    %{--<g:hiddenField name="accion" value="${accion}" id="accion"/>--}%
                     <g:if test="${accion == 'eliminarUsuario'}">
                         <g:render template="/_common/modals/deleteTextLink"/>
                     </g:if>
                     <g:else>
                         <g:link action="${accion}" id="${userSocioInstance.id}">
-                            <img class="accionIcon" alt="${accion}" src="${resource(dir: 'images/icons/acciones',file: accion+'.png')}" />
+                            %{--<img class="accionIcon" alt="${accion}" src="${resource(dir: 'images/icons/acciones',file: accion+'.png')}" />--}%
+                            ${message(code: 'userSocio.'+accion+'.label', default: 'Acción')}
                         </g:link>
                     </g:else>
                 </td>
@@ -47,7 +49,7 @@
 		</tbody>
 	</table>
 	<div class="pagination">
-		<bs:paginate total="${userSocioInstanceTotal}" />
+		<bs:paginate total="${userSocioInstanceTotal}" params="${[accion: accion]}" />
 	</div>
 </section>
 

@@ -25,7 +25,9 @@
 			
 				<g:sortableColumn property="lastUpdated" title="${message(code: 'matricula.lastUpdated.label', default: 'Last Updated')}" />
 			
-				<th><g:message code="matricula.socio.label" default="Socio" /></th>
+				<th><g:message code="matricula.pagoMatricula.label" default="Pago Matricula" /></th>
+			
+				<g:sortableColumn property="observacionesMatricula" title="${message(code: 'matricula.observacionesMatricula.label', default: 'Observaciones Matricula')}" />
 			
 			</tr>
 		</thead>
@@ -41,7 +43,9 @@
 			
 				<td><g:formatDate date="${matriculaInstance.lastUpdated}" /></td>
 			
-				<td>${fieldValue(bean: matriculaInstance, field: "socio")}</td>
+				<td>${fieldValue(bean: matriculaInstance, field: "pagoMatricula")}</td>
+			
+				<td>${fieldValue(bean: matriculaInstance, field: "observacionesMatricula")}</td>
 			
 			</tr>
 		</g:each>

@@ -61,7 +61,7 @@ class UserService {
         }
 
         userInstance = save(params, userInstance)
-        saveHistorialMembresias(params, userInstance)
+//        saveHistorialMembresias(params, userInstance)
         return userInstance
     }
 

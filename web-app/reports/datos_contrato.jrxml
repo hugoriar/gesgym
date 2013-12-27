@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datos_contrato" language="groovy" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89b85722-ba33-45f9-8706-74b3dacad933">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datos_contrato" language="groovy" pageWidth="612" pageHeight="935" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89b85722-ba33-45f9-8706-74b3dacad933">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="73"/>
-	<parameter name="title" class="java.lang.String">
-		<defaultValueExpression><![CDATA[DDDDD]]></defaultValueExpression>
-	</parameter>
+	<property name="ireport.y" value="243"/>
+	<parameter name="title" class="java.lang.String"/>
 	<parameter name="rut" class="java.lang.String"/>
 	<parameter name="operationTime" class="java.lang.String"/>
 	<parameter name="matriculaId" class="java.lang.String"/>
 	<parameter name="direccion" class="java.lang.String"/>
 	<parameter name="lbl_casoEmergencia" class="java.lang.String"/>
+	<parameter name="logoPath" class="java.lang.String"/>
 	<field name="matriculaId" class="java.lang.String"/>
 	<field name="rut" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -39,8 +38,15 @@
 	<field name="plan" class="java.lang.String"/>
 	<field name="fechaInicio" class="java.lang.String"/>
 	<field name="fechaFin" class="java.lang.String"/>
-	<field name="monto" class="java.lang.String"/>
+	<field name="montoPlan" class="java.lang.String"/>
 	<field name="diasCongelacion" class="java.lang.String"/>
+	<field name="nombreBanco" class="java.lang.String"/>
+	<field name="numeroCheque" class="java.lang.String"/>
+	<field name="fechaVencimiento" class="java.lang.String"/>
+	<field name="montoCheque" class="java.lang.String"/>
+	<field name="observacionesContrato" class="java.lang.String"/>
+	<field name="montoMatricula" class="java.lang.String"/>
+	<field name="montoTotal" class="java.lang.String"/>
 	<variable name="agencyName" class="java.lang.String"/>
 	<background>
 		<band/>
@@ -57,47 +63,47 @@
 					<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="45" width="274" height="58" forecolor="#000000" uuid="dca92fd5-908f-4466-8817-724ae5cf3796"/>
+					<reportElement x="0" y="44" width="274" height="54" forecolor="#000000" uuid="dca92fd5-908f-4466-8817-724ae5cf3796"/>
 					<textElement verticalAlignment="Bottom" markup="none">
 						<font size="9" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{direccion}]]></textFieldExpression>
 				</textField>
 				<image>
-					<reportElement x="0" y="1" width="134" height="44" uuid="13e514e7-5911-46bb-8ac2-949f7512d6e6"/>
-					<imageExpression><![CDATA["G:\\Mis Documentos\\Dropbox\\Pegas\\Desarrollo Web\\Cafena\\logo_cafenaBN.jpg"]]></imageExpression>
+					<reportElement x="0" y="0" width="134" height="44" uuid="13e514e7-5911-46bb-8ac2-949f7512d6e6"/>
+					<imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
 				</image>
 			</frame>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="501" y="73" width="70" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a70ccf14-3aea-462c-ae83-07a0b5371367"/>
+				<reportElement x="501" y="78" width="70" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a70ccf14-3aea-462c-ae83-07a0b5371367"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false" isItalic="false" isUnderline="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rut}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="428" y="73" width="70" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1c867892-1e76-41a1-90da-40346086a1e8"/>
+				<reportElement x="428" y="78" width="70" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1c867892-1e76-41a1-90da-40346086a1e8"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false" isItalic="false" isUnderline="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{matriculaId}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="501" y="58" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f8787ab9-09d5-4420-ad23-270794ba3cb0"/>
+				<reportElement mode="Opaque" x="501" y="63" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f8787ab9-09d5-4420-ad23-270794ba3cb0"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -105,13 +111,13 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="10" isBold="true"/>
+					<font size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[Rut]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="428" y="58" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="86d1dc41-9820-4d9a-9420-40876cc4c92b"/>
+				<reportElement mode="Opaque" x="428" y="63" width="70" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="86d1dc41-9820-4d9a-9420-40876cc4c92b"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -119,7 +125,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="10" isBold="true"/>
+					<font size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[N° Contrato]]></text>
@@ -137,10 +143,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fecha Contrato]]></text>
+				<text><![CDATA[FECHA CONTRATO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6fe065c4-169e-4505-b362-ac4251c8b1f6"/>
@@ -151,10 +157,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Materno]]></text>
+				<text><![CDATA[APELLIDO MATERNO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6fe065c4-169e-4505-b362-ac4251c8b1f6"/>
@@ -165,10 +171,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Paterno]]></text>
+				<text><![CDATA[APELLIDO PATERNO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6fe065c4-169e-4505-b362-ac4251c8b1f6"/>
@@ -179,10 +185,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Nombres]]></text>
+				<text><![CDATA[NOMBRES]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -196,7 +202,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -210,7 +216,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -224,7 +230,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -238,7 +244,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -255,10 +261,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Dirección Particular]]></text>
+				<text><![CDATA[DIRECCIÓN PARTICULAR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f8da94b6-0ada-4a06-b35d-f891113c40d9"/>
@@ -269,10 +275,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Comuna]]></text>
+				<text><![CDATA[COMUNA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="bc692479-25e6-47de-ba9a-3e52aae8bcc1"/>
@@ -283,10 +289,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fono Casa]]></text>
+				<text><![CDATA[FONO CASA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="429" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="cfa0f7c0-45ef-49ca-a23c-c33d99db1b35"/>
@@ -297,10 +303,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fono Celular]]></text>
+				<text><![CDATA[FONO CELULAR]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="429" y="15" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="de77b6b6-9b9d-41cf-9599-4883aca1e24f"/>
@@ -310,7 +316,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -324,7 +330,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -338,7 +344,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -352,7 +358,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -369,10 +375,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Dirección Comercial]]></text>
+				<text><![CDATA[DIRECCIÓN COMERCIAL]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="143" y="15" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="f5f27ab2-0121-47cc-b319-44965bb42c78"/>
@@ -382,7 +388,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -396,7 +402,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -411,10 +417,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fono Oficina]]></text>
+				<text><![CDATA[FONO OFICINA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="0" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="d38b4a22-e9cf-4a49-886b-4571c3829fdf"/>
@@ -425,10 +431,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Comuna]]></text>
+				<text><![CDATA[COMUNA]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="286" y="15" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="9ec03e80-dae5-42d3-bced-99d7d10e6cc7"/>
@@ -438,7 +444,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -452,7 +458,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -467,14 +473,14 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[E-Mail]]></text>
+				<text><![CDATA[E-MAIL]]></text>
 			</staticText>
 		</band>
 		<band height="50">
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="429" y="23" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="4ea017f1-f029-4f63-8670-af306403acca"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -482,7 +488,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -496,7 +502,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -510,7 +516,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -525,10 +531,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Sexo]]></text>
+				<text><![CDATA[SEXO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="429" y="8" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="0c2075d0-c1ae-4dbb-a881-e8c2597c3efd"/>
@@ -539,10 +545,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fecha de Nacimiento]]></text>
+				<text><![CDATA[FECHA DE NACIMIENTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="8" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f25847ac-207d-4a9a-9114-8d9b1556ba2e"/>
@@ -553,10 +559,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Profesión]]></text>
+				<text><![CDATA[PROFESIÓN]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="0" y="23" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="6cbcf4a2-5ecb-49e7-99c9-a81892c95b1b"/>
@@ -566,7 +572,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -581,10 +587,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Empresa]]></text>
+				<text><![CDATA[EMPRESA]]></text>
 			</staticText>
 		</band>
 		<band height="50">
@@ -597,10 +603,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Nombres]]></text>
+				<text><![CDATA[NOMBRES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="4b16662e-7815-44e7-8884-3bf90609b310"/>
@@ -611,10 +617,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Paterno]]></text>
+				<text><![CDATA[APELLIDO PATERNO]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="429" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="92d5709a-2af8-4f5e-acfe-9ce894d7af3c"/>
@@ -624,7 +630,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -638,7 +644,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -653,10 +659,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fono Celular]]></text>
+				<text><![CDATA[FONO CELULAR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="8ae5152d-4334-4253-98f2-bd14c7beaa4f"/>
@@ -667,10 +673,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Materno]]></text>
+				<text><![CDATA[APELLIDO MATERNO]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="143" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="44c7c92b-3560-4813-8459-27bd32423697"/>
@@ -680,7 +686,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -694,7 +700,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -724,7 +730,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="Calibri Light" size="8" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[]]></text>
@@ -738,10 +744,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Forma de Pago]]></text>
+				<text><![CDATA[FORMA DE PAGO]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="286" y="28" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="ee427293-f399-4460-9372-442aaf7c7b56"/>
@@ -764,7 +770,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -778,7 +784,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -793,10 +799,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Autorizado Por]]></text>
+				<text><![CDATA[AUTORIZADO POR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="13" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="07b5d87b-5006-4c2a-94d8-8482ac7a17e3"/>
@@ -807,7 +813,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="Calibri Light" size="8" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[]]></text>
@@ -836,10 +842,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Valor]]></text>
+				<text><![CDATA[VALOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="5" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="871782e8-50b7-480e-8f1d-e6b8cf48c214"/>
@@ -850,10 +856,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Número de Boleta]]></text>
+				<text><![CDATA[NÚMERO DE BOLETA]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="143" y="20" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="ad8550ff-0bbf-426d-8bf3-ffc9f7b4aca3"/>
@@ -896,7 +902,7 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="$ #.##0" isBlankWhenNull="true">
 				<reportElement x="429" y="20" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="771e46cb-4115-460a-9e44-9f8d298f5a36"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -904,11 +910,11 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montoMatricula}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
 				<reportElement x="0" y="20" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="70522ce7-b44d-4adc-b9b9-d6a61f5a1168"/>
@@ -918,7 +924,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -933,10 +939,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Valor Plan]]></text>
+				<text><![CDATA[VALOR PLAN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="143" y="35" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="35ec11da-9460-4fff-9614-d826e5e478f7"/>
@@ -961,12 +967,12 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Tipo de Plan]]></text>
+				<text><![CDATA[TIPO DE PLAN]]></text>
 			</staticText>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="429" y="35" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5bd8b6db-39c1-4548-aa57-8a4b7a643fb2"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -974,11 +980,11 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montoPlan}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="286" y="20" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f9ccc582-d155-45d5-b0d7-88cfd41744d0"/>
@@ -989,10 +995,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Matrícula]]></text>
+				<text><![CDATA[MATRÍCULA]]></text>
 			</staticText>
 		</band>
 		<band height="50">
@@ -1017,7 +1023,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -1065,20 +1071,6 @@
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="144" y="15" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f069934d-8393-4983-b4bd-8ba86627ab52"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="10" isBold="true"/>
-					<paragraph leftIndent="5" rightIndent="5"/>
-				</textElement>
-				<text><![CDATA[Hasta:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement mode="Opaque" x="143" y="15" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f069934d-8393-4983-b4bd-8ba86627ab52"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -1090,7 +1082,7 @@
 					<font size="10" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Hasta:]]></text>
+				<text><![CDATA[HASTA:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="15" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="0f057bef-f85e-41db-8e43-99540acdb38c"/>
@@ -1101,10 +1093,10 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Desde:]]></text>
+				<text><![CDATA[DESDE:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="286" y="15" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="ee076669-59fb-4c51-bdf4-7cef845633d7"/>
@@ -1119,7 +1111,7 @@
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 			</textField>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="dd MMMM yy" isBlankWhenNull="true">
 				<reportElement x="0" y="30" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="a736fdb4-f7a5-48b8-b0ee-3025565182f3"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -1127,13 +1119,13 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fechaInicio}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="429" y="30" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="f86fe392-2379-4c3e-8d90-991331dc4b9e"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -1141,13 +1133,13 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montoTotal}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="143" y="30" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="19002fe6-4bf2-4051-9911-9ffd183dc2a3"/>
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -1155,7 +1147,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
@@ -1170,7 +1162,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
@@ -1202,65 +1194,65 @@
 				</textElement>
 			</textField>
 		</band>
-		<band height="50">
+		<band height="113">
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="1" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="5554334a-5885-45e3-a7aa-a7cc4b21a682"/>
+				<reportElement x="0" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="5554334a-5885-45e3-a7aa-a7cc4b21a682"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombreContactoEmergencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreBanco}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="144" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="b6c2bff5-6320-40ce-a216-cda4c4d1da84"/>
+				<reportElement x="143" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="b6c2bff5-6320-40ce-a216-cda4c4d1da84"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{apellidoPaternoContactoEmergencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numeroCheque}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="287" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="80a72785-aaae-4332-983b-c627e320220d"/>
+				<reportElement x="286" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="80a72785-aaae-4332-983b-c627e320220d"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{apellidoMaternoContactoEmergencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement x="430" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="c633511a-116c-4ce0-bde4-b59b92cf9095"/>
+				<reportElement x="429" y="29" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="c633511a-116c-4ce0-bde4-b59b92cf9095"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fonoCelularContactoEmergencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{montoCheque}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="430" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="198acbd4-f98e-427e-bc78-fbb2fb5cd6ba"/>
+				<reportElement mode="Opaque" x="429" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="198acbd4-f98e-427e-bc78-fbb2fb5cd6ba"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1268,13 +1260,13 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Fono Celular]]></text>
+				<text><![CDATA[VALOR ($)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="3885d192-46ab-43f7-9779-a1d38de5ee06"/>
+				<reportElement mode="Opaque" x="0" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="3885d192-46ab-43f7-9779-a1d38de5ee06"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1282,13 +1274,13 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Nombres]]></text>
+				<text><![CDATA[BANCO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="144" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6f329c39-eceb-4613-bc7a-afa686a2d983"/>
+				<reportElement mode="Opaque" x="143" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="6f329c39-eceb-4613-bc7a-afa686a2d983"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1296,13 +1288,13 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Paterno]]></text>
+				<text><![CDATA[N° DE CHEQUE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="287" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="eb5c4afb-4adc-4eeb-a9a3-adcf98e7b6cb"/>
+				<reportElement mode="Opaque" x="286" y="14" width="143" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="eb5c4afb-4adc-4eeb-a9a3-adcf98e7b6cb"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -1310,11 +1302,210 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font size="10" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 					<paragraph leftIndent="5" rightIndent="5"/>
 				</textElement>
-				<text><![CDATA[Apellido Materno]]></text>
+				<text><![CDATA[VENCIMIENTO]]></text>
 			</staticText>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="0" y="50" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="8673ff8b-1205-48ed-875b-977b2c8de9a9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreBanco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="286" y="50" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="45bc6e42-33f3-4bc5-a7aa-7469adefe8cb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="429" y="50" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="7a91e468-fe62-4a60-9839-6331bdcb156d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="143" y="50" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="eead0a74-829b-45ca-9c2a-78126f82860a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="0" y="71" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="50c6f158-741e-4664-ac1e-0a98a7717564"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreBanco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="0" y="92" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="18812b42-589f-4f07-8f50-c35486848d4f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreBanco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="143" y="92" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="6e604650-9ab7-4dfd-8f3d-1a408eb398b6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="286" y="71" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="b40df242-8fd9-4e5e-8e41-fe900fa62f32"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="429" y="92" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="bef5aff5-d375-44be-b59f-4758206ab8f2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="429" y="71" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="73f50ceb-36d7-4a9c-a36a-727c83d6c237"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoCheque}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="286" y="92" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="09625bb4-dc8f-427a-9bee-120c003377da"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaVencimiento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
+				<reportElement x="143" y="71" width="143" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="8a123a86-3ee0-4374-9386-93cfe5ef1c2e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroCheque}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="10" width="572" height="20" uuid="f6619d1f-f3c4-414c-9ad6-8d3d2f88349d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES:]]></text>
+			</staticText>
+		</band>
+		<band height="98">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="572" height="98" uuid="e45d0e2c-a1c7-460b-b689-0af65ce214cc"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacionesContrato}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>
@@ -1333,7 +1524,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
+			<textField pattern="EEEEE dd MMMMM yyyy HH:MM">
 				<reportElement x="0" y="17" width="100" height="13" uuid="98d5cae2-2532-4834-8de0-73b47852ac1f"/>
 				<textFieldExpression><![CDATA[$P{operationTime}]]></textFieldExpression>
 			</textField>

@@ -43,7 +43,8 @@ class JasperController {
      */
     def generateResponse = {reportDef ->
         if (!reportDef.fileFormat.inline && !reportDef.parameters._inline) {
-            response.setHeader("Content-disposition", "attachment; filename=" + (reportDef.parameters._name ?: reportDef.name) + "." + reportDef.fileFormat.extension);
+//            response.setHeader("Content-disposition", "attachment; filename=" + (reportDef.parameters._name ?: reportDef.name) + "." + reportDef.fileFormat.extension);
+            response.setHeader("Content-disposition", "inline; filename=" + (reportDef.parameters._name ?: reportDef.name) + "." + reportDef.fileFormat.extension);
             response.contentType = reportDef.fileFormat.mimeTyp
             response.characterEncoding = "UTF-8"
             response.outputStream << reportDef.contentStream.toByteArray()

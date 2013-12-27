@@ -1,10 +1,11 @@
 package org.gym
 
 import grails.converters.JSON
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.grails.plugin.filterpane.FilterPaneUtils
 import org.gym.fichaMedica.CondicionMedica
 import org.gym.reportes.DatosContratoUsuario
-import org.gym.ubicacion.Ciudad
+import org.apache.commons.logging.*
 import org.springframework.dao.DataIntegrityViolationException
 
 /**
@@ -12,6 +13,8 @@ import org.springframework.dao.DataIntegrityViolationException
  * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
  */
 class UserSocioController {
+    private static final log = LogFactory.getLog(this)
+
     def userService
     def filterPaneService
 
@@ -31,6 +34,8 @@ class UserSocioController {
     }
 
     def list() {
+        log.debug "Listando usuarios"
+
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [userSocioInstanceList: UserSocio.list(params), userSocioInstanceTotal: UserSocio.count()]
     }
@@ -47,26 +52,27 @@ class UserSocioController {
     def save() {
         def userSocioInstance = new UserSocio(params)
 
-        def matriculaInstance = new Matricula(params)
+        /*def matriculaInstance = new Matricula(params)
         matriculaInstance.socio = userSocioInstance
-        // ... y se le asigna la empresa al usuario
-        userSocioInstance.matricula = matriculaInstance
+        userSocioInstance.matricula = matriculaInstance*/
 
         // Guardamos y mandamos el mail de comprobación
         userSocioInstance = userService.saveSocio(params, userSocioInstance)
-
+        params.id = userSocioInstance.id
         flash.message = message(code: 'default.created.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
-        redirect(action: "show", id: userSocioInstance.id)
+        chain(controller: "matricula", action: "create", params: params)
     }
 
     def show() {
+        log.debug "Mostrando usuario "+params.id
+
         def userSocioInstance = UserSocio.get(params.id)
         if (!userSocioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
             redirect(action: "list")
             return
         }
-
+        userSocioInstance.matricula = Matricula.findBySocio(userSocioInstance)
         [userSocioInstance: userSocioInstance]
     }
 
@@ -177,7 +183,13 @@ class UserSocioController {
             redirect(action: "list")
             return
         }
-        [userSocioInstance: userSocioInstance, historialMembresiasInstance: userSocioInstance.historialMembresias.sort{it.id}.last(), pagoInstance: userSocioInstance.historialMembresias.sort{it.id}.last().pago]
+        def lastHistorialMembresia = new HistorialMembresias()
+        def lastPago = new Pago()
+        if (userSocioInstance.historialMembresias?.size() > 0) {
+            lastHistorialMembresia = userSocioInstance.historialMembresias?.sort{it.id}?.last()
+            lastPago = userSocioInstance.historialMembresias.sort{it.id}?.last()?.pago
+        }
+        [userSocioInstance: userSocioInstance, historialMembresiasInstance: lastHistorialMembresia, pagoInstance: lastPago]
     }
 
     def cambiarEstado() {
@@ -204,6 +216,22 @@ class UserSocioController {
         redirect(action: "show", id: userSocioInstance.id)
     }
 
+/*
+    def guardaMatricula() {
+        def userSocioInstance = UserSocio.get(params.id)
+        if (!userSocioInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
+            redirect(action: "list")
+            return
+        }
+        //        Guardamos y mandamos el mail de comprobación
+        userService.saveHistorialMembresias(params, userSocioInstance)
+
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
+        redirect(action: "show", id: userSocioInstance.id)
+    }
+*/
+
     def cambiaEstado() {
         def userSocioInstance = UserSocio.get(params.id)
         if (!userSocioInstance) {
@@ -225,17 +253,39 @@ class UserSocioController {
 
     /*this method serves the report document for download*/
     def generateReport() {
+        log.debug "Entrando a generateReport()..."
+
         def jasperDTOList = []
         def jasperDTO = new DatosContratoUsuario(UserSocio.findById(params.id))
         jasperDTOList.add(jasperDTO)
         params.title = "CONTRATO DE SOCIO-USUARIO"
+        params.lbl_casoEmergencia = "EN CASO DE EMERGENCIA AVISAR A:"
+        params.logoPath = "${servletContext.getRealPath("/")}reports/images/logo_cafenaBN.jpg"
         params.direccion =  "5 Oriente 356\n" +
                             "Fonos: 032-2685340 / 032-2694084\n" +
                             "Correos: spa.marcoscafena@vtr.net / marcoscafena@vtr.net\n" +
                             "Pág. Web: www.spafitnessclub.cl\n" +
                             "VIÑA DEL MAR"
-        params.operationTime = new Date()
+        def operationTime = new Date()
+        params.operationTime = operationTime.format('dd/MM/yyyy HH:MM')
         chain(controller:'jasper', action:'index', model:[data:jasperDTOList], params:params)
         return false
     }
+
+    def downloadFile = {
+//        def sub = Submissions.get(params.id)
+//        def file = new File("${sub.location}/${sub.fileName}")
+        def webRootDir = servletContext.getRealPath("/")
+        def linkDir = "${webRootDir}/reports/contrato_reverso.pdf"
+        def file = new File(linkDir)
+            if (file.exists()){
+//                response.setContentType("application/octet-stream") // or or image/JPEG or text/xml or whatever type the file is
+                FileNameMap fileNameMap = URLConnection.getFileNameMap()
+                response.setContentType(fileNameMap.getContentTypeFor(linkDir)) // depende del tipo de archivo <
+//                response.setHeader("Content-disposition", "attachment;filename=${file.name}")
+                response.setHeader("Content-disposition", "inline;filename=${file.name}")
+                response.outputStream << file.bytes
+            }
+            else render "Error!" // appropriate error handling
+        }
 }
