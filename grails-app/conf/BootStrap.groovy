@@ -1,5 +1,6 @@
 import org.gym.CargoInterno
 import org.gym.Especializacion
+import org.gym.Modalidad
 import org.gym.Parentesco
 import org.gym.Plan
 import org.gym.ubicacion.Ciudad
@@ -108,20 +109,19 @@ class BootStrap {
         }
         println "OK"
 
-/*        print "### Creando contacto(s) de emergencia... "
-        if (!ContactoEmergencia.count()){
-            new ContactoEmergencia(nombreContactoEmergencia: "Cecilia", apellidoPaternoContactoEmergencia: "Araya", apellidoMaternoContactoEmergencia: "Navea", fonoCasaContactoEmergencia: 123, fonoCelularContactoEmergencia: 456, fonoTrabajoContactoEmergencia: 789).save(failOnError: true)
-            new ContactoEmergencia(nombreContactoEmergencia: "Jaqueline", apellidoPaternoContactoEmergencia: "Castillo", apellidoMaternoContactoEmergencia: "Herrera", fonoCasaContactoEmergencia: 1, fonoCelularContactoEmergencia: 2, fonoTrabajoContactoEmergencia: 3).save(failOnError: true)
-            new ContactoEmergencia(nombreContactoEmergencia: "Luisa", apellidoPaternoContactoEmergencia: "Espinoza", apellidoMaternoContactoEmergencia: "Rodríguez", fonoCasaContactoEmergencia: 1, fonoCelularContactoEmergencia: 2, fonoTrabajoContactoEmergencia: 3).save(failOnError: true)
+        print "### Creando modalidad(es)... "
+        if (!Modalidad.count()){
+            new Modalidad(modalidad: "Automatico").save(failOnError: true)
+            new Modalidad(modalidad: "Manual").save(failOnError: true)
         }
-        println "OK"*/
+        println "OK"
 
 
 
         print "### Creando estado(s) de membresía(s)... "
         if (!EstadoMembresia.count()){
             new EstadoMembresia(estado: "Activo", descripcion: "").save(failOnError: true)
-            new EstadoMembresia(estado: "Inactivo", descripcion: "").save(failOnError: true)
+            new EstadoMembresia(estado: "Vencido", descripcion: "").save(failOnError: true)
             new EstadoMembresia(estado: "Congelado", descripcion: "").save(failOnError: true)
             new EstadoMembresia(estado: "No vigente", descripcion: "").save(failOnError: true)
         }

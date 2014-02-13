@@ -31,6 +31,18 @@
 				
 			</tr>
 		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="estadoMembresia.color.label" default="Color" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: estadoMembresiaInstance, field: "color")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="estadoMembresia.sonido.label" default="Sonido" /></td>
+				
+			</tr>
+		
 		</tbody>
 	</table>
 </section>

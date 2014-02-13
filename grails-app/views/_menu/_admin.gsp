@@ -6,8 +6,14 @@
 		</a>
 		<ul class="dropdown-menu">
 			<li class="">
-				<a tabindex="-1" href="#"><b>Technical Admin</b></a>
+				<a tabindex="-1" href="#"><b>Ajustes Técnicos</b></a>
 			</li>
+            <li class="">
+                <a href="${createLink(uri: '/configuracion')}">
+                    <i class="icon-wrench"></i>
+                    <g:message code="default.configuration.label"/>
+                </a>
+            </li>
 			<g:if env="development">
 			<li class="">
 				<a href="${createLink(uri: '/dbconsole')}">

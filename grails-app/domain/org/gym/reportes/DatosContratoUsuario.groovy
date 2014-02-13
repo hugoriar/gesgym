@@ -23,12 +23,6 @@ class DatosContratoUsuario {
 
 //    Fila 2 (DireccionUsuario)
     String direccionUsuario
-    /*String calleUsuario
-    Integer numeroUsuario
-    String departamentoUsuario
-    *//*Sector sectorUsuario*//*
-    String sectorUsuario*/
-    /*Ciudad ciudadUsuario*/
     String comunaUsuario
     String ciudadUsuario
     Integer fono
@@ -37,11 +31,6 @@ class DatosContratoUsuario {
 //    Fila 3 (Empresa)
 //    DireccionEmpresa direccionEmpresa
     String direccionEmpresa
-    /*String calleEmpresa
-    Integer numeroEmpresa
-    String oficinaEmpresa
-    Sector sectorEmpresa
-    String sectorEmpresa*/
 //    Ciudad ciudadEmpresa
     String ciudadEmpresa
     String comunaEmpresa
@@ -50,9 +39,7 @@ class DatosContratoUsuario {
 
 //    Fila 4 (Empresa)
     String nombreEmpresa
-//    Ocupacion
     String ocupacion
-//    Sexo
     String sexo
     String fechaNacimiento
 
@@ -60,28 +47,17 @@ class DatosContratoUsuario {
     String nombreContactoEmergencia
     String apellidoPaternoContactoEmergencia
     String apellidoMaternoContactoEmergencia
-//    Integer fonoCasaContactoEmergencia
     Integer fonoCelularContactoEmergencia
-    /*Integer fonoTrabajoContactoEmergencia*/
 
 //    Fila 7 (HistorialMembresias)
-//    Pago
     String medioDePago
-//    HistorialMembresias
     String autorizadoPor
 
 //    Fila 8
-//    Pago pago
     Integer numeroDeBoleta
-//    HistorialMembresias - Plan
     String plan
-//    PromocionMatricula promocionDeMatricula
-//    Plan plan
     String fechaInicio
     String fechaFin
-//    Date inicioBonificacion
-//    Date finBonificacion
-//    UserPersonalInstructor personalTrainerAsignado
     Integer monto
     String montoMatricula
     String montoPlan
@@ -102,14 +78,6 @@ class DatosContratoUsuario {
 
     static constraints = {
     }
-
-    /*
-     * Methods of the Domain Class
-     */
-//	@Override	// Override toString for a nicer / more descriptive UI 
-//	public String toString() {
-//		return "${name}";
-//	}
 
     public /*DatosContratoUsuario*/ datosContratoUsuario(UserSocio socio,
                                                      DireccionUsuario direccionUsuario,
@@ -163,13 +131,14 @@ class DatosContratoUsuario {
         this.diasCongelacion = historialMembresias.diasCongelacion
     }
 
-    public DatosContratoUsuario (UserSocio socio){
+    public DatosContratoUsuario (UserSocio socio, HistorialMembresias historialMembresias){
         DireccionUsuario direccionUsuario = socio.domicilio
         Empresa empresa = socio.empresa
         ContactoEmergencia contactoEmergencia = socio.contactoEmergencia
-        HistorialMembresias historialMembresias = socio.historialMembresias.last()
+
+//        HistorialMembresias historialMembresias = socio.historialMembresias.last()
         Pago pago = historialMembresias.pago
-        Matricula matricula = Matricula.findBySocio(socio)
+        Matricula matricula = historialMembresias?.matricula
 
         //    Fila 0
         this.matriculaId = matricula?.id
@@ -213,8 +182,8 @@ class DatosContratoUsuario {
         Integer montoMatricula, montoPlan
         if (matricula) {
             if (matricula.pagoMatriculaId) {
-                this.montoMatricula =  String.format("\$ %,d", matricula.pagoMatricula.monto)
-                montoMatricula = matricula.pagoMatricula.monto
+                this.montoMatricula =  String.format("\$ %,d", matricula.pagoMatricula.monto?:0)
+                montoMatricula = matricula.pagoMatricula.monto?:0
             } else {
                 this.montoMatricula = String.format("\$ %,d", 0)
                 montoMatricula = 0
@@ -225,14 +194,14 @@ class DatosContratoUsuario {
         }
 
         if (pago) {
-            this.montoPlan = String.format("\$ %,d", pago.monto)
-            montoPlan = pago.monto
+            this.montoPlan = String.format("\$ %,d", pago.monto?:0)
+            montoPlan = pago.monto?:0
         } else {
             this.montoPlan = String.format("\$ %,d", 0)
             montoPlan = 0
         }
 
-        this.montoTotal = String.format("\$ %,d", (montoMatricula + montoPlan))
+        this.montoTotal = String.format("\$ %,d", (montoMatricula?:0) + (montoPlan?:0))
 
 //    Fila 9 (HistorialMembresias)
         this.diasCongelacion = historialMembresias.diasCongelacion

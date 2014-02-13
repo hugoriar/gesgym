@@ -81,7 +81,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="userPersonalInstructor.sexo.label" default="Sexo" /></td>
 				
-				<td valign="top" class="value"><g:link controller="sexo" action="show" id="${userPersonalInstructorInstance?.sexo?.id}">${userPersonalInstructorInstance?.sexo?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="sexo" action="show" id="${userPersonalInstructorInstance?.sexo?.id}">${userPersonalInstructorInstance?.sexo}</g:link></td>
 				
 			</tr>
 		
@@ -116,21 +116,21 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="userPersonalInstructor.domicilio.label" default="Domicilio" /></td>
 				
-				<td valign="top" class="value"><g:link controller="direccionUsuario" action="show" id="${userPersonalInstructorInstance?.domicilio?.id}">${userPersonalInstructorInstance?.domicilio?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="direccionUsuario" action="show" id="${userPersonalInstructorInstance?.domicilio?.id}">${userPersonalInstructorInstance?.domicilio}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="userPersonalInstructor.condicionMedica.label" default="Condicion Medica" /></td>
 				
-				<td valign="top" class="value"><g:link controller="condicionMedica" action="show" id="${userPersonalInstructorInstance?.condicionMedica?.id}">${userPersonalInstructorInstance?.condicionMedica?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="condicionMedica" action="show" id="${userPersonalInstructorInstance?.condicionMedica?.id}">${userPersonalInstructorInstance?.condicionMedica}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="userPersonalInstructor.contactoEmergencia.label" default="Contacto Emergencia" /></td>
 				
-				<td valign="top" class="value"><g:link controller="contactoEmergencia" action="show" id="${userPersonalInstructorInstance?.contactoEmergencia?.id}">${userPersonalInstructorInstance?.contactoEmergencia?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="contactoEmergencia" action="show" id="${userPersonalInstructorInstance?.contactoEmergencia?.id}">${userPersonalInstructorInstance?.contactoEmergencia}</g:link></td>
 				
 			</tr>
 		
@@ -182,7 +182,7 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${userPersonalInstructorInstance.alumnos}" var="a">
-						<li><g:link controller="userSocio" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="userSocio" action="show" id="${a.id}">${a}</g:link></li>
 					</g:each>
 					</ul>
 				</td>
@@ -192,7 +192,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="userPersonalInstructor.cargo.label" default="Cargo" /></td>
 				
-				<td valign="top" class="value"><g:link controller="cargoInterno" action="show" id="${userPersonalInstructorInstance?.cargo?.id}">${userPersonalInstructorInstance?.cargo?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="cargoInterno" action="show" id="${userPersonalInstructorInstance?.cargo?.id}">${userPersonalInstructorInstance?.cargo}</g:link></td>
 				
 			</tr>
 		

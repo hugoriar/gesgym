@@ -49,7 +49,8 @@ class HistorialMembresiasController {
             redirect(action: "list")
             return
         }
-
+        if (historialMembresiasInstance.matriculaId == 0) historialMembresiasInstance.matricula= null
+//        historialMembresiasInstance.matriculaMembresia = historialMembresiasInstance.matriculaMembresia?:null
         [historialMembresiasInstance: historialMembresiasInstance]
     }
 

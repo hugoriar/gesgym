@@ -1,0 +1,29 @@
+img.avatar_bigger {
+    width: 10em;
+    height: 12.5em;
+}
+
+img.avatar_big {
+    width: 8.0em;
+    height: 10em;
+}
+
+img.avatar_medium {
+    width: 7.0em;
+    height: 8.75em;
+}
+
+img.avatar {
+    width: 6.0em;
+    height: 7.5em;
+}
+
+img.avatar_small {
+    width: 4em;
+    height: 5em;
+}
+
+img.avatar_tiny {
+    width: 2em;
+    height: 2.5em;
+}

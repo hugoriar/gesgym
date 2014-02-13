@@ -27,7 +27,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="empresa.direccionEmpresa.label" default="Direccion Empresa" /></td>
 				
-				<td valign="top" class="value"><g:link controller="direccionEmpresa" action="show" id="${empresaInstance?.direccionEmpresa?.id}">${empresaInstance?.direccionEmpresa?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="direccionEmpresa" action="show" id="${empresaInstance?.direccionEmpresa?.id}">${empresaInstance?.direccionEmpresa}</g:link></td>
 				
 			</tr>
 		

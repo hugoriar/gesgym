@@ -13,7 +13,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'diasCongelacion', 'error')} required">
 				<label for="diasCongelacion" class="control-label"><g:message code="historialMembresias.diasCongelacion.label" default="Dias Congelacion" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:field type="number" name="diasCongelacion" required="" value="${historialMembresiasInstance.diasCongelacion}"/>
+					<g:field type="number" name="diasCongelacion" id="diasCongelacion" required="" value="${historialMembresiasInstance.diasCongelacion}"/>
 					<span class="help-inline">${hasErrors(bean: historialMembresiasInstance, field: 'diasCongelacion', 'error')}</span>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'fechaFin', 'error')} required">
 				<label for="fechaFin" class="control-label"><g:message code="historialMembresias.fechaFin.label" default="Fecha Fin" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<bs:datePicker name="fechaFin" precision="day"  value="${historialMembresiasInstance?.fechaFin}"  />
+					<bs:datePicker name="fechaFin" precision="day"  value="${historialMembresiasInstance?.fechaFin}"  /> %{--<g:checkBox name="sumarCongelacion" onchange="javascipt= this.fechaFin.value =+ this.diasCongelacion.value"/> sumar días de congelacion--}%
 					<span class="help-inline">${hasErrors(bean: historialMembresiasInstance, field: 'fechaFin', 'error')}</span>
 				</div>
 			</div>
@@ -74,21 +74,27 @@
 				</div>
 			</div>
 
-%{--
-			<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'pago', 'error')} required">
+			%{--<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'pago', 'error')} required">
 				<label for="pago" class="control-label"><g:message code="historialMembresias.pago.label" default="Pago" /><span class="required-indicator">*</span></label>
 				<div class="controls">
 					<g:select id="pago" name="pago.id" from="${org.gym.Pago.list()}" optionKey="id" required="" value="${historialMembresiasInstance?.pago?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: historialMembresiasInstance, field: 'pago', 'error')}</span>
 				</div>
-			</div>
+			</div>--}%
 
-			<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'usuario', 'error')} required">
+%{--			<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'matriculaMembresia', 'error')} required">
+				<label for="matricula" class="control-label"><g:message code="historialMembresias.matricula.label" default="Matricula Membresia" /><span class="required-indicator">*</span></label>
+				<div class="controls">
+					<g:select id="matricula" name="matricula.id" from="${org.gym.Matricula.list()}" optionKey="id" required="" value="${historialMembresiasInstance?.matricula?.id}" class="many-to-one"/>
+					<span class="help-inline">${hasErrors(bean: historialMembresiasInstance, field: 'matricula', 'error')}</span>
+				</div>
+			</div>--}%
+
+			%{--<div class="control-group fieldcontain ${hasErrors(bean: historialMembresiasInstance, field: 'usuario', 'error')} required">
 				<label for="usuario" class="control-label"><g:message code="historialMembresias.usuario.label" default="Usuario" /><span class="required-indicator">*</span></label>
 				<div class="controls">
 					<g:select id="usuario" name="usuario.id" from="${org.gym.UserSocio.list()}" optionKey="id" required="" value="${historialMembresiasInstance?.usuario?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: historialMembresiasInstance, field: 'usuario', 'error')}</span>
 				</div>
-			</div>
+			</div>--}%
 
---}%

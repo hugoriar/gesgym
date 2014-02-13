@@ -27,7 +27,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="pago.medioDePago.label" default="Medio De Pago" /></td>
 				
-				<td valign="top" class="value"><g:link controller="medioPago" action="show" id="${pagoInstance?.medioDePago?.id}">${pagoInstance?.medioDePago?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="medioPago" action="show" id="${pagoInstance?.medioDePago?.id}">${pagoInstance?.medioDePago}</g:link></td>
 				
 			</tr>
 		
@@ -59,6 +59,19 @@
 				
 			</tr>
 		
+%{--			<tr class="prop">
+				<td valign="top" class="name"><g:message code="pago.cheque.label" default="Cheque" /></td>
+				
+				<td valign="top" style="text-align: left;" class="value">
+					<ul>
+					<g:each in="${pagoInstance.cheque}" var="c">
+						<li><g:link controller="cheque" action="show" id="${c.id}">${c}</g:link></li>
+					</g:each>
+					</ul>
+				</td>
+				
+			</tr>
+		--}%
 		</tbody>
 	</table>
 </section>

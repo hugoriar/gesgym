@@ -9,16 +9,17 @@ class UserSocio extends User {
     static searchable = true
     Ocupacion ocupacion
     EstadoMembresia estadoMembresia
+//    Matricula matricula
 
-    static hasMany = [historialMembresias: HistorialMembresias ]
-    static hasOne = [instructor: UserPersonalInstructor, matricula: Matricula, empresa: Empresa]
+    static hasMany = [historialMembresias: HistorialMembresias, visitas: Visita]
+    static hasOne = [instructor: UserPersonalInstructor, /*matricula: Matricula, */empresa: Empresa]
     static belongsTo = [UserPersonalInstructor]
 
     static constraints = {
         ocupacion           blank: false, nullable: false
         historialMembresias blank: true, nullable: true
         estadoMembresia     blank: false
-        matricula           blank: true, nullable: true
+//        matricula           blank: true, nullable: true
         instructor          blank: true, nullable: true
         empresa             blank: true, nullable: true
         lastUpdated         display: false

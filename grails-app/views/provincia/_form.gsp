@@ -8,7 +8,7 @@
 					
 <ul class="one-to-many">
 <g:each in="${provinciaInstance?.comunas?}" var="c">
-    <li><g:link controller="comuna" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="comuna" action="show" id="${c.id}">${c}</g:link></li>
 </g:each>
 <li class="add">
 <g:link controller="comuna" action="create" params="['provincia.id': provinciaInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'comuna.label', default: 'Comuna')])}</g:link>

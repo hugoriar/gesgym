@@ -10,14 +10,14 @@
   
 	<section id="overview" class="">
     	<div class="alert alert-error">
-			${request.'javax.servlet.error.message'.indexOf(':') != -1 ? request.'javax.servlet.error.message'?.substring(0, request.'javax.servlet.error.message'?.indexOf(':')).encodeAsHTML() : request.'javax.servlet.error.message'?.encodeAsHTML()}
+			${request.'javax.servlet.error.message'.indexOf(':') != -1 ? request.'javax.servlet.error.message'?.substring(0, request.'javax.servlet.error.message'?.indexOf(':')).encodeAsHTML() : request.'javax.servlet.error.message'}
 			<g:if test="${request.'javax.servlet.error.message' == null}">
 			</g:if>
 			<g:elseif test="${request.'javax.servlet.error.message'.indexOf(':') != -1}">
 				${request.'javax.servlet.error.message'?.substring(0, request.'javax.servlet.error.message'?.indexOf(':')).encodeAsHTML()}
 			</g:elseif>
 			<g:else>
-				${request.'javax.servlet.error.message'?.encodeAsHTML()}
+				${request.'javax.servlet.error.message'}
 			</g:else>
 			<g:if test="${exception}">
 				${exception.className}
@@ -53,13 +53,13 @@
 					<tr>
 						<td><strong>Exception Message:</strong></td>
 						<td>
-							${exception.message?.encodeAsHTML()}
+							${exception.message}
 						</td>
 					</tr>
 					<tr>
 						<td><strong>Caused by:</strong></td>
 						<td>
-							${exception.cause?.message?.encodeAsHTML()}
+							${exception.cause?.message}
 						</td>
 					</tr>
 					<tr>
@@ -78,7 +78,7 @@
 						<td>
 				  		<div class="snippet">
 				  			<g:each var="cs" in="${exception.codeSnippet}">
-				  				${cs?.encodeAsHTML()}<br />
+				  				${cs}<br />
 				  			</g:each>
 				  		</div>
 				  		</td>

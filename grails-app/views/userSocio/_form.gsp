@@ -51,7 +51,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'fechaNacimiento', 'error')} ">
 				<label for="fechaNacimiento" class="control-label"><g:message code="userSocio.fechaNacimiento.label" default="Fecha de Nacimiento" /></label>
 				<div class="controls">
-					<bs:datePicker name="fechaNacimiento" precision="day"  value="${userSocioInstance?.fechaNacimiento}" default="none" noSelection="['': '']" />
+					<bs:datePicker name="fechaNacimiento" precision="day" years="1900..2100" value="${userSocioInstance?.fechaNacimiento}" onclick="oli();" default="none" noSelection="['': '']" />
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'fechaNacimiento', 'error')}</span>
 				</div>
 			</div>
@@ -109,7 +109,7 @@
 				<div class="controls">
                     <ul class="one-to-many">
                     <g:each in="${userSocioInstance?.historialMembresias?}" var="h">
-                        <li><g:link controller="historialMembresias" action="show" id="${h.id}">${h?.encodeAsHTML()}</g:link></li>
+                        <li><g:link controller="historialMembresias" action="show" id="${h.id}">${h}</g:link></li>
                     </g:each>
                     <li class="add">
                     <g:link controller="historialMembresias" action="create" params="['userSocio.id': userSocioInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'historialMembresias.label', default: 'HistorialMembresias')])}</g:link>

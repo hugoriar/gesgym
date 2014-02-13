@@ -29,7 +29,12 @@ grails.mime.types = [
     multipartForm: 'multipart/form-data',
     rss:           'application/rss+xml',
     text:          'text/plain',
-    xml:           ['text/xml', 'application/xml']
+    xml:           ['text/xml', 'application/xml'],
+    pdf:            'application/pdf',
+    rtf:            'application/rtf',
+    excel:          'application/vnd.ms-excel',
+    ods:            'application/vnd.oasis.opendocument.spreadsheet',
+
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -39,7 +44,7 @@ grails.mime.types = [
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 // The default codec used to encode data with ${}
-grails.views.default.codec = "html" // none, html, base64
+grails.views.default.codec = "none" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
 grails.converters.encoding = "UTF-8"
 // enable Sitemesh preprocessing of GSP pages

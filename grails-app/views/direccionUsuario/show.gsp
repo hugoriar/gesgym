@@ -41,21 +41,21 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionUsuario.sectorUsuario.label" default="Sector Usuario" /></td>
 				
-				<td valign="top" class="value"><g:link controller="sector" action="show" id="${direccionUsuarioInstance?.sectorUsuario?.id}">${direccionUsuarioInstance?.sectorUsuario?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="sector" action="show" id="${direccionUsuarioInstance?.sectorUsuario?.id}">${direccionUsuarioInstance?.sectorUsuario}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionUsuario.ciudadUsuario.label" default="Ciudad Usuario" /></td>
 				
-				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${direccionUsuarioInstance?.ciudadUsuario?.id}">${direccionUsuarioInstance?.ciudadUsuario?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${direccionUsuarioInstance?.ciudadUsuario?.id}">${direccionUsuarioInstance?.ciudadUsuario}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionUsuario.usuario.label" default="Usuario" /></td>
 				
-				<td valign="top" class="value"><g:link controller="user" action="show" id="${direccionUsuarioInstance?.usuario?.id}">${direccionUsuarioInstance?.usuario?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="user" action="show" id="${direccionUsuarioInstance?.usuario?.id}">${direccionUsuarioInstance?.usuario}</g:link></td>
 				
 			</tr>
 		

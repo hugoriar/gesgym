@@ -14,17 +14,17 @@ hibernate {
 environments {
     development {
         dataSource {
-            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull"
         }
     }
     test {
         dataSource {
-            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull"
         }
     }
     production {
         dataSource {
-            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/gesgym?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull"
         }
     }
 }

@@ -25,7 +25,7 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${userSocioInstance.historialMembresias}" var="h">
-						<li><g:link controller="historialMembresias" action="show" id="${h.id}">${h?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="historialMembresias" action="show" id="${h.id}">${h}</g:link></li>
 					</g:each>
 					</ul>
 				</td>
@@ -33,7 +33,7 @@
 
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.plan.label" default="Plan Actual" /></td>
-            <td valign="top" class="value"><g:link controller="plan" action="show" id="${historialMembresiasInstance?.plan?.id}">${historialMembresiasInstance?.plan?.encodeAsHTML()}</g:link></td>
+            <td valign="top" class="value"><g:link controller="plan" action="show" id="${historialMembresiasInstance?.plan?.id}">${historialMembresiasInstance?.plan}</g:link></td>
         </tr>
 
         <tr class="prop">
@@ -53,17 +53,17 @@
 
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.autorizadoPor.label" default="Autorizado Por" /></td>
-            <td valign="top" class="value"><g:link controller="userPersonal" action="show" id="${historialMembresiasInstance?.autorizadoPor?.id}">${historialMembresiasInstance?.autorizadoPor?.encodeAsHTML()}</g:link></td>
+            <td valign="top" class="value"><g:link controller="userPersonal" action="show" id="${historialMembresiasInstance?.autorizadoPor?.id}">${historialMembresiasInstance?.autorizadoPor}</g:link></td>
         </tr>
 
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.personalTrainerAsignado.label" default="Personal Trainer Asignado" /></td>
-            <td valign="top" class="value"><g:link controller="userPersonalInstructor" action="show" id="${historialMembresiasInstance?.personalTrainerAsignado?.id}">${historialMembresiasInstance?.personalTrainerAsignado?.encodeAsHTML()}</g:link></td>
+            <td valign="top" class="value"><g:link controller="userPersonalInstructor" action="show" id="${historialMembresiasInstance?.personalTrainerAsignado?.id}">${historialMembresiasInstance?.personalTrainerAsignado}</g:link></td>
         </tr>
 
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.pago.label" default="Pago" /></td>
-            <td valign="top" class="value"><g:link controller="pago" action="show" id="${historialMembresiasInstance?.pago?.id}">${historialMembresiasInstance?.pago?.encodeAsHTML()}</g:link></td>
+            <td valign="top" class="value"><g:link controller="pago" action="show" id="${historialMembresiasInstance?.pago?.id}">${historialMembresiasInstance?.pago}</g:link></td>
         </tr>
 		</tbody>
 	</table>
@@ -77,7 +77,7 @@
             <div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')} required">
                 <label for="estadoMembresia" class="control-label"><g:message code="userSocio.estadoMembresia.label" default="Estado Membresia" /><span class="required-indicator">*</span></label>
                 <div class="controls">
-                    <g:select id="estadoMembresia" name="estadoMembresia.id" from="${org.gym.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
+                    <g:select id="estadoMembresia" name="estadoMembresiaNuevo" from="${org.gym.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
                     <span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')}</span>
                 </div>
             </div>

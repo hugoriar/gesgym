@@ -27,7 +27,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="sector.ciudad.label" default="Ciudad" /></td>
 				
-				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${sectorInstance?.ciudad?.id}">${sectorInstance?.ciudad?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${sectorInstance?.ciudad?.id}">${sectorInstance?.ciudad}</g:link></td>
 				
 			</tr>
 		

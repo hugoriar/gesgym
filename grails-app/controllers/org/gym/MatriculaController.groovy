@@ -44,7 +44,7 @@ class MatriculaController {
             render(view: "create", model: [matriculaInstance: matriculaInstance])
             return
         }
-
+        params.matriculaInstanceId = matriculaInstance.id
         flash.message = message(code: 'default.created.message', args: [message(code: 'matricula.label', default: 'Matricula'), matriculaInstance.id])
         if (params.next){
             chain(controller: "userSocio", action: "renovarPlan", params: params)
@@ -59,8 +59,7 @@ class MatriculaController {
             redirect(action: "list")
             return
         }
-
-        [matriculaInstance: matriculaInstance]
+        [matriculaInstance: matriculaInstance/*, userSocioInstance: UserSocio.findById(Long.getLong(params.userSocioInstanceId))*/]
     }
 
     def edit() {

@@ -27,7 +27,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="condicionMedica.profesional.label" default="Profesional" /></td>
 				
-				<td valign="top" class="value"><g:link controller="profesional" action="show" id="${condicionMedicaInstance?.profesional?.id}">${condicionMedicaInstance?.profesional?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="profesional" action="show" id="${condicionMedicaInstance?.profesional?.id}">${condicionMedicaInstance?.profesional}</g:link></td>
 				
 			</tr>
 		

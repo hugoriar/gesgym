@@ -1,12 +1,15 @@
 package org.gym
 
 import grails.converters.JSON
-import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import groovy.time.TimeCategory
 import org.grails.plugin.filterpane.FilterPaneUtils
 import org.gym.fichaMedica.CondicionMedica
 import org.gym.reportes.DatosContratoUsuario
 import org.apache.commons.logging.*
+import org.gym.reportes.DatosReporteMembresias
 import org.springframework.dao.DataIntegrityViolationException
+
+import java.text.SimpleDateFormat
 
 /**
  * UserSocioController
@@ -33,9 +36,128 @@ class UserSocioController {
                         params:params ] )
     }
 
-    def list() {
+    def listCambiarEstadoBatch() {
         log.debug "Listando usuarios"
 
+        params?.soloExpirados   = ((params?.soloExpirados =="on")||(params?.soloExpirados =="true"))?Boolean.TRUE:Boolean.FALSE
+        params?.usarFechas   = ((params?.usarFechas =="on")||(params?.usarFechas =="true"))?Boolean.TRUE:Boolean.FALSE
+
+        List<UserSocio> userSocioInstanceList     = userService.getUsuariosFiltrados(params)
+        List<EstadoMembresia> estadoMembresiaList = userService.getListaEstadoMembresia(params)
+
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        render(view: "cambiarEstadosBatch",
+                model: [
+                        userSocioInstanceList:  userSocioInstanceList,
+                        userSocioInstanceTotal: userSocioInstanceList.size(),
+                        estadoMembresiaId:      params?.estadoMembresiaId,
+                        soloExpirados:          params?.soloExpirados,
+                        usarFechas:             params?.usarFechas,
+                        estadoMembresiaList:    estadoMembresiaList,
+                        desde:                  params.desde?(new SimpleDateFormat("dd-MM-yyyy").parse(params.desde?.toString())):(new Date()),
+                        hasta:                  params.hasta?(new SimpleDateFormat("dd-MM-yyyy").parse(params.hasta?.toString())):(new Date().plus(7))
+                ])
+    }
+
+    def arreglaFechas() {
+
+        log.debug "Arreglando Fechas de HistorialMembresias"
+        Date fechaInicio = new Date()
+        Date fechaFin = new Date()
+        Date inicioBonificacion = new Date()
+        Date finBonificacion = new Date()
+        HistorialMembresias.getAll().each {
+            fechaInicio = ejecutaFecha(it.fechaInicio, 2000)
+            fechaFin = ejecutaFecha(it.fechaFin, 2000)
+            inicioBonificacion = ejecutaFecha(it.inicioBonificacion, 2000)
+            finBonificacion = ejecutaFecha(it.finBonificacion, 2000)
+
+            if (fechaInicio) it.fechaInicio = fechaInicio
+            if (fechaFin) it.fechaFin = fechaFin
+            if (inicioBonificacion) it.inicioBonificacion = inicioBonificacion
+            if (finBonificacion) it.finBonificacion = finBonificacion
+
+            if (fechaInicio || fechaFin || inicioBonificacion || finBonificacion){
+                def oldVersion = it.version
+                if (!it.dateCreated) it.dateCreated = new Date()
+                if (it.save(flush: true)){
+                    System.println("Modificado: "+it+" de versión "+oldVersion+" a "+it.version)
+                } else {
+                    System.println("Error al actualizar: "+it)
+                }
+            }
+        }
+
+        log.debug "Arreglando Fechas de Pago"
+        Date fecha = new Date()
+        Pago.getAll().each {
+            fecha = ejecutaFecha(it.fecha, 2000)
+            if (fecha) it.fecha = fecha
+
+            if (fecha){
+                def oldVersion = it.version
+                if (!it.dateCreated) it.dateCreated = new Date()
+                if (it.save(flush: true)){
+                    System.println("Modificado: "+it+" de versión "+oldVersion+" a "+it.version)
+                } else {
+                    System.println("Error al actualizar: "+it)
+                }
+            }
+        }
+
+        log.debug "Arreglando Fechas de Matricula"
+        Date fechaMatricula = new Date()
+        Matricula.getAll().each {
+            fechaMatricula = ejecutaFecha(it.fechaMatricula, 2000)
+            if (fechaMatricula) it.fechaMatricula = fechaMatricula
+
+            if (fechaMatricula){
+                def oldVersion = it.version
+                if (!it.dateCreated) it.dateCreated = new Date()
+                if (it.save(flush: true)){
+                    System.println("Modificado: "+it+" de versión "+oldVersion+" a "+it.version)
+                } else {
+                    System.println("Error al actualizar: "+it)
+                }
+            }
+        }
+
+        log.debug "Arreglando Fechas de UserSocio"
+        Date fechaNacimiento = new Date()
+        UserSocio.getAll().each {
+            fechaNacimiento = ejecutaFecha(it.fechaNacimiento, 1900)
+            if (fechaNacimiento) it.fechaNacimiento = fechaNacimiento
+
+            if (fechaNacimiento){
+                def oldVersion = it.version
+                if (!it.dateCreated) it.dateCreated = new Date()
+                if (it.save(flush: true)){
+                    System.println("Modificado: "+it+" de versión "+oldVersion+" a "+it.version)
+                } else {
+                    System.println("Error al actualizar: "+it)
+                }
+            }
+        }
+    }
+
+    Date ejecutaFecha(Date fecha, Long anios){
+        if (fecha){
+            if ((fecha?.getYear()+1900)<100) {
+                System.print("Viejo: "+fecha+" Nuevo: "+new Date(year: fecha.year + anios, month: fecha.month, date: fecha.date, hours: fecha.hours, minutes: fecha.minutes, seconds: fecha.seconds))
+                return new Date(
+                        year: fecha.year + anios,
+                        month: fecha.month,
+                        date: fecha.date,
+                        hours: fecha.hours,
+                        minutes: fecha.minutes,
+                        seconds: fecha.seconds
+                )
+            }
+        }
+    }
+
+    def list() {
+        log.debug "Listando usuarios"
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [userSocioInstanceList: UserSocio.list(params), userSocioInstanceTotal: UserSocio.count()]
     }
@@ -52,15 +174,39 @@ class UserSocioController {
     def save() {
         def userSocioInstance = new UserSocio(params)
 
-        /*def matriculaInstance = new Matricula(params)
-        matriculaInstance.socio = userSocioInstance
-        userSocioInstance.matricula = matriculaInstance*/
-
         // Guardamos y mandamos el mail de comprobación
         userSocioInstance = userService.saveSocio(params, userSocioInstance)
-        params.id = userSocioInstance.id
-        flash.message = message(code: 'default.created.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
-        chain(controller: "matricula", action: "create", params: params)
+        try {
+            if (userSocioInstance?.errores){
+                String mensaje = userSocioInstance.errores.defaultMessage
+                if (mensaje.equals("[La propiedad [{0}] de la clase [{1}] con valor [{2}] debe ser única]")){
+                    String propiedad = userSocioInstance.errores.arguments[0][0]
+                    String clase = userSocioInstance.errores.arguments[0][1]
+                    String valor = userSocioInstance.errores.arguments[0][2]
+                    mensaje = "El "+clase+" con "+propiedad+" "+valor+" ya existe en el sistema, vuelva atrás para corregir o edite al usuario"
+                }
+                flash.message = mensaje
+                redirect(action: "create"/*, params: params*/)
+                return;
+            }
+        } catch (Exception e){
+            params.id = userSocioInstance.id
+            flash.message = message(code: 'default.created.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
+            chain(controller: "matricula", action: "create", params: params)
+        }
+    }
+
+    def avatar_image = {
+        def avatarUser = User.get(params.id)
+        if (!avatarUser || !avatarUser.foto/* || !avatarUser.avatarType*/) {
+            response.sendError(404)
+            return;
+        }
+//        response.setContentType(avatarUser.avatarType)
+        response.setContentLength(avatarUser.foto.size())
+        OutputStream out = response.getOutputStream();
+        out.write(avatarUser.foto);
+        out.close();
     }
 
     def show() {
@@ -72,8 +218,9 @@ class UserSocioController {
             redirect(action: "list")
             return
         }
-        userSocioInstance.matricula = Matricula.findBySocio(userSocioInstance)
-        [userSocioInstance: userSocioInstance]
+        List<HistorialMembresias> historialMembresiasInstance = userSocioInstance?.historialMembresias?.sort { it.fechaFin }
+        [userSocioInstance: userSocioInstance, historialMembresiasInstance: historialMembresiasInstance, lastHistorialMembresiasInstance: (historialMembresiasInstance.size()>0)?historialMembresiasInstance.last():null]
+//        [userSocioInstance: userSocioInstance, historialMembresiasInstance: historialMembresiasInstance, lastHistorialMembresiasInstance: historialMembresiasInstance?.last()]
     }
 
     def edit() {
@@ -172,8 +319,33 @@ class UserSocioController {
 
     def listCumpleanosUsuario() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        Calendar hoy = Calendar.getInstance()
-        [userSocioInstanceList: UserSocio.list(params), userSocioInstanceTotal: UserSocio.count(), accion: params.accion, dia: hoy.get(GregorianCalendar.DAY_OF_MONTH), mes: hoy.get(GregorianCalendar.MONTH)]
+
+        List<Date> meses = new ArrayList<Date>()
+        use(TimeCategory) {
+            def fecha = new Date(month: 0)
+            12.times { i ->
+                meses.add((fecha+(i).months).format('MMMM'))
+            }
+        }
+
+        Date desde = new Date().parse("dd-MM-yyyy", (params.desdeDia?:(new Date().date))+"-"+(params.desdeMes?meses.indexOf(params.desdeMes)+1:(new Date().month+1))+"-"+(new Date().year +1900))
+        Date hasta = new Date().parse("dd-MM-yyyy", (params.hastaDia?:(new Date().date))+"-"+(params.hastaMes?meses.indexOf(params.hastaMes)+1:(new Date().month+1))+"-"+(new Date().year +1900))
+
+        params.desde = desde.format("dd-MM-yyyy")
+        params.hasta = hasta.format("dd-MM-yyyy")
+
+        List<UserSocio> userSocioInstanceList     = userService.getUsuariosFiltrados(params)
+
+        [userSocioInstanceList: userSocioInstanceList,
+            userSocioInstanceTotal: userSocioInstanceList.size(),
+            accion: params.accion,
+            usarFechas: params?.usarFechas,
+            desdeDia: desde,
+            desdeMes: desde,
+            hastaDia: hasta,
+            hastaMes: hasta,
+            meses: meses
+        ]
     }
 
     def renovarPlan() {
@@ -189,7 +361,7 @@ class UserSocioController {
             lastHistorialMembresia = userSocioInstance.historialMembresias?.sort{it.id}?.last()
             lastPago = userSocioInstance.historialMembresias.sort{it.id}?.last()?.pago
         }
-        [userSocioInstance: userSocioInstance, historialMembresiasInstance: lastHistorialMembresia, pagoInstance: lastPago]
+        [userSocioInstance: userSocioInstance, historialMembresiasInstance: lastHistorialMembresia, pagoInstance: lastPago, matriculaInstanceId: params.matriculaInstanceId]
     }
 
     def cambiarEstado() {
@@ -200,6 +372,19 @@ class UserSocioController {
             return
         }
         [userSocioInstance: userSocioInstance, historialMembresiasInstance: userSocioInstance.historialMembresias.sort{it.id}.last(), pagoInstance: userSocioInstance.historialMembresias.sort{it.id}.last().pago, estadoMembresiaInstance: userSocioInstance.estadoMembresia]
+    }
+    def cambiarEstadosBatch() {
+        def List<UserSocio> userSocioInstanceList = new ArrayList<UserSocio>()
+//        Buscamos a los HistorialMembresias "vencidos"
+        List<HistorialMembresias> listHistorialMembresias = HistorialMembresias.findAllByFechaFinLessThan(new Date())sort { it.fechaFin }
+        listHistorialMembresias.each {
+            if (it.usuario.estadoMembresia?.id != 2){
+                def userSocioInstance = it.usuario
+                userSocioInstanceList.add(userSocioInstance)
+            }
+        }
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [userSocioInstanceList:userSocioInstanceList, userSocioInstanceTotal: userSocioInstanceList.size()]
     }
 
     def renuevaPlan() {
@@ -216,47 +401,64 @@ class UserSocioController {
         redirect(action: "show", id: userSocioInstance.id)
     }
 
-/*
-    def guardaMatricula() {
-        def userSocioInstance = UserSocio.get(params.id)
-        if (!userSocioInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
-            redirect(action: "list")
-            return
-        }
-        //        Guardamos y mandamos el mail de comprobación
-        userService.saveHistorialMembresias(params, userSocioInstance)
+    def cambiaEstado() {
+        UserSocio userSocioInstance = UserSocio.get(params?.id)
+        Date fechaDeOperacion = new Date()
+        Modalidad modalidad = Modalidad.get(2L)
+        userService.ejecutaCambioEstado(userSocioInstance, fechaDeOperacion, userSocioInstance.estadoMembresia, EstadoMembresia.findById(params?.estadoMembresiaNuevo), modalidad, 0L)
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
         redirect(action: "show", id: userSocioInstance.id)
     }
-*/
 
-    def cambiaEstado() {
-        def userSocioInstance = UserSocio.get(params.id)
-        if (!userSocioInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
-            redirect(action: "list")
-            return
+    def cambiaEstadoAuto() {
+        log.info "Entrando a cambiaEstadoAuto()..."
+        def resp = userService.cambiaEstadoAuto()
+        log.info "Saliendo de cambiaEstadoAuto()... "+resp.cont+" con nuevo estado: "+resp.estadoMembresiaInstance.estado
+        flash.message = "Cambiado(s) "+resp.cont+" usuario(s) con nuevo estado: "+resp.estadoMembresiaInstance.estado
+        redirect(action: "listCambiarEstadoBatch", params: params)
+
+    }
+
+    def cambiaEstadoBatch() {
+        log.debug "Cambiando estados..."
+
+        List<UserSocio> userSocioInstanceList = params.list('usuario')
+        def cont = 0
+        def estadoMembresiaInstance = EstadoMembresia.get(params?.estadoMembresiaNuevo?:0L)
+        Date fechaDeOperacion = new Date()
+        Modalidad modalidad = Modalidad.get(2L)
+        userSocioInstanceList.each {
+            UserSocio userSocioInstance = UserSocio.findById(it)
+            cont = userService.ejecutaCambioEstado(userSocioInstance, fechaDeOperacion, userSocioInstance.estadoMembresia, estadoMembresiaInstance, modalidad, cont)
         }
-        //        Guardamos y mandamos el mail de comprobación
-//        userService.saveHistorialMembresias(params, userSocioInstance)
-        userSocioInstance.estadoMembresia = EstadoMembresia.findById(params.estadoMembresia.id)
-        if (!userSocioInstance.save()) {
+
+        flash.message = cont + " registros modificados como " +estadoMembresiaInstance.estado
+        redirect(action: "listCambiarEstadoBatch")
+    }
+
+/*    def ejecutaCambioEstado(UserSocio userSocioInstance, Date fechaDeOperacion, EstadoMembresia estadoAntiguo, EstadoMembresia estadoMembresiaInstance) {
+        userSocioInstance.estadoMembresia = estadoMembresiaInstance
+        if (userSocioInstance.save()) {
+            estadoAntiguo = userSocioInstance.estadoMembresia
+            def logCambiosDeEstadoInstance = new LogCambiosDeEstado(fechaDeOperacion: fechaDeOperacion, socio: userSocioInstance, estadoAntiguo: estadoAntiguo, estadoNuevo: estadoMembresiaInstance)
+            if (!logCambiosDeEstadoInstance.save()) {
+                return
+            }
+        }
+        *//*        if (!userSocioInstance.save()) {
 //            render(view: "create", model: [userSocioInstance: userSocioInstance])
             return
-        }
+        }*//*
+    }*/
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.id])
-        redirect(action: "show", id: userSocioInstance.id)
-    }
 
     /*this method serves the report document for download*/
     def generateReport() {
         log.debug "Entrando a generateReport()..."
 
         def jasperDTOList = []
-        def jasperDTO = new DatosContratoUsuario(UserSocio.findById(params.id))
+        def jasperDTO = new DatosContratoUsuario(UserSocio.findById(params.id), HistorialMembresias.findById(params.historialMembresiasInstanceId))
         jasperDTOList.add(jasperDTO)
         params.title = "CONTRATO DE SOCIO-USUARIO"
         params.lbl_casoEmergencia = "EN CASO DE EMERGENCIA AVISAR A:"
@@ -267,7 +469,31 @@ class UserSocioController {
                             "Pág. Web: www.spafitnessclub.cl\n" +
                             "VIÑA DEL MAR"
         def operationTime = new Date()
-        params.operationTime = operationTime.format('dd/MM/yyyy HH:MM')
+        params.operationTime = operationTime.format('dd/MM/yyyy HH:mm:ss')
+        chain(controller:'jasper', action:'index', model:[data:jasperDTOList], params:params)
+        return false
+    }
+
+        /*this method serves the report document for download*/
+    def generateReportMembresias() {
+        log.debug "Entrando a generateReport()..."
+
+        def jasperDTOList = []
+
+//        List<UserSocio> listSocios =
+        def jasperDTO = new DatosReporteMembresias(UserSocio.findById(params.id), HistorialMembresias.findById(params.historialMembresiasInstanceId), EstadoMembresia)
+        jasperDTOList.add(jasperDTO)
+
+        params.title = "CONTRATO DE SOCIO-USUARIO"
+        params.lbl_casoEmergencia = "EN CASO DE EMERGENCIA AVISAR A:"
+        params.logoPath = "${servletContext.getRealPath("/")}reports/images/logo_cafenaBN.jpg"
+        params.direccion =  "5 Oriente 356\n" +
+                            "Fonos: 032-2685340 / 032-2694084\n" +
+                            "Correos: spa.marcoscafena@vtr.net / marcoscafena@vtr.net\n" +
+                            "Pág. Web: www.spafitnessclub.cl\n" +
+                            "VIÑA DEL MAR"
+        def operationTime = new Date()
+        params.operationTime = operationTime.format('dd/MM/yyyy HH:mm:ss')
         chain(controller:'jasper', action:'index', model:[data:jasperDTOList], params:params)
         return false
     }

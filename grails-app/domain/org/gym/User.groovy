@@ -22,7 +22,7 @@ class User {
     Integer fonoTrabajo
     String email
 
-    static hasOne		= [domicilio: DireccionUsuario, condicionMedica: CondicionMedica, contactoEmergencia: ContactoEmergencia]
+    static hasOne		= [domicilio: DireccionUsuario, condicionMedica: CondicionMedica, contactoEmergencia: ContactoEmergencia, huella: Huella]
 
     boolean enabled = true
     boolean accountExpired = false
@@ -53,6 +53,7 @@ class User {
         domicilio           blank: true, nullable: true
         condicionMedica     blank: true, nullable: true
         contactoEmergencia  blank: false, nullable: false
+        huella              blank: true, nullable: true
         lastUpdated         display: true, editable: false
         dateCreated         display: true, editable: false
         enabled             display: false

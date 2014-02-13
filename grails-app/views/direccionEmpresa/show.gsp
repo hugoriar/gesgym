@@ -41,14 +41,14 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionEmpresa.sectorEmpresa.label" default="Sector Empresa" /></td>
 				
-				<td valign="top" class="value"><g:link controller="sector" action="show" id="${direccionEmpresaInstance?.sectorEmpresa?.id}">${direccionEmpresaInstance?.sectorEmpresa?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="sector" action="show" id="${direccionEmpresaInstance?.sectorEmpresa?.id}">${direccionEmpresaInstance?.sectorEmpresa}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionEmpresa.ciudadEmpresa.label" default="Ciudad Empresa" /></td>
 				
-				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${direccionEmpresaInstance?.ciudadEmpresa?.id}">${direccionEmpresaInstance?.ciudadEmpresa?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="ciudad" action="show" id="${direccionEmpresaInstance?.ciudadEmpresa?.id}">${direccionEmpresaInstance?.ciudadEmpresa}</g:link></td>
 				
 			</tr>
 		
@@ -62,7 +62,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="direccionEmpresa.empresa.label" default="Empresa" /></td>
 				
-				<td valign="top" class="value"><g:link controller="empresa" action="show" id="${direccionEmpresaInstance?.empresa?.id}">${direccionEmpresaInstance?.empresa?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="empresa" action="show" id="${direccionEmpresaInstance?.empresa?.id}">${direccionEmpresaInstance?.empresa}</g:link></td>
 				
 			</tr>
 		

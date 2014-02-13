@@ -24,7 +24,7 @@
 					
 <ul class="one-to-many">
 <g:each in="${ciudadInstance?.sectores?}" var="s">
-    <li><g:link controller="sector" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="sector" action="show" id="${s.id}">${s}</g:link></li>
 </g:each>
 <li class="add">
 <g:link controller="sector" action="create" params="['ciudad.id': ciudadInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'sector.label', default: 'Sector')])}</g:link>

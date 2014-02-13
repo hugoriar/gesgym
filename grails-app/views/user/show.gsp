@@ -81,7 +81,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.sexo.label" default="Sexo" /></td>
 				
-				<td valign="top" class="value"><g:link controller="sexo" action="show" id="${userInstance?.sexo?.id}">${userInstance?.sexo?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="sexo" action="show" id="${userInstance?.sexo?.id}">${userInstance?.sexo}</g:link></td>
 				
 			</tr>
 		
@@ -116,21 +116,21 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.domicilio.label" default="Domicilio" /></td>
 				
-				<td valign="top" class="value"><g:link controller="direccionUsuario" action="show" id="${userInstance?.domicilio?.id}">${userInstance?.domicilio?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="direccionUsuario" action="show" id="${userInstance?.domicilio?.id}">${userInstance?.domicilio}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.condicionMedica.label" default="Condicion Medica" /></td>
 				
-				<td valign="top" class="value"><g:link controller="condicionMedica" action="show" id="${userInstance?.condicionMedica?.id}">${userInstance?.condicionMedica?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="condicionMedica" action="show" id="${userInstance?.condicionMedica?.id}">${userInstance?.condicionMedica}</g:link></td>
 				
 			</tr>
 		
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="user.contactoEmergencia.label" default="Contacto Emergencia" /></td>
 				
-				<td valign="top" class="value"><g:link controller="contactoEmergencia" action="show" id="${userInstance?.contactoEmergencia?.id}">${userInstance?.contactoEmergencia?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="contactoEmergencia" action="show" id="${userInstance?.contactoEmergencia?.id}">${userInstance?.contactoEmergencia}</g:link></td>
 				
 			</tr>
 		

@@ -21,6 +21,8 @@ class Pago {
         dateCreated     display: false
     }
 
-    String toString() { return "\$" + monto + " ("+ medioDePago?.nombre + ", fecha: " + fecha?.dateString + ", boleta: " + numeroDeBoleta +")"}
+    String toString() {
+        return (monto?String.format("\$ %,d", monto)+" ("+ (medioDePago?.nombre?:"Sin Medio de Pago") + ", " + (fecha?.dateString?"fecha de pago: "+fecha?.dateString:"Sin Fecha") + ", " + (numeroDeBoleta?"boleta N°"+numeroDeBoleta:"Sin Boleta") +")":"Sin Cobro")
+    }
 
 }

@@ -21,15 +21,23 @@
 			
 				<g:sortableColumn property="descripcion" title="${message(code: 'estadoMembresia.descripcion.label', default: 'Descripcion')}" />
 			
+				<g:sortableColumn property="color" title="${message(code: 'estadoMembresia.color.label', default: 'Color')}" />
+			
+				%{--<g:sortableColumn property="sonido" title="${message(code: 'estadoMembresia.sonido.label', default: 'Sonido')}" />--}%
+			
 			</tr>
 		</thead>
 		<tbody>
 		<g:each in="${estadoMembresiaInstanceList}" status="i" var="estadoMembresiaInstance">
-			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}" style="color: ${estadoMembresiaInstance?.color}">
 			
 				<td><g:link action="show" id="${estadoMembresiaInstance.id}">${fieldValue(bean: estadoMembresiaInstance, field: "estado")}</g:link></td>
 			
 				<td>${fieldValue(bean: estadoMembresiaInstance, field: "descripcion")}</td>
+			
+				<td>${fieldValue(bean: estadoMembresiaInstance, field: "color")}</td>
+			
+				%{--<td>${fieldValue(bean: estadoMembresiaInstance, field: "sonido")}</td>--}%
 			
 			</tr>
 		</g:each>

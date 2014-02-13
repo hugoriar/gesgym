@@ -144,7 +144,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="_DemoPage.myEnum.label" default="My Enum" /></td>
 				
-				<td valign="top" class="value">${_DemoPageInstance?.myEnum?.encodeAsHTML()}</td>
+				<td valign="top" class="value">${_DemoPageInstance?.myEnum}</td>
 				
 			</tr>
 		

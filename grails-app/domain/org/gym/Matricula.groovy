@@ -5,6 +5,7 @@ class Matricula {
     UserPersonal matriculadoPor
     UserSocio referidoPor
     Date lastUpdated //ultima actualización
+    Date dateCreated
     Pago pagoMatricula
     String observacionesMatricula
 
@@ -15,13 +16,16 @@ class Matricula {
         matriculadoPor          blank: false, nullable: false
         referidoPor             blank: true, nullable: true
         lastUpdated             display: true, editable: false
+        dateCreated             display: true, editable: false
         pagoMatricula           blank: false, nullable: false
-        observacionesMatricula  blank: true, nullabñe: true, maxSize: 1000
+        observacionesMatricula  blank: true, nullable: true, maxSize: 1000
     }
 
     static mapping = {
         lastUpdated column: 'ultima_actualizacion'
     }
 
-    String toString() { return matriculadoPor.nombre +" "+matriculadoPor.apellidoPaterno +" "+matriculadoPor.apellidoMaterno +" ("+ fechaMatricula.dateString +") "}
+    String toString() {
+        return (pagoMatricula.monto?String.format("\$ %,d", pagoMatricula?.monto):"(Matrícula Sin Cobro)") + " - Matriculado por: "+matriculadoPor?.nombre +" "+matriculadoPor?.apellidoPaterno +" "+matriculadoPor?.apellidoMaterno +" ("+ fechaMatricula?.dateString +") "
+    }
 }

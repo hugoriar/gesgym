@@ -30,11 +30,11 @@
 		<g:each in="${userSocioInstanceList}" status="i" var="userSocioInstance">
 			<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 				<td><g:link action="show" id="${userSocioInstance.id}">${fieldValue(bean: userSocioInstance, field: "nombre")}</g:link></td>
-				<td>${fieldValue(bean: userSocioInstance, field: "apellidoPaterno")}</td>
-				<td>${fieldValue(bean: userSocioInstance, field: "apellidoMaterno")}</td>
-				<td>${fieldValue(bean: userSocioInstance, field: "rut")}-${fieldValue(bean: userSocioInstance, field: "dv")}</td>
-				<td>${fieldValue(bean: userSocioInstance, field: "estadoMembresia")}</td>
-				<td>
+				<td><g:link action="show" id="${userSocioInstance.id}">${fieldValue(bean: userSocioInstance, field: "apellidoPaterno")}</g:link></td>
+				<td><g:link action="show" id="${userSocioInstance.id}">${fieldValue(bean: userSocioInstance, field: "apellidoMaterno")}</g:link></td>
+				<td><g:link action="show" id="${userSocioInstance.id}">${fieldValue(bean: userSocioInstance, field: "rut")}-${fieldValue(bean: userSocioInstance, field: "dv")}</g:link></td>
+				<td style="color: ${userSocioInstance?.estadoMembresia?.color}">${fieldValue(bean: userSocioInstance, field: "estadoMembresia")}</td>
+				<td style="color: ${userSocioInstance?.estadoMembresia?.color}">
                     <g:if test="${userSocioInstance?.historialMembresias}">
                         ${userSocioInstance.historialMembresias.last().fechaFin?.getDateString()}
                     </g:if>
@@ -45,12 +45,9 @@
 	</table>
 	<div class="pagination">
 		<bs:paginate total="${userSocioInstanceTotal}" />
-        %{--Filter Pane--}%
         <filterpane:filterButton  text="${message(code: 'fp.tag.filterButton.text', default: 'Aplicar Filtro')}" />
 	</div>
-    %{--Filter Pane--}%
     <filterpane:filterPane domain="UserSocio" filterProperties="nombre, apellidoPaterno, apellidoMaterno, rut, fechaNacimiento"/>
-    %{--<filterpane:filterPane domain="UserSocio"/>--}%
 </section>
 
 </body>

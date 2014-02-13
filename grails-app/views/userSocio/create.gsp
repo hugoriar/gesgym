@@ -5,8 +5,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
+    <g:javascript src="validarut.js" />
 	<g:set var="entityName" value="${message(code: 'userSocio.label', default: 'UserSocio')}" />
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
+    <script type="text/javascript">
+        function oli(){
+            alert('oli');
+        }
+    </script>
 </head>
 
 <body>

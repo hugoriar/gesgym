@@ -24,7 +24,7 @@
 					
 <ul class="one-to-many">
 <g:each in="${regionInstance?.provincias?}" var="p">
-    <li><g:link controller="provincia" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
+    <li><g:link controller="provincia" action="show" id="${p.id}">${p}</g:link></li>
 </g:each>
 <li class="add">
 <g:link controller="provincia" action="create" params="['region.id': regionInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'provincia.label', default: 'Provincia')])}</g:link>

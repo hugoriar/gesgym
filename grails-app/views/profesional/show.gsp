@@ -34,7 +34,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="profesional.especializacionProfesional.label" default="Especializacion Profesional" /></td>
 				
-				<td valign="top" class="value"><g:link controller="especializacion" action="show" id="${profesionalInstance?.especializacionProfesional?.id}">${profesionalInstance?.especializacionProfesional?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="especializacion" action="show" id="${profesionalInstance?.especializacionProfesional?.id}">${profesionalInstance?.especializacionProfesional}</g:link></td>
 				
 			</tr>
 		
@@ -44,7 +44,7 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${profesionalInstance.fichasMedicasProfesional}" var="f">
-						<li><g:link controller="fichaMedica" action="show" id="${f.id}">${f?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="fichaMedica" action="show" id="${f.id}">${f}</g:link></li>
 					</g:each>
 					</ul>
 				</td>

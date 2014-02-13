@@ -23,7 +23,7 @@
 				<td valign="top" style="text-align: left;" class="value">
 					<ul>
 					<g:each in="${comunaInstance.ciudades}" var="c">
-						<li><g:link controller="ciudad" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
+						<li><g:link controller="ciudad" action="show" id="${c.id}">${c}</g:link></li>
 					</g:each>
 					</ul>
 				</td>
@@ -40,7 +40,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="comuna.provincia.label" default="Provincia" /></td>
 				
-				<td valign="top" class="value"><g:link controller="provincia" action="show" id="${comunaInstance?.provincia?.id}">${comunaInstance?.provincia?.encodeAsHTML()}</g:link></td>
+				<td valign="top" class="value"><g:link controller="provincia" action="show" id="${comunaInstance?.provincia?.id}">${comunaInstance?.provincia}</g:link></td>
 				
 			</tr>
 		

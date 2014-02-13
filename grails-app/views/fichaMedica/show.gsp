@@ -28,7 +28,7 @@
 					<span id="condicionesMedicas-label" class="property-label"><g:message code="fichaMedica.condicionesMedicas.label" default="Condiciones Medicas" /></span>
 					
 						<g:each in="${fichaMedicaInstance.condicionesMedicas}" var="c">
-						<span class="property-value" aria-labelledby="condicionesMedicas-label"><g:link controller="condicionMedica" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="condicionesMedicas-label"><g:link controller="condicionMedica" action="show" id="${c.id}">${c}</g:link></span>
 						</g:each>
 					
 				</li>
@@ -38,7 +38,7 @@
 				<li class="fieldcontain">
 					<span id="usuario-label" class="property-label"><g:message code="fichaMedica.usuario.label" default="Usuario" /></span>
 					
-						<span class="property-value" aria-labelledby="usuario-label"><g:link controller="user" action="show" id="${fichaMedicaInstance?.usuario?.id}">${fichaMedicaInstance?.usuario?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="usuario-label"><g:link controller="user" action="show" id="${fichaMedicaInstance?.usuario?.id}">${fichaMedicaInstance?.usuario}</g:link></span>
 					
 				</li>
 				</g:if>
