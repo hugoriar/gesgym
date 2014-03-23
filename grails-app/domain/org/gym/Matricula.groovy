@@ -9,7 +9,8 @@ class Matricula {
     Pago pagoMatricula
     String observacionesMatricula
 
-    static belongsTo = [socio: UserSocio]
+    static belongsTo = [membresia: HistorialMembresias]
+//    static belongsTo = [socio: UserSocio]
 
     static constraints = {
         fechaMatricula          blank: false, nullable: false
@@ -18,6 +19,7 @@ class Matricula {
         lastUpdated             display: true, editable: false
         dateCreated             display: true, editable: false
         pagoMatricula           blank: false, nullable: false
+        membresia               blank: true, nullable: true
         observacionesMatricula  blank: true, nullable: true, maxSize: 1000
     }
 

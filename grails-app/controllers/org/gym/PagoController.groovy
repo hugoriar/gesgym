@@ -10,9 +10,60 @@ class PagoController {
         redirect(action: "list", params: params)
     }
 
+/*    def list(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+        List<Pago> pagoInstanceList = Pago.findAll{monto != null}
+        [pagoInstanceList: pagoInstanceList, pagoInstanceTotal: pagoInstanceList.size()]
+    }*/
+
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [pagoInstanceList: Pago.list(params), pagoInstanceTotal: Pago.count()]
+//        params.max = Math.min(max ?: 10, 100)
+        List<Pago> pagoInstanceList = Pago.findAll{monto != null}
+        List pagoMapList = new ArrayList()
+
+        List<HistorialMembresias> historialMembresiaInstanceList = HistorialMembresias.list()
+        List historialMembresiaInstanceMap = new ArrayList()
+        historialMembresiaInstanceList.each {
+            if (it.pago && (it.pago?.monto>0)){
+                historialMembresiaInstanceMap.add([
+                        fechaDeCobro:   it.pago.fecha?.getTime(),
+                        fechaDeCreacion:it.pago.dateCreated?.getTime(), // con hora
+                        concepto:       "Membresía",
+                        usuario:        it.usuario,
+                        medioDePago:    it.pago?.medioDePago,
+                        numeroDeBoleta: it.pago?.numeroDeBoleta,
+                        monto:          it.pago?.monto,
+                        pago:           it?.pago,
+                        pagoId:         it.pago?.id,
+                        matriculaId:    it?.matriculaId?:null,
+                ])
+            }
+        }
+        pagoMapList.addAll(historialMembresiaInstanceMap)
+
+        def matriculaInstance
+        List matriculaInstanceMap = new ArrayList()
+        historialMembresiaInstanceMap.each {
+            if (it.getAt("matriculaId")){
+                matriculaInstance = Matricula.findById(it.getAt("matriculaId"))
+                /*matriculaInstanceMap.add([
+                        fechaDeCobro:   matriculaInstance.pagoMatricula.fecha?.getTime(),
+                        fechaDeCreacion:matriculaInstance.pagoMatricula.dateCreated?.getTime(), // con hora
+                        concepto:       "Matrícula",
+                        usuario:        UserSocio.findById(Long.getLong(it.getAt("matriculaId") as String)),
+                        medioDePago:    matriculaInstance.pagoMatricula?.medioDePago,
+                        numeroDeBoleta: matriculaInstance.pagoMatricula?.numeroDeBoleta,
+                        monto:          matriculaInstance.pagoMatricula?.monto,
+                        pago:           matriculaInstance?.pagoMatricula,
+                        pagoId:         matriculaInstance.pagoMatricula?.id,
+                        matriculaId:    matriculaInstance?.id
+                ])*/
+            }
+        }
+        pagoMapList.addAll(matriculaInstanceMap)
+
+        [pagoInstanceList: pagoInstanceList, pagoInstanceTotal: pagoMapList.size(), pagoMapList: pagoMapList]
+//        [pagoInstanceList: pagoInstanceList, pagoInstanceTotal: pagoInstanceList.size(), pagoMapList: pagoMapList]
     }
 
     def create() {

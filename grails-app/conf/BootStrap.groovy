@@ -120,10 +120,10 @@ class BootStrap {
 
         print "### Creando estado(s) de membresía(s)... "
         if (!EstadoMembresia.count()){
-            new EstadoMembresia(estado: "Activo", descripcion: "").save(failOnError: true)
-            new EstadoMembresia(estado: "Vencido", descripcion: "").save(failOnError: true)
-            new EstadoMembresia(estado: "Congelado", descripcion: "").save(failOnError: true)
-            new EstadoMembresia(estado: "No vigente", descripcion: "").save(failOnError: true)
+            new EstadoMembresia(estado: "Activo", descripcion: "Activo", color: "green").save(failOnError: true)
+            new EstadoMembresia(estado: "No vigente", descripcion: "No vigente", color: "red").save(failOnError: true)
+            new EstadoMembresia(estado: "Congelado", descripcion: "Congelado", color: "blue").save(failOnError: true)
+            new EstadoMembresia(estado: "Inactivo", descripcion: "Inactivo", color: "black").save(failOnError: true)
         }
         println "OK"
 
@@ -182,96 +182,6 @@ class BootStrap {
             new CargoInterno(nombreCargo: "Otro", descripcionCargo: "Realiza otras tareas en la empresa").save(failOnError: true)
         }
         println "OK"
-
-      /*  print "### Creando usuario(s) de personal... "
-        if (!UserPersonal.count()){
-            new UserPersonal(
-                    nombre: "Andrea",
-                    apellidoPaterno: "APaterno",
-                    apellidoMaterno: "AMaterno",
-                    rut: 15829818,
-                    dv: "k",
-                    fechaNacimiento: new Date(1984, 06, 11),
-                    sexo: Sexo.findById(2),
-                    domicilio: null,
-                    fono: 2476908,
-                    fonoCelular: 83168826,
-                    fonoTrabajo: 2698929,
-                    email: "andrea@spafitnessclub.cl",
-                    contactoEmergencia: ContactoEmergencia.findById(1),
-                    enabled: true,
-                    accountExpired: false,
-                    accountLocked: false,
-                    passwordExpired: false,
-                    cargo: CargoInterno.findById(1),
-            ).save(failOnError: true)
-        }
-        println "OK"*/
- /*
-       print "### Creando usuario(s) PT... "
-        if (!UserPersonalPT.count()){
-            new UserPersonalPT(
-                    username: "gino",
-                    password: springSecurityService.encodePassword("12345"),
-                    idSocio: "3",
-                    nombre: "Gino",
-                    apellidoPaterno: "APaterno",
-                    apellidoMaterno: "AMaterno",
-                    rut: 15829818,
-                    dv: "k",
-                    fechaNacimiento: new Date(1984, 06, 11),
-                    sexo: Sexo.findById(2),
-                    domicilio: null,
-                    fono: 2476908,
-                    fonoCelular: 83168826,
-                    fonoTrabajo: 2698929,
-                    email: "gino@spafitnessclub.cl",
-                    contactoEmergencia: ContactoEmergencia.findById(2),
-                    enabled: true,
-                    accountExpired: false,
-                    accountLocked: false,
-                    passwordExpired: false,
-                    fichaMedica : CondicionMedica.findById(1),
-                    cargo: CargoInterno.findById(2),
-                    alumnos: null
-            ).save(failOnError: true)
-        }
-        println "OK"
-
-        print "### Creando usuario(s) socio(s)... "
-        if (!UserSocio.count()){
-            new UserSocio(
-                    username: "admin",
-                    password: springSecurityService.encodePassword("12345"),
-                    idSocio: "1",
-                    nombre: "Hugo",
-                    apellidoPaterno: "Riveros",
-                    apellidoMaterno: "Araya",
-                    rut: 15829818,
-                    dv: "k",
-                    fechaNacimiento: new Date(1984, 06, 11),
-                    sexo: Sexo.findById(1),
-                    domicilio: null,
-                    fono: 2476908,
-                    fonoCelular: 83168826,
-                    fonoTrabajo: 2698929,
-                    email: "hugoriar@gmail.com",
-                    ocupacion: Ocupacion.findById(1),
-                    empresa: Empresa.findById(1),
-                    plan: Membresia.findById(1),
-                    estadoMembresia: EstadoMembresia.findById(1),
-                    contactoEmergencia: ContactoEmergencia.findById(3),
-                    matricula: Matricula.findById(1),
-                    enabled: true,
-                    accountExpired: false,
-                    accountLocked: false,
-                    passwordExpired: false,
-                    fichaMedica : CondicionMedica.findById(1),
-                    historialMembresias: HistorialMembresias.findById(1),
-                    pt: null
-            ).save(failOnError: true)
-        }
-        println "OK"*/
 
     }
     def destroy = {

@@ -10,7 +10,7 @@ class EstadoMembresia {
         estado      blank: false
         descripcion blank: false
         color       blank: true
-        sonido      blank: true, maxSize: 1638400 /* 1600K */
+        sonido      blank: true, nullable: true, maxSize: 1638400 /* 1600K */
     }
 
     String toString() { return estado }

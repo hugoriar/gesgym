@@ -38,7 +38,9 @@
 					<li class="divider"></li>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.logicalPropertyName } }">
 						<g:if test="${c.logicalPropertyName != 'home'}">
-							<li class="controller"><g:link controller="${c.logicalPropertyName}">${c?.fullName?.substring(c?.fullName?.lastIndexOf('.')+1)}</g:link></li>
+							<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName?.capitalize()}</g:link></li>
+							%{--<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName?.split('(?=[A-Z])')}</g:link></li>--}%
+							%{--<li class="controller"><g:link controller="${c.logicalPropertyName}">${c?.fullName?.substring(c?.fullName?.lastIndexOf('.')+1)}</g:link></li>--}%
 						</g:if>
 					</g:each>
 				</ul>

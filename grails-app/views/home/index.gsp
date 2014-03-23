@@ -4,7 +4,9 @@
 <head>
 	<title><g:message code="default.welcome.title" args="[meta(name:'app.name')]"/> </title>
 	<meta name="layout" content="kickstart" />
-    %{--<g:set var="fecha" value="${LogCambiosDeEstado.findAll().sort{it.fechaDeOperacion}?.last()?.fechaDeOperacion?.format("yyyy-MM-dd HH:mm")}" />--}%
+    <g:set var="hoy" value="${new Date().format("dd-MM-yyyy")}" />
+    <g:set var="proxSemana" value="${(new Date() + 7).format("dd-MM-yyyy")}" />
+    <g:set var="semanaPasada" value="${(new Date() - 7).format("dd-MM-yyyy")}" />
 </head>
 
 <body>
@@ -30,7 +32,7 @@
 		<g:link class="btn btn-large btn-primary" controller="nextSteps">Next Steps</g:link>--}%
 	</section>
 
-	<section id="info">
+	<section id="info" style="padding-top: 40px !important;">
 		<div class="row-fluid">
 	    	<div class="span4">
                 <h3 class="center">Socios</h3>
@@ -40,20 +42,21 @@
                     <tr>
                         <td>
                             %{--<div class="center">--}%
-                                <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'usuario.png')}" />
+                            <g:link controller="userSocio" action="list" title="Listar Socios"><img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'usuario.png')}" /></g:link>
                             %{--</div>--}%
                         </td>
                         <td style="vertical-align: top; font-size: 16px;">
                             <p><i class="icon-list"></i><g:link controller="userSocio" action="list"> Listar Socios</g:link></p>
-                            <p><i class="icon-list"></i><g:link controller="userSocio" action="listCambiarEstadoBatch" params="[estadoMembresiaId: 1, soloExpirados: Boolean.TRUE, usarFechas: Boolean.FALSE]"> Cambiar Estados</g:link></p>
-                            %{--<p><i class="icon-list"></i><g:link controller="historialMembresias" action="list"> Listar Membresias</g:link></p>--}%
                             <p><i class="icon-plus-sign"></i><g:link controller="userSocio" action="create"> Matricular Socio</g:link></p>
+                            <p><i class="icon-circle-arrow-up"></i><g:link controller="userSocio" action="listCambiarEstadoBatch" params="[estadoMembresiaId: 1, soloExpirados: Boolean.FALSE, usarFechas: Boolean.TRUE, desde: hoy, hasta: proxSemana]"> Gestionar Estados</g:link></p>
+                            <p><i class="icon-info-sign"></i><g:link controller="userSocio" action="listCumpleanosUsuario" params="[usarFechas: Boolean.FALSE, operacion: 'cumpleanos']"> Cumpleaños</g:link></p>
+                            %{--<p><i class="icon-list"></i><g:link controller="userSocio" action="listCambiarEstadoBatch" params="[estadoMembresiaId: 1, soloExpirados: Boolean.TRUE, usarFechas: Boolean.FALSE]"> Cambiar Estados</g:link></p>--}%
+                            %{--<p><i class="icon-list"></i><g:link controller="historialMembresias" action="list"> Listar Membresias</g:link></p>--}%
                             %{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="delete"> Eliminar usuarios</g:link></p>--}%
                             %{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'eliminarUsuario']"> Eliminar usuarios</g:link></p>--}%
-                            <p><i class="icon-circle-arrow-up"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Renovar Plan</g:link></p>
+                            %{--<p><i class="icon-circle-arrow-up"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Renovar Plan</g:link></p>--}%
                             %{--<p><i class="icon-asterisk"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Congelar Usuario</g:link></p>--}%
-                            <p><i class="icon-edit"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'cambiarEstado']"> Cambiar Estado</g:link></p>
-                            <p><i class="icon-info-sign"></i><g:link controller="userSocio" action="listCumpleanosUsuario" params="[usarFechas: Boolean.FALSE, operacion: 'cumpleanos']"> Cumpleaños</g:link></p>
+                            %{--<p><i class="icon-edit"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'cambiarEstado']"> Cambiar Estado</g:link></p>--}%
                         </td>
                     </tr>
                     </tbody>
@@ -64,44 +67,21 @@
 			</div>
 
 	    	<div class="span4">
-                <h3 class="center">Instructores</h3>
+                <h3 class="center">Asistencias</h3>
                 <p/>
                 <table>
                     <tbody>
                     <tr>
                         <td>
                             %{--<div class="center">--}%
-                            <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'instructor.png')}" />
+                            <g:link controller="visita" action="list" params="[desde: hoy, hasta: hoy, order: 'desc']" title="Ver asistencias de hoy"><img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'asistencias.png')}" /></g:link>
                             %{--</div>--}%
                         </td>
                         <td style="vertical-align: top; font-size: 16px;">
-                            <p><i class="icon-list"></i><g:link controller="userPersonalInstructor" action="list"> Listar instructores</g:link></p>
-                            <p><i class="icon-plus-sign"></i><g:link controller="userPersonalInstructor" action="create"> Crear instructores</g:link></p>
-                            %{--<p><g:link controller="userPersonalInstructor" action="delete">Eliminar instructores</g:link></p>--}%
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p>Módulo de gestión de instructores del gimnasio. Use las distintas opciones en el listado para gestionar
-                los datos de los clientes, entre ellos enlistar, enrolar, editar y eliminar.
-                </p>
-			</div>
-
-	    	<div class="span4">
-                <h3 class="center">Personal</h3>
-                <p/>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            %{--<div class="center">--}%
-                            <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'personal.png')}" />
-                            %{--</div>--}%
-                        </td>
-                        <td style="vertical-align: top; font-size: 16px;">
-                            <p><i class="icon-list"></i><g:link controller="userPersonal" action="list"> Listar personal</g:link></p>
-                            <p><i class="icon-plus-sign"></i><g:link controller="userPersonal" action="create"> Crear personal</g:link></p>
-                            %{--<p><g:link controller="userPersonal" action="delete">Eliminar personal</g:link></p>--}%
+                            <p><i class="icon-list"></i><g:link controller="visita" action="list" params="[desde: hoy, hasta: hoy, order: 'desc']"> Hoy</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="visita" action="list" params="[inicioDeSemana: Boolean.TRUE, hasta: hoy, order: 'desc']"> Esta Semana</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="visita" action="list" params="[desde: hoy, hasta: hoy, order: 'desc']"> Filtrar x Fechas</g:link></p>
+                            %{--<p><i class="icon-list"></i><g:link controller="visita" action="listUsuarios" params="[desde: hoy, hasta: hoy, order: 'desc']"> Filtrar x Usuario</g:link></p>--}%
                         </td>
                     </tr>
                     </tbody>
@@ -110,70 +90,56 @@
                 los datos de los clientes, entre ellos enlistar, enrolar, editar y eliminar.
                 </p>
 			</div>
+
+            <div class="span4">
+                <h3 class="center">Rankings</h3>
+                <p/>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            %{--<div class="center">--}%
+                            <g:link controller="visita" action="list" params="[desde: hoy, hasta: hoy, order: 'desc']" title="Ver asistencias de hoy"><img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'estadisticas.png')}" /></g:link>
+                        %{--</div>--}%
+                        </td>
+                        <td style="vertical-align: top; font-size: 16px;">
+                            <p><i class="icon-list"></i><g:link controller="userSocio" action="rankings" params="[usarFechas: Boolean.TRUE, inicioDeSemana: Boolean.TRUE, hasta: hoy, sort: 'cantVisitas', order: 'desc', sufijoTitulo: 'de esta semana']"> Esta Semana</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="userSocio" action="rankings" params="[usarFechas: Boolean.TRUE, inicioDeMes: Boolean.TRUE, hasta: hoy, sort: 'cantVisitas', order: 'desc', sufijoTitulo: 'de este mes']"> Este Mes</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="userSocio" action="rankings" params="[usarFechas: Boolean.TRUE, inicioDeAnio: Boolean.TRUE, hasta: hoy, sort: 'cantVisitas', order: 'desc', sufijoTitulo: 'de este año']"> Este Año</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="userSocio" action="rankings" params="[usarFechas: Boolean.TRUE, desde: semanaPasada, hasta: hoy, sort: 'cantVisitas', order: 'desc']"> Por Rango de Fechas</g:link></p>
+                            <p><i class="icon-list"></i><g:link controller="userSocio" action="rankings" params="[usarFechas: Boolean.FALSE, desde: semanaPasada, hasta: hoy, sort: 'cantVisitas', order: 'desc', sufijoTitulo: 'Histórico']"> Histórico</g:link></p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Módulo de gestión del personal del gimnasio. Use las distintas opciones en el listado para gestionar
+                los datos de los clientes, entre ellos enlistar, enrolar, editar y eliminar.
+                </p>
+            </div>
 	    </div>
 	</section>
 
 
-%{--
 <section id="info2">
     <div class="row-fluid">
+
         <div class="span4">
-            <h3 class="center">Empresas</h3>
+            <h3 class="center">Instructores y Personal</h3>
             <p/>
             <table>
                 <tbody>
                 <tr>
                     <td>
-                        --}%
-%{--<div class="center">--}%%{--
-
-                        <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'usuario.png')}" />
-                        --}%
-%{--</div>--}%%{--
-
-                    </td>
-                    <td style="vertical-align: top; font-size: 16px;">
-                        <p><i class="icon-list"></i><g:link controller="userSocio" action="list"> Listar usuarios</g:link></p>
-                        <p><i class="icon-plus-sign"></i><g:link controller="userSocio" action="create"> Crear usuarios</g:link></p>
-                        --}%
-%{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="delete"> Eliminar usuarios</g:link></p>--}%%{--
-
-                        --}%
-%{--<p><i class="icon-remove-sign"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'eliminarUsuario']"> Eliminar usuarios</g:link></p>--}%%{--
-
-                        <p><i class="icon-circle-arrow-up"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Renovar Plan</g:link></p>
-                        <p><i class="icon-asterisk"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Congelar Usuario</g:link></p>
-                        <p><i class="icon-edit"></i><g:link controller="userSocio" action="listAccionesUsuario" params="[accion: 'renovarPlan']"> Cambiar Estado</g:link></p>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <p>Módulo de gestión de usuarios/clientes del gimnasio. Use las distintas opciones en el listado para gestionar
-            los datos de los clientes, entre ellos enlistar, enrolar, editar y eliminar.
-            </p>
-        </div>
-
-        <div class="span4">
-            <h3 class="center">Instructores</h3>
-            <p/>
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        --}%
-%{--<div class="center">--}%%{--
-
-                        <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'instructor.png')}" />
-                        --}%
-%{--</div>--}%%{--
-
+                        %{--<div class="center">--}%
+                        <g:link controller="userPersonalInstructor" action="list" title="Listar instructores"><img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'instructorYpersonal.png')}" /></g:link>
+                    %{--</div>--}%
                     </td>
                     <td style="vertical-align: top; font-size: 16px;">
                         <p><i class="icon-list"></i><g:link controller="userPersonalInstructor" action="list"> Listar instructores</g:link></p>
                         <p><i class="icon-plus-sign"></i><g:link controller="userPersonalInstructor" action="create"> Crear instructores</g:link></p>
-                        --}%
-%{--<p><g:link controller="userPersonalInstructor" action="delete">Eliminar instructores</g:link></p>--}%%{--
-
+                        <p><i class="icon-list"></i><g:link controller="userPersonal" action="list"> Listar personal</g:link></p>
+                        <p><i class="icon-plus-sign"></i><g:link controller="userPersonal" action="create"> Crear personal</g:link></p>
+                        %{--<p><g:link controller="userPersonalInstructor" action="delete">Eliminar instructores</g:link></p>--}%
                     </td>
                 </tr>
                 </tbody>
@@ -184,26 +150,53 @@
         </div>
 
         <div class="span4">
-            <h3 class="center">Personal</h3>
+            <h3 class="center">Gestión de Ingresos</h3>
             <p/>
             <table>
                 <tbody>
                 <tr>
                     <td>
-                        --}%
-%{--<div class="center">--}%%{--
+                        <div class="center">
 
-                        <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'personal.png')}" />
-                        --}%
-%{--</div>--}%%{--
+                            <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'empresa.png')}" />
+                        </div>
 
                     </td>
                     <td style="vertical-align: top; font-size: 16px;">
-                        <p><i class="icon-list"></i><g:link controller="userPersonal" action="list"> Listar personal</g:link></p>
-                        <p><i class="icon-plus-sign"></i><g:link controller="userPersonal" action="create"> Crear personal</g:link></p>
-                        --}%
-%{--<p><g:link controller="userPersonal" action="delete">Eliminar personal</g:link></p>--}%%{--
+                        <p><i class="icon-list"></i><g:link controller="producto" action="list"> Productos</g:link></p>
+                        <p><i class="icon-list"></i><g:link controller="categoria" action="list"> Categorías</g:link></p>
+                        <p><i class="icon-list"></i><g:link controller="subCategoria" action="list"> SubCategorías</g:link></p>
+                        <p><i class="icon-list"></i><g:link controller="descuento" action="list"> Descuentos</g:link></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Módulo de gestión de usuarios/clientes del gimnasio. Use las distintas opciones en el listado para gestionar
+            los datos de los clientes, entre ellos enlistar, enrolar, editar y eliminar.
+            </p>
+        </div>
 
+        <div class="span4">
+            <h3 class="center">Herramientas</h3>
+            <p/>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="center">
+
+                            <img class="frontpageImage" src="${resource(dir: 'images/icons',file: 'herramientas.png')}" />
+                        </div>
+
+                    </td>
+                    <td style="vertical-align: top; font-size: 16px;">
+                        <p><i class="icon-info-sign"></i><g:link controller="cargoInterno" action="list"> Cargos</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="plan" action="list"> Planes</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="medioPago" action="list"> Medios de Pago</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="ciudad" action="list"> Ciudades</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="sector" action="list"> Sectores</g:link></p>
+                        <p><i class="icon-list"></i><g:link controller="empresa" action="list"> Gestionar Convenios</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="logCambiosDeEstado" action="list"> Ver log Cambios de Estado</g:link></p>
                     </td>
                 </tr>
                 </tbody>
@@ -214,7 +207,7 @@
         </div>
     </div>
 </section>
---}%
+
 
 
 	%{--<section id="info2">

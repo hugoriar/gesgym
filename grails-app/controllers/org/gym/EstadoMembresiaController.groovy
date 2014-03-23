@@ -99,4 +99,45 @@ class EstadoMembresiaController {
             redirect(action: "show", id: id)
         }
     }
+
+    def sonido() {
+/*        GridFSDBFile gfile = gridFSService.find(id);
+        if (gfile) {
+            response.setHeader("Content-Disposition", "fileName=" + gfile.getFilename());
+            response.outputStream << gfile.getInputStream();
+            response.contentLength = gfile.length;
+            response.contentType = gfile.getContentType();
+            return;
+        }*/
+        /*def estadoMembresiaInstance = EstadoMembresia.get(params.id)
+        File fi = estadoMembresiaInstance.sonido;
+        CommonsMultipartFile  gfile = new FileInputStream(gfile);
+        if (gfile) {
+            response.setHeader("Content-Disposition", "fileName=" + gfile.getFilename());
+            response.outputStream << gfile.getInputStream();
+            response.contentLength = gfile.length;
+            response.contentType = gfile.getContentType();
+            return;
+        }*/
+
+        def estadoMembresiaInstance = EstadoMembresia.get(params.id)
+        if (!estadoMembresiaInstance || !estadoMembresiaInstance.sonido/* || !avatarUser.avatarType*/) {
+            response.sendError(404)
+            return;
+        }
+        response.setContentLength(estadoMembresiaInstance.sonido.size())
+        OutputStream out = response.getOutputStream();
+        out.write(estadoMembresiaInstance.sonido);
+        out.close();
+/*
+        File file = soundService.getAudio(...)
+
+        response.reset();
+        response.setStatus(206);
+        response.setHeader("Accept-Ranges", "bytes");
+        response.setHeader("Content-length", Integer.toString(estadoMembresiaInstance.sonido.size()));*/
+//        response.setHeader("Content-range", "bytes " + start.toString() + "-" + end.toString() + "/" + Long.toString(f.size()));
+//        response.setContentType(...);
+
+    }
 }

@@ -137,7 +137,7 @@ class DatosContratoUsuario {
         ContactoEmergencia contactoEmergencia = socio.contactoEmergencia
 
 //        HistorialMembresias historialMembresias = socio.historialMembresias.last()
-        Pago pago = historialMembresias.pago
+        Pago pago = historialMembresias?.pago
         Matricula matricula = historialMembresias?.matricula
 
         //    Fila 0
@@ -172,12 +172,12 @@ class DatosContratoUsuario {
         this.fonoCelularContactoEmergencia = contactoEmergencia.fonoCelularContactoEmergencia
 //    Fila 7 (HistorialMembresias)
         this.medioDePago = pago?.medioDePago
-        this.autorizadoPor = historialMembresias.autorizadoPor
+        this.autorizadoPor = historialMembresias?.autorizadoPor
 //    Fila 8
-        this.numeroDeBoleta = pago.numeroDeBoleta
-        this.plan = historialMembresias.plan
-        this.fechaInicio =  historialMembresias.fechaInicio.format('dd/MM/yyyy')
-        this.fechaFin = historialMembresias.fechaFin.format('dd/MM/yyyy')
+        this.numeroDeBoleta = pago?.numeroDeBoleta
+        this.plan = historialMembresias?.plan
+        this.fechaInicio =  historialMembresias?.fechaInicio?.format('dd/MM/yyyy')
+        this.fechaFin = historialMembresias?.fechaFin?.format('dd/MM/yyyy')
 
         Integer montoMatricula, montoPlan
         if (matricula) {
@@ -204,7 +204,7 @@ class DatosContratoUsuario {
         this.montoTotal = String.format("\$ %,d", (montoMatricula?:0) + (montoPlan?:0))
 
 //    Fila 9 (HistorialMembresias)
-        this.diasCongelacion = historialMembresias.diasCongelacion
+        this.diasCongelacion = historialMembresias?.diasCongelacion
 
         this.nombreBanco = ""
         this.numeroCheque = ""

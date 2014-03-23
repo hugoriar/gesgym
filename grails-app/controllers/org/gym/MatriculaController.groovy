@@ -39,7 +39,7 @@ class MatriculaController {
     def save() {
         def matriculaInstance = new Matricula(params)
         matriculaInstance.pagoMatricula = new Pago(params)
-        matriculaInstance.socio = UserSocio.get(params.id)
+//        matriculaInstance.socio = UserSocio.get(params.id)
         if (!matriculaInstance.save(flush: true)) {
             render(view: "create", model: [matriculaInstance: matriculaInstance])
             return

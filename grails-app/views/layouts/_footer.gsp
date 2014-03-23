@@ -2,7 +2,7 @@
     <div class="container">
 %{--        <div class="row">
             <div class="span2">
-                <h4>Product</h4>
+                <h4>Producto</h4>
                 <ul class="unstyled">
                     <li>
                         <i class="icon-home"></i>

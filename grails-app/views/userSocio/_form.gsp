@@ -43,7 +43,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'foto', 'error')} ">
 				<label for="foto" class="control-label"><g:message code="userSocio.foto.label" default="Foto" /></label>
 				<div class="controls">
-					<input type="file" id="foto" name="foto" />
+                    %{--<webcam:webcamAnchor/> --}%<input type="file" id="foto" name="foto" />
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'foto', 'error')}</span>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'fechaNacimiento', 'error')} ">
 				<label for="fechaNacimiento" class="control-label"><g:message code="userSocio.fechaNacimiento.label" default="Fecha de Nacimiento" /></label>
 				<div class="controls">
-					<bs:datePicker name="fechaNacimiento" precision="day" years="1900..2100" value="${userSocioInstance?.fechaNacimiento}" onclick="oli();" default="none" noSelection="['': '']" />
+					<bs:datePicker name="fechaNacimiento" precision="day" years="1900..2100" value="${userSocioInstance?.fechaNacimiento}" default="none" noSelection="['': '']" />
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'fechaNacimiento', 'error')}</span>
 				</div>
 			</div>

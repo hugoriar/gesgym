@@ -14,8 +14,9 @@ img.avatar_medium {
 }
 
 img.avatar {
-    width: 6.0em;
-    height: 7.5em;
+/*    width: 6.0em;
+    height: 7.5em;*/
+    border: 1px solid #dadada;
 }
 
 img.avatar_small {
@@ -26,4 +27,10 @@ img.avatar_small {
 img.avatar_tiny {
     width: 2em;
     height: 2.5em;
+}
+
+.tableUser {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
 }

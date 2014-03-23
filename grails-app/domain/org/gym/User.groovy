@@ -1,6 +1,7 @@
 package org.gym
 
 import org.gym.fichaMedica.CondicionMedica
+import org.gym.ventas.Boleta
 
 class User {
 
@@ -23,6 +24,7 @@ class User {
     String email
 
     static hasOne		= [domicilio: DireccionUsuario, condicionMedica: CondicionMedica, contactoEmergencia: ContactoEmergencia, huella: Huella]
+    static hasMany = [boletas: Boleta]
 
     boolean enabled = true
     boolean accountExpired = false
@@ -104,6 +106,10 @@ class User {
         }*/
     }
 
-    String toString() { return nombre+" "+apellidoPaterno+" "+apellidoMaterno }
+    public Huella huella(){
+        return Huella.findByHuerut(Integer.toString(this?.rut))
+    }
+
+    String toString() { return nombre[0].toUpperCase() + (nombre.substring(1).toLowerCase())  +" "+ apellidoPaterno[0].toUpperCase() + (apellidoPaterno.substring(1).toLowerCase()) +" "+ apellidoMaterno[0].toUpperCase() + (apellidoMaterno.substring(1).toLowerCase())}
 
 }

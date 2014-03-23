@@ -7,6 +7,8 @@
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'estadoMembresia.label', default: 'EstadoMembresia')}" />
 	<title><g:message code="default.list.label" args="[entityName]" /></title>
+    <sm:inlinePlayer/>
+
 </head>
 
 <body>
@@ -23,7 +25,7 @@
 			
 				<g:sortableColumn property="color" title="${message(code: 'estadoMembresia.color.label', default: 'Color')}" />
 			
-				%{--<g:sortableColumn property="sonido" title="${message(code: 'estadoMembresia.sonido.label', default: 'Sonido')}" />--}%
+				<g:sortableColumn property="sonido" title="${message(code: 'estadoMembresia.sonido.label', default: 'Sonido')}" />
 			
 			</tr>
 		</thead>
@@ -37,7 +39,12 @@
 			
 				<td>${fieldValue(bean: estadoMembresiaInstance, field: "color")}</td>
 			
-				%{--<td>${fieldValue(bean: estadoMembresiaInstance, field: "sonido")}</td>--}%
+				%{--<td><audio src="${estadoMembresiaInstance.sonido}" controls="controls">Your browser does not support the audio element.</audio>--}%
+				<td>
+                    <audio src="${createLink(controller:'estadoMembresia', action:'sonido', id:estadoMembresiaInstance.id)}" controls="controls">
+                        Your browser does not support the audio element.
+                    </audio>
+                </td>
 			
 			</tr>
 		</g:each>

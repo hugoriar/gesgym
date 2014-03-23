@@ -20,6 +20,8 @@ class UserSocioController {
 
     def userService
     def filterPaneService
+    def exportService
+    def grailsApplication
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -36,23 +38,103 @@ class UserSocioController {
                         params:params ] )
     }
 
+    def fechaFormateada = { value ->
+        return new SimpleDateFormat('EEEE dd-MM-yy').format(value)
+    }
+
+    def fechaFormateadaSinDia = { value ->
+        return new SimpleDateFormat('dd-MM-yy').format(value)
+    }
+
     def listCambiarEstadoBatch() {
         log.debug "Listando usuarios"
 
         params?.soloExpirados   = ((params?.soloExpirados =="on")||(params?.soloExpirados =="true"))?Boolean.TRUE:Boolean.FALSE
-        params?.usarFechas   = ((params?.usarFechas =="on")||(params?.usarFechas =="true"))?Boolean.TRUE:Boolean.FALSE
+        params?.soloInactivos   = ((params?.soloInactivos =="on")||(params?.soloInactivos =="true"))?Boolean.TRUE:Boolean.FALSE
+        params?.usarFechas      = ((params?.usarFechas =="on")||(params?.usarFechas =="true"))?Boolean.TRUE:Boolean.FALSE
 
         List<UserSocio> userSocioInstanceList     = userService.getUsuariosFiltrados(params)
         List<EstadoMembresia> estadoMembresiaList = userService.getListaEstadoMembresia(params)
+        EstadoMembresia estadoMembresia
 
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        estadoMembresiaList.each {
+            if ((params?.estadoMembresiaId).equals((it.id).toString())) estadoMembresia = it
+        }
+
+        if(params?.format && params.format != "html"){
+            response.contentType = grailsApplication.config.grails.mime.types[params.format]
+            String tituloPDF = "Reporte de Membresías ${if (Boolean.valueOf(params?.soloExpirados)) {"expiradas "}else{""}}${if (Boolean.valueOf(params?.soloInactivos)) {"inactivas "}else{""}}con estado "+estadoMembresia?.estado
+            if (Boolean.valueOf(params?.usarFechas)){
+                Date desde = params.desde?(new SimpleDateFormat("dd-MM-yyyy").parse(params.desde?.toString())):(new Date())
+                Date hasta = params.hasta?(new SimpleDateFormat("dd-MM-yyyy").parse(params.hasta?.toString())):(new Date())
+                if (desde.compareTo(hasta)){
+                    response.setHeader("Content-disposition", "inline; filename=Estados_${fechaFormateada(desde)}_al_${fechaFormateada(hasta)}.${params.extension}") // ó attachment
+                    tituloPDF+=" con fecha de vencimiento entre el "+fechaFormateada(desde)+" y el "+fechaFormateada(hasta)
+                } else {
+                    response.setHeader("Content-disposition", "inline; filename=Estados_${fechaFormateada(desde)}.${params.extension}")
+                    tituloPDF+=" con fecha de vencimiento el día "+fechaFormateada(desde)
+                }
+
+            }
+            tituloPDF+=" ("+userSocioInstanceList.size()+" usuarios)"
+
+            List fields = ["nombre", "apellidoPaterno", "apellidoMaterno", "fono", "email", "estadoMembresia", "enrolado", "ultimaVisita", "historialMembresias.fechaFin"]
+            Map labels = ["nombre": "Nombre", "apellidoPaterno": "Apellido Paterno", "apellidoMaterno": "Apellido Materno", "fono": "Fono", "email": "Email", "estadoMembresia": "Estado", "enrolado": "Enrolado", "ultimaVisita": "Última Visita", "historialMembresias.fechaFin": "Término Plan"]
+
+            // Formatter closure
+            def upperCase = { domain, value ->
+                return value.toUpperCase()
+            }
+
+            def aFecha = { domain, value ->
+                if (domain.historialMembresias.size() > 0){
+                    def fecha = (fechaFormateada(domain.ultimoPlan?.fechaFin)).toString()
+                    return new String(fecha.toString().substring(0,1).toUpperCase() + fecha.toString().substring(1));
+                }
+                return
+            }
+
+            def aUltimaVisita = { domain, value ->
+                if (domain.visitas.size() > 0){
+//                    def fecha = (fechaFormateada(domain.ultima.fechaFin)).toString()
+                    return domain.ultimaVisita.fechaDeVisita?.format("dd-MM-yy") +" "+ domain.ultimaVisita.horaDeEntrada?.format("HH:mm");
+                }
+                return
+            }
+
+            def aFono = { domain, value ->
+                return domain?.getFonos(true,true,false,2," - ");
+            }
+
+            def aEmail = { domain, value ->
+                return domain?.email?.toLowerCase();
+            }
+
+            def aRut = { domain, value ->
+                return (String.format("%,d", value))+"-"+(Character.toString(domain.dv));
+            }
+
+            def aEnrolado = { domain, value ->
+                return domain?.huella()?"Si":"No";
+            }
+
+            Map formatters = [nombre: upperCase, apellidoPaterno: upperCase, apellidoMaterno: upperCase, "historialMembresias.fechaFin" : aFecha, fono: aFono, email: aEmail, ultimaVisita: aUltimaVisita, enrolado: aEnrolado]
+            Map parameters = [title: tituloPDF, "pdf.orientation": "landscape", "column.widths": [0.12, 0.12, 0.12, 0.12, 0.2, 0.06, 0.06, 0.1, 0.1]]
+
+            exportService.export(params.format, response.outputStream, userSocioInstanceList, fields, labels, formatters, parameters)
+        }
+
         render(view: "cambiarEstadosBatch",
                 model: [
                         userSocioInstanceList:  userSocioInstanceList,
                         userSocioInstanceTotal: userSocioInstanceList.size(),
                         estadoMembresiaId:      params?.estadoMembresiaId,
                         soloExpirados:          params?.soloExpirados,
+                        soloInactivos:          params?.soloInactivos,
                         usarFechas:             params?.usarFechas,
+                        sort:                   params?.sort,
+                        order:                  params?.order,
                         estadoMembresiaList:    estadoMembresiaList,
                         desde:                  params.desde?(new SimpleDateFormat("dd-MM-yyyy").parse(params.desde?.toString())):(new Date()),
                         hasta:                  params.hasta?(new SimpleDateFormat("dd-MM-yyyy").parse(params.hasta?.toString())):(new Date().plus(7))
@@ -158,8 +240,187 @@ class UserSocioController {
 
     def list() {
         log.debug "Listando usuarios"
+
+        if (!params.order) {
+            params.sort = "id"
+            params.order = "desc"
+        }
+
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [userSocioInstanceList: UserSocio.list(params), userSocioInstanceTotal: UserSocio.count()]
+    }
+
+    def rankings() {
+        log.debug "Listando usuarios"
+
+        params?.usarFechas = ((params?.usarFechas =="on")||(params?.usarFechas =="true"))?Boolean.TRUE:Boolean.FALSE
+        List<UserSocio> userSocioInstanceList = new ArrayList<UserSocio>()
+
+        if (!params.order) {
+            params.sort = "cantVisitas"
+            params.order = "desc"
+        }
+
+        if (Boolean.valueOf(params?.inicioDeSemana)){
+            Calendar c = Calendar.getInstance()
+            c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+            params.desde = c.getTime().format("dd-MM-yyyy")
+        } else if (Boolean.valueOf(params?.inicioDeMes)){
+            Calendar c = Calendar.getInstance()
+            c.set(Calendar.DAY_OF_MONTH, 1)
+            params.desde = c.getTime().format("dd-MM-yyyy")
+        } else if (Boolean.valueOf(params?.inicioDeAnio)){
+            Calendar c = Calendar.getInstance()
+            c.set(Calendar.DAY_OF_MONTH, 1)
+            c.set(Calendar.MONTH, 0)
+            params.desde = c.getTime().format("dd-MM-yyyy")
+        }
+
+        if (Boolean.valueOf(params?.usarFechas)){
+            Date desde          = params.desde?(new SimpleDateFormat("dd-MM-yyyy").parse(params.desde?.toString())):(new Date())
+            Date hasta          = params.hasta?(new SimpleDateFormat("dd-MM-yyyy").parse(params.hasta?.toString())):(new Date())
+            String sort         = params?.sort?:"cantVisitas"
+
+            def visitaInstanceList = Visita.findAllByFechaDeVisitaGreaterThanEqualsAndFechaDeVisitaLessThanEquals(desde, hasta)sort{
+                if (it.usuario?."$sort" instanceof String){
+                    it.usuario?."$sort".toLowerCase()
+                } else {
+                    it.usuario?."$sort"
+                }
+            }
+            visitaInstanceList.each {
+                if (!userSocioInstanceList.contains(it.usuario)){
+                    userSocioInstanceList.add(it.usuario)
+                }
+            }
+
+            // Elimina o no los usuarios que no han asistido en el rango dado
+            if (params.ignorarCeros == 'on') {
+                userSocioInstanceList.removeAll {it.getCantVisitas() <= 0}
+            }
+
+            // Ordena el listado según la cantidad de visitas en el rango dado
+            if (params.sort == 'cantVisitas') {
+                userSocioInstanceList.sort { it.getCantVisitasFecha(desde, hasta) }
+            }
+
+            userSocioInstanceList = params.order?.equalsIgnoreCase("asc")?userSocioInstanceList:userSocioInstanceList.reverse()
+
+            if(params?.format && params.format != "html"){
+                response.contentType = grailsApplication.config.grails.mime.types[params.format]
+                String tituloPDF
+                if (desde.compareTo(hasta)){
+                    response.setHeader("Content-disposition", "inline; filename=Ranking_${new SimpleDateFormat('dd-MM-yy').format(desde)}_al_${new SimpleDateFormat('dd-MM-yy').format(hasta)}.${params.extension}") //attachment
+                    tituloPDF = "Ranking de Asistencias entre el "+new SimpleDateFormat('EEEE dd-MM-yy').format(desde)+" y el "+new SimpleDateFormat('EEEE dd-MM-yy').format(hasta)
+                } else {
+                    response.setHeader("Content-disposition", "inline; filename=Ranking_${new SimpleDateFormat('dd-MM-yy').format(desde)}.${params.extension}")
+                    tituloPDF = "Ranking de Asistencias día "+new SimpleDateFormat('EEEE dd-MM-yy').format(desde)
+                }
+
+                List fields = ["nombre","apellidoPaterno","apellidoMaterno","rut","estadoMembresia","historialMembresias.fechaFin","cantVisitas"]
+                Map labels = ["nombre": "Nombre", "apellidoPaterno": "Apellido Paterno", "apellidoMaterno": "Apellido Materno", "rut": "Rut", "estadoMembresia": "Estado Actual", "historialMembresias.fechaFin": "Término Plan", "cantVisitas": "Asistencias"]
+
+                // Formatter closure
+                def upperCase = { domain, value ->
+                    return value.toUpperCase()
+                }
+
+                def aFecha = { domain, value ->
+                    if (domain.historialMembresias.size() > 0){
+                        def fecha = (fechaFormateadaSinDia(domain.ultimoPlan?.fechaFin)).toString()
+                        return new String(fecha.toString().substring(0,1).toUpperCase() + fecha.toString().substring(1));
+                    }
+                    return
+                }
+
+                def aRut = { domain, value ->
+                    return (String.format("%,d", value))+"-"+(Character.toString(domain.dv));
+                }
+
+                def aCantVisitas = { domain, value ->
+                    return domain.getCantVisitasFecha(desde, hasta);
+                }
+
+                Map formatters = [nombre: upperCase, apellidoPaterno: upperCase, apellidoMaterno: upperCase, "historialMembresias.fechaFin" : aFecha, rut: aRut, cantVisitas: aCantVisitas]
+                Map parameters = [title: tituloPDF, "pdf.orientation": "portrait"]
+
+                exportService.export(params.format, response.outputStream, userSocioInstanceList, fields, labels, formatters, parameters)
+            }
+        } else {
+            String sort         = params?.sort?:"cantVisitas"
+
+            def visitaInstanceList = Visita.findAll()sort{
+                if (it.usuario?."$sort" instanceof String){
+                    it.usuario?."$sort".toLowerCase()
+                } else {
+                    it.usuario?."$sort"
+                }
+            }
+            visitaInstanceList.each {
+                if (!userSocioInstanceList.contains(it.usuario)){
+                    userSocioInstanceList.add(it.usuario)
+                }
+            }
+
+            // Elimina o no los usuarios que no han asistido en el rango dado
+            if (params.ignorarCeros == 'on') {
+                userSocioInstanceList.removeAll {it.getCantVisitas() <= 0}
+            }
+
+            userSocioInstanceList = params.order?.equalsIgnoreCase("asc")?userSocioInstanceList:userSocioInstanceList.reverse()
+
+            if(params?.format && params.format != "html"){
+                response.contentType = grailsApplication.config.grails.mime.types[params.format]
+                String tituloPDF
+
+                response.setHeader("Content-disposition", "inline; filename=Ranking_${new SimpleDateFormat('dd-MM-yy').format(new Date())}.${params.extension}")
+                tituloPDF = "Ranking de Asistencias al día "+new SimpleDateFormat('EEEE dd-MM-yy').format(new Date())
+
+                List fields = ["nombre","apellidoPaterno","apellidoMaterno","rut","estadoMembresia","historialMembresias.fechaFin","cantVisitas"]
+                Map labels = ["nombre": "Nombre", "apellidoPaterno": "Apellido Paterno", "apellidoMaterno": "Apellido Materno", "rut": "Rut", "estadoMembresia": "Estado Actual", "historialMembresias.fechaFin": "Término Plan", "cantVisitas": "Asistencias"]
+
+                // Formatter closure
+                def upperCase = { domain, value ->
+                    return value.toUpperCase()
+                }
+
+                def aFecha = { domain, value ->
+                    if (domain.historialMembresias.size() > 0){
+                        def fecha = (fechaFormateadaSinDia(domain.ultimoPlan?.fechaFin)).toString()
+                        return new String(fecha.toString().substring(0,1).toUpperCase() + fecha.toString().substring(1));
+                    }
+                    return
+                }
+
+                def aRut = { domain, value ->
+                    return (String.format("%,d", value))+"-"+(Character.toString(domain.dv));
+                }
+
+                def aCantVisitas = { domain, value ->
+                    return domain.getCantVisitas();
+                }
+
+                Map formatters = [nombre: upperCase, apellidoPaterno: upperCase, apellidoMaterno: upperCase, "historialMembresias.fechaFin" : aFecha, rut: aRut, cantVisitas: aCantVisitas]
+                Map parameters = [title: tituloPDF, "pdf.orientation": "portrait"]
+
+                exportService.export(params.format, response.outputStream, userSocioInstanceList, fields, labels, formatters, parameters)
+            }
+
+        }
+
+//        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [
+                userSocioInstanceList:  userSocioInstanceList,
+                userSocioInstanceTotal: userSocioInstanceList.size(),
+                estadoMembresiaId:      params?.estadoMembresiaId,
+                soloExpirados:          params?.soloExpirados,
+                usarFechas:             params?.usarFechas,
+                sort:                   params?.sort,
+                order:                  params?.order,
+                desde:                  params.desde?(new SimpleDateFormat("dd-MM-yyyy").parse(params.desde?.toString())):(new Date()),
+                hasta:                  params.hasta?(new SimpleDateFormat("dd-MM-yyyy").parse(params.hasta?.toString())):(new Date().plus(7)),
+                sufijoTitulo:           params?.sufijoTitulo
+        ]
     }
 
     def create() {
@@ -219,8 +480,15 @@ class UserSocioController {
             return
         }
         List<HistorialMembresias> historialMembresiasInstance = userSocioInstance?.historialMembresias?.sort { it.fechaFin }
-        [userSocioInstance: userSocioInstance, historialMembresiasInstance: historialMembresiasInstance, lastHistorialMembresiasInstance: (historialMembresiasInstance.size()>0)?historialMembresiasInstance.last():null]
-//        [userSocioInstance: userSocioInstance, historialMembresiasInstance: historialMembresiasInstance, lastHistorialMembresiasInstance: historialMembresiasInstance?.last()]
+        [
+                userSocioInstance: userSocioInstance,
+                historialMembresiasInstance: historialMembresiasInstance,
+                lastHistorialMembresiasInstance: (historialMembresiasInstance.size()>0)?historialMembresiasInstance.max {it.fechaFin}:null,
+                huellaInstance: Huella.findByHuerut(Integer.toString(userSocioInstance?.rut)),
+                condicionMedicaInstance: userSocioInstance?.condicionMedica,
+                profesionalInstance: userSocioInstance.condicionMedica?.profesional,
+                contactoEmergenciaInstance: userSocioInstance?.contactoEmergencia
+        ]
     }
 
     def edit() {
@@ -279,7 +547,7 @@ class UserSocioController {
 
         try {
             userSocioInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'userSocio.label', default: 'UserSocio'), userSocioInstance.nombre+" "+userSocioInstance.apellidoPaterno+" "+userSocioInstance.apellidoMaterno+" (id "+userSocioInstance.id+")"])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
@@ -412,12 +680,8 @@ class UserSocioController {
     }
 
     def cambiaEstadoAuto() {
-        log.info "Entrando a cambiaEstadoAuto()..."
-        def resp = userService.cambiaEstadoAuto()
-        log.info "Saliendo de cambiaEstadoAuto()... "+resp.cont+" con nuevo estado: "+resp.estadoMembresiaInstance.estado
-        flash.message = "Cambiado(s) "+resp.cont+" usuario(s) con nuevo estado: "+resp.estadoMembresiaInstance.estado
+        flash.message = userService.cambiaEstadoAuto()
         redirect(action: "listCambiarEstadoBatch", params: params)
-
     }
 
     def cambiaEstadoBatch() {

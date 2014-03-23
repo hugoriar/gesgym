@@ -1,8 +1,12 @@
 package org.gym
 
+import groovy.time.TimeCategory
 import org.gym.fichaMedica.CondicionMedica
 import org.gym.fichaMedica.Profesional
-
+import org.springframework.context.i18n.LocaleContextHolder
+import org.springframework.context.MessageSource
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
 import java.security.SecureRandom
 import java.text.SimpleDateFormat
 
@@ -12,7 +16,13 @@ import java.text.SimpleDateFormat
  * UserService
  * A service class encapsulates the core business logic of a Grails application
  */
-class UserService {
+class UserService implements MessageSourceAware{
+
+    private MessageSource messageSource;
+
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     def grailsApplication
     def springSecurityService
@@ -187,6 +197,7 @@ ${grailsApplication.config.company.country}""".toString()
         def contactoEmergenciaInstance = ContactoEmergencia.findById(userInstance.contactoEmergenciaId)
         if (!contactoEmergenciaInstance) {
             contactoEmergenciaInstance = new ContactoEmergencia(params)
+            contactoEmergenciaInstance.usuario = userInstance
         } else {
             contactoEmergenciaInstance.properties = params
         }
@@ -200,6 +211,7 @@ ${grailsApplication.config.company.country}""".toString()
         def direccionInstance = DireccionUsuario.findById(userInstance.domicilioId)
         if (!direccionInstance) {
             direccionInstance = new DireccionUsuario(params)
+            direccionInstance.usuario = userInstance
         } else {
             direccionInstance.properties = params
         }
@@ -213,6 +225,7 @@ ${grailsApplication.config.company.country}""".toString()
         def condicionMedicaInstance = CondicionMedica.findById(userInstance.condicionMedicaId)
         if (!condicionMedicaInstance) {
             condicionMedicaInstance = new CondicionMedica(params)
+            condicionMedicaInstance.usuario = userInstance
         } else {
             condicionMedicaInstance.properties = params
         }
@@ -245,15 +258,16 @@ ${grailsApplication.config.company.country}""".toString()
         Long estadoMembresiaId  = Long.valueOf(params?.estadoMembresiaId?:0L)
         String sort             = params?.sort?:"historialMembresias.fechaFin"
         Boolean soloExpirados   = params?.soloExpirados?Boolean.valueOf(params.soloExpirados):false
+        Boolean soloInactivos   = params?.soloInactivos?Boolean.valueOf(params.soloInactivos):false
         Boolean usarFechas      = params?.usarFechas?Boolean.valueOf(params.usarFechas):false
         String order            = params?.order?:"asc"
         String operacion        = params?.operacion?:null
 
         // Retorna listado de usuarios filtrado y ordenado
-        return getUsuariosFiltrados(estadoMembresiaId, desde, hasta, sort, order, soloExpirados, usarFechas, operacion)
+        return getUsuariosFiltrados(estadoMembresiaId, desde, hasta, sort, order, soloExpirados, soloInactivos, usarFechas, operacion)
     }
 
-    def getUsuariosFiltrados(Long estadoMembresiaId, Date desde, Date hasta, String sort, String order, Boolean soloExpirados, Boolean usarFechas, String operacion){
+    def getUsuariosFiltrados(Long estadoMembresiaId, Date desde, Date hasta, String sort, String order, Boolean soloExpirados, Boolean soloInactivos, Boolean usarFechas, String operacion){
         List<UserSocio> userSocioInstanceList
         List<UserSocio> userSocioInstanceListTempRangoFechas = new ArrayList<UserSocio>()
         List userSocioInstanceListFechaNacimientoTemp = new ArrayList<>()
@@ -274,14 +288,19 @@ ${grailsApplication.config.company.country}""".toString()
             if (usarFechas){
                 userSocioInstanceList.each {
                     if (it.historialMembresias.size()>0) {
-                        if ((it.historialMembresias.last()?.fechaFin >= desde) && (it.historialMembresias.last()?.fechaFin <= hasta)){
+                        if ((it.ultimoPlan?.fechaFin >= desde) && (it.ultimoPlan?.fechaFin <= hasta)){
                             userSocioInstanceListTempRangoFechas.add(it)
                         }
                     }
                 }
                 userSocioInstanceList = userSocioInstanceListTempRangoFechas
             }
-            userSocioInstanceList = (sort.equalsIgnoreCase("historialMembresias.fechaFin"))?userSocioInstanceList.sort{if (it.historialMembresias.size()>0)it.historialMembresias.last()?.fechaFin}:userSocioInstanceList.sort{it."$sort"}
+
+            userSocioInstanceList = (sort.equalsIgnoreCase("historialMembresias.fechaFin"))?userSocioInstanceList.sort{if (it.historialMembresias.size()>0)it.ultimoPlan?.fechaFin}:userSocioInstanceList.sort{it."$sort"}
+//            userSocioInstanceList = (sort.equalsIgnoreCase("historialMembresias.fechaFin"))?userSocioInstanceList.sort{if (it.historialMembresias.size()>0)it.historialMembresias.last()?.fechaFin}:userSocioInstanceList.sort{it."$sort"}
+            if (sort.equalsIgnoreCase("ultimaVisita")){
+                userSocioInstanceList = userSocioInstanceList.sort{it.getUltimaVisita()?.fechaDeVisita}
+            }
         } else {
             Date fechaDesdeTemp = desde?.parse("dd-MM-yyyy", desde.date+"-"+desde.month+"-1900")
             Date fechaHastaTemp = hasta?.parse("dd-MM-yyyy", hasta.date+"-"+hasta.month+"-1900")
@@ -306,7 +325,7 @@ ${grailsApplication.config.company.country}""".toString()
         if (soloExpirados){
             userSocioInstanceList.each {
                 if (it.historialMembresias.size()>0){
-                    if (it.historialMembresias.last()?.fechaFin < (new Date())){
+                    if (it.getUltimoPlan().fechaFin < (new Date())){
                         userSocioInstanceListSoloTempExpirados.add(it)
                     }
                 }
@@ -314,6 +333,18 @@ ${grailsApplication.config.company.country}""".toString()
             userSocioInstanceList = userSocioInstanceListSoloTempExpirados
         }
 
+        if (soloInactivos){
+            userSocioInstanceList.each {
+                if (it.visitas.size()>0){
+                    if (-(TimeCategory.minus(it.getUltimaVisita().fechaDeVisita, new Date()).days) > 30){
+                        userSocioInstanceListSoloTempExpirados.add(it)
+                    }
+                } else {
+                    userSocioInstanceListSoloTempExpirados.add(it)
+                }
+            }
+            userSocioInstanceList = userSocioInstanceListSoloTempExpirados
+        }
 
         userSocioInstanceList = order.equalsIgnoreCase("asc")?userSocioInstanceList:userSocioInstanceList.reverse()
         return userSocioInstanceList
@@ -334,22 +365,44 @@ ${grailsApplication.config.company.country}""".toString()
     }
 
     def cambiaEstadoAuto() {
+        String msjeFlash
+        log.info "Entrando a cambiaEstadoAutoAInactivo()..."
+        def respcambiaEstadoAutoAInactivo = cambiaEstadoAutoAInactivo()
+        log.info "Saliendo de cambiaEstadoAutoAInactivo()... "+respcambiaEstadoAutoAInactivo.cont+" con nuevo estado: "+respcambiaEstadoAutoAInactivo.estadoMembresiaInstance.estado
+        msjeFlash = "Cambiado(s) "+respcambiaEstadoAutoAInactivo.cont+" usuario(s) con nuevo estado: "+respcambiaEstadoAutoAInactivo.estadoMembresiaInstance.estado
+
+        log.info "Entrando a cambiaEstadoAutoAActivo()..."
+        def cambiaEstadoAutoAActivo = cambiaEstadoAutoAActivo()
+        log.info "Saliendo de cambiaEstadoAutoAActivo()... "+cambiaEstadoAutoAActivo.cont+" con nuevo estado: "+cambiaEstadoAutoAActivo.estadoMembresiaInstance.estado
+        return msjeFlash + System.getProperty("line.separator") + "Cambiado(s) "+cambiaEstadoAutoAActivo.cont+" usuario(s) con nuevo estado: "+cambiaEstadoAutoAActivo.estadoMembresiaInstance.estado
+    }
+
+    def cambiaEstadoAutoAInactivo() {
         def List<UserSocio> userSocioInstanceList = new ArrayList<UserSocio>()
-//        Buscamos a los HistorialMembresias "vencidos"
+        Boolean marcarParaExpirar
 
         // today
         Calendar hoyMedianoche = new GregorianCalendar();
-// reset hour, minutes, seconds and millis
+        // reset hour, minutes, seconds and millis
         hoyMedianoche.set(Calendar.HOUR_OF_DAY, 23);
         hoyMedianoche.set(Calendar.MINUTE, 59);
         hoyMedianoche.set(Calendar.SECOND, 59);
         hoyMedianoche.set(Calendar.MILLISECOND, 0);
 
-
-        List<HistorialMembresias> listHistorialMembresias = HistorialMembresias.findAllByFechaFinLessThan(hoyMedianoche.getTime())sort { it.fechaFin }
-        listHistorialMembresias.each {
-            if (it.usuario.estadoMembresia?.id == 1){
-                userSocioInstanceList.add(it.usuario)
+        // Recorre a todos los usuarios activos: si cualquiera de sus membresías es mayor o igual a hoy, se le marca para NO expirarlo
+        // En otras palabras, se expirará a todos los usuarios activos a menos que tengan al menos 1 membresía vigente
+        List<UserSocio> listUserSocio = UserSocio.findAllByEstadoMembresia(EstadoMembresia.findById(1L))
+        listUserSocio.each{
+            marcarParaExpirar = true
+            if (it.historialMembresias.size() > 0){
+                it.historialMembresias.each {
+                    if (it.fechaFin > (hoyMedianoche.getTime()-1)) marcarParaExpirar = false  // Si esta membresía expira desde hoy, el usuario debería seguir Activo
+                }
+                if (marcarParaExpirar) {
+                    if (!userSocioInstanceList.contains(it)){
+                        userSocioInstanceList.add(it)
+                    }
+                }
             }
         }
 
@@ -363,14 +416,56 @@ ${grailsApplication.config.company.country}""".toString()
         return [cont: cont, estadoMembresiaInstance: estadoMembresiaInstance, userSocioInstanceList: userSocioInstanceList]
     }
 
+    def cambiaEstadoAutoAActivo() {
+        def List<UserSocio> userSocioInstanceList = new ArrayList<UserSocio>()
+
+        // today
+        Calendar hoyMedianoche = new GregorianCalendar();
+        // reset hour, minutes, seconds and millis
+        hoyMedianoche.set(Calendar.HOUR_OF_DAY, 23);
+        hoyMedianoche.set(Calendar.MINUTE, 59);
+        hoyMedianoche.set(Calendar.SECOND, 59);
+        hoyMedianoche.set(Calendar.MILLISECOND, 0);
+
+        List<HistorialMembresias> listHistorialMembresias = HistorialMembresias.findAllByFechaFinGreaterThanEquals(hoyMedianoche.getTime())sort { it.fechaFin }
+        listHistorialMembresias.each {
+            if (it.usuario.estadoMembresia?.id == 2){               // Si el usuario está como inactivo
+                if (!userSocioInstanceList.contains(it.usuario)){   // y no ha sido agregado a la lista
+                    userSocioInstanceList.add(it.usuario)           // agregarlo a lista para "activar"
+                }
+            }
+        }
+
+        def cont = 0
+        def estadoMembresiaInstance = EstadoMembresia.get(1L)
+        Date fechaDeOperacion = new Date()
+        Modalidad modalidad = Modalidad.get(1L)
+        userSocioInstanceList.each {
+            cont = ejecutaCambioEstado(it, fechaDeOperacion, it.estadoMembresia, estadoMembresiaInstance, modalidad, cont)
+        }
+        return [cont: cont, estadoMembresiaInstance: estadoMembresiaInstance, userSocioInstanceList: userSocioInstanceList]
+    }
+
     def ejecutaCambioEstado(UserSocio userSocioInstance, Date fechaDeOperacion, EstadoMembresia estadoAntiguo, EstadoMembresia estadoMembresiaInstance, Modalidad modalidad, Long cont) {
         userSocioInstance.estadoMembresia = estadoMembresiaInstance
-        if (userSocioInstance.save()) {
+        if (userSocioInstance.save(flush: true)) {
             def logCambiosDeEstadoInstance = new LogCambiosDeEstado(fechaDeOperacion: fechaDeOperacion, socio: userSocioInstance, estadoAntiguo: estadoAntiguo, estadoNuevo: estadoMembresiaInstance, modalidad: modalidad)
             if (!logCambiosDeEstadoInstance.save()) {
                 return
             }
             cont++
+        } else {
+            def locale = Locale.getDefault()
+            def String observaciones = ""
+            for (fieldErrors in userSocioInstance.errors) {
+                for (error in fieldErrors.allErrors) {
+                    observaciones += messageSource.getMessage(error, locale)
+                }
+            }
+            def logCambiosDeEstadoInstance = new LogCambiosDeEstado(fechaDeOperacion: fechaDeOperacion, socio: userSocioInstance, estadoAntiguo: estadoAntiguo, estadoNuevo: estadoMembresiaInstance, modalidad: modalidad, observaciones: "Modificación no realizada: "+observaciones)
+            if (!logCambiosDeEstadoInstance.save()) {
+                return
+            }
         }
         return cont
     }

@@ -8,11 +8,7 @@
     <g:javascript src="validarut.js" />
 	<g:set var="entityName" value="${message(code: 'userSocio.label', default: 'UserSocio')}" />
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
-    <script type="text/javascript">
-        function oli(){
-            alert('oli');
-        }
-    </script>
+    <webcam:head/>
 </head>
 
 <body>
