@@ -1,27 +1,27 @@
-<%@ page import="org.gym.ventas.Categoria" %>
+<%@ page import="org.gym.Modalidad" %>
 <!doctype html>
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'categoria.label', default: 'Categoria')}" />
+	<g:set var="entityName" value="${message(code: 'modalidad.label', default: 'Modalidad')}" />
 	<title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-<section id="edit-categoria" class="first">
+<section id="edit-modalidad" class="first">
 
-	<g:hasErrors bean="${categoriaInstance}">
+	<g:hasErrors bean="${modalidadInstance}">
 	<div class="alert alert-error">
-		<g:renderErrors bean="${categoriaInstance}" as="list" />
+		<g:renderErrors bean="${modalidadInstance}" as="list" />
 	</div>
 	</g:hasErrors>
 
 	<g:form method="post" class="form-horizontal" >
-		<g:hiddenField name="id" value="${categoriaInstance?.id}" />
-		<g:hiddenField name="version" value="${categoriaInstance?.version}" />
+		<g:hiddenField name="id" value="${modalidadInstance?.id}" />
+		<g:hiddenField name="version" value="${modalidadInstance?.version}" />
 		<fieldset class="form">
 			<g:render template="form"/>
 		</fieldset>

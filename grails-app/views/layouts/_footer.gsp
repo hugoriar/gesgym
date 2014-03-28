@@ -1,3 +1,4 @@
+<%@ page import="org.gym.Configuracion" %>
 <footer class="footer">
     <div class="container">
 %{--        <div class="row">
@@ -83,6 +84,32 @@
                 <a href="${createLink(uri: '/')}"><g:message code="default.faq.label"/></a>
             </li>--}%
         </ul>
+
+        <g:if test="${Configuracion.findByNombre("MostrarIP")!=null}">
+            <g:if test="${Configuracion.findByNombre("MostrarIP").valor.equalsIgnoreCase("true")}">
+                <g:set var="ips" value="${Configuracion.findByNombre("IPServidor")}"/>
+                <g:if test="${ips!=null}">
+                    <g:if test="${!ips.valor.empty}">
+                        <div style="float: left; display: block; padding: 10px 20px 10px; margin-left: -20px; font-size: 18px; font-weight: 200; color: red;">
+                            <small>(IP del servidor: ${ips.valor.substring(1,ips.valor.size()-1)})</small>
+                            %{--<g:each in="${ipsServidor}" var="d">
+                                ${d?.encodeAsHTML()}
+                            </g:each>--}%
+                        </div>
+                    </g:if>
+                </g:if>
+            </g:if>
+        </g:if>
+        %{--<g:if test="${ipsServidor!=null}">
+            <g:if test="${ipsServidor.size()>0}">
+                <div style="float: left; display: block; padding: 10px 20px 10px; margin-left: -20px; font-size: 18px; font-weight: 200; color: red;">
+                    <small>(IP del servidor:
+                    <g:each in="${ipsServidor}" var="d">
+                        ${d?.encodeAsHTML()}
+                    </g:each>)</small>
+                </div>
+            </g:if>
+        </g:if>--}%
 
         <p class="pull-right"><a href="#">Ir arriba</a></p>
     </div>

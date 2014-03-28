@@ -1,27 +1,27 @@
-<%@ page import="org.gym.ventas.Categoria" %>
+<%@ page import="org.gym.ventas.Detalle" %>
 <!doctype html>
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
-	<g:set var="entityName" value="${message(code: 'categoria.label', default: 'Categoria')}" />
+	<g:set var="entityName" value="${message(code: 'detalle.label', default: 'Detalle')}" />
 	<title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 
 <body>
 
-<section id="edit-categoria" class="first">
+<section id="edit-detalle" class="first">
 
-	<g:hasErrors bean="${categoriaInstance}">
+	<g:hasErrors bean="${detalleInstance}">
 	<div class="alert alert-error">
-		<g:renderErrors bean="${categoriaInstance}" as="list" />
+		<g:renderErrors bean="${detalleInstance}" as="list" />
 	</div>
 	</g:hasErrors>
 
 	<g:form method="post" class="form-horizontal" >
-		<g:hiddenField name="id" value="${categoriaInstance?.id}" />
-		<g:hiddenField name="version" value="${categoriaInstance?.version}" />
+		<g:hiddenField name="id" value="${detalleInstance?.id}" />
+		<g:hiddenField name="version" value="${detalleInstance?.version}" />
 		<fieldset class="form">
 			<g:render template="form"/>
 		</fieldset>

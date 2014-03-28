@@ -40,9 +40,16 @@
 					</li>
 				</ul>
 
-	  			<div class="pull-left">
-					<%--Left-side entries--%>
-	  			</div>
+%{--                <g:if test="${ipsServidor!=null}">
+                    <g:if test="${ipsServidor.size()>0}">
+                        <div style="float: left; display: block; padding: 10px 20px 10px; margin-left: -20px; font-size: 18px; font-weight: 200; color: #777;">
+                            <small>(IP del servidor:
+                            <g:each in="${ipsServidor}" var="d">
+                                ${d?.encodeAsHTML()}
+                            </g:each>)</small>
+                        </div>
+                    </g:if>
+                </g:if>--}%
 
 	  			<div class="pull-right">
 					<%--Right-side entries--%>

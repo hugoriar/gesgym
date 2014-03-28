@@ -165,8 +165,9 @@
                     <td style="vertical-align: top; font-size: 16px;">
                         <p><i class="icon-list"></i><g:link controller="producto" action="list"> Productos</g:link></p>
                         <p><i class="icon-list"></i><g:link controller="categoria" action="list"> Categorías</g:link></p>
-                        <p><i class="icon-list"></i><g:link controller="subCategoria" action="list"> SubCategorías</g:link></p>
+                        %{--<p><i class="icon-list"></i><g:link controller="subCategoria" action="list"> SubCategorías</g:link></p>--}%
                         <p><i class="icon-list"></i><g:link controller="descuento" action="list"> Descuentos</g:link></p>
+                        <p><i class="icon-list"></i><g:link controller="boleta" action="list"> Boletas</g:link></p>
                     </td>
                 </tr>
                 </tbody>
@@ -192,11 +193,12 @@
                     <td style="vertical-align: top; font-size: 16px;">
                         <p><i class="icon-info-sign"></i><g:link controller="cargoInterno" action="list"> Cargos</g:link></p>
                         <p><i class="icon-info-sign"></i><g:link controller="plan" action="list"> Planes</g:link></p>
-                        <p><i class="icon-info-sign"></i><g:link controller="medioPago" action="list"> Medios de Pago</g:link></p>
+                        %{--<p><i class="icon-info-sign"></i><g:link controller="medioPago" action="list"> Medios de Pago</g:link></p>--}%
                         <p><i class="icon-info-sign"></i><g:link controller="ciudad" action="list"> Ciudades</g:link></p>
                         <p><i class="icon-info-sign"></i><g:link controller="sector" action="list"> Sectores</g:link></p>
                         <p><i class="icon-list"></i><g:link controller="empresa" action="list"> Gestionar Convenios</g:link></p>
-                        <p><i class="icon-info-sign"></i><g:link controller="logCambiosDeEstado" action="list"> Ver log Cambios de Estado</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="logCambiosDeEstado" action="list"> Log Cambios de Estado</g:link></p>
+                        <p><i class="icon-info-sign"></i><g:link controller="configuracion" action="ip"> Configurar IP</g:link></p>
                     </td>
                 </tr>
                 </tbody>
