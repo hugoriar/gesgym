@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ubicacion.Ciudad" %>
+<%@ page import="org.control.ubicacion.Ciudad" %>
 
 
 
@@ -13,7 +13,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: ciudadInstance, field: 'comuna', 'error')} required">
 				<label for="comuna" class="control-label"><g:message code="ciudad.comuna.label" default="Comuna" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="comuna" name="comuna.id" from="${org.gym.ubicacion.Comuna.list()}" optionKey="id" required="" value="${ciudadInstance?.comuna?.id}" class="many-to-one"/>
+					<g:select id="comuna" name="comuna.id" from="${org.control.ubicacion.Comuna.list()}" optionKey="id" required="" value="${ciudadInstance?.comuna?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: ciudadInstance, field: 'comuna', 'error')}</span>
 				</div>
 			</div>

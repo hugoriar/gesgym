@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Marca" %>
+<%@ page import="org.control.ventas.Marca" %>
 
 
 
@@ -21,7 +21,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: marcaInstance, field: 'productos', 'error')} ">
 				<label for="productos" class="control-label"><g:message code="marca.productos.label" default="Productos" /></label>
 				<div class="controls">
-					<g:select name="productos" from="${org.gym.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${marcaInstance?.productos*.id}" class="many-to-many"/>
+					<g:select name="productos" from="${org.control.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${marcaInstance?.productos*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: marcaInstance, field: 'productos', 'error')}</span>
 				</div>
 			</div>

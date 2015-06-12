@@ -614,3 +614,13 @@ PDFButton.btn3d {
 a.button > span {
     display: -moz-inline-block;
 }
+
+.emailLabels {
+    margin-top: -25px !important;
+    /*width: 100%;*/
+}
+
+.emailTxtFields {
+    margin-top: -25px !important;
+    width: 100% !important;
+}

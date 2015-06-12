@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Proveedor" %>
+<%@ page import="org.control.ventas.Proveedor" %>
 
 
 
@@ -13,7 +13,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: proveedorInstance, field: 'direccionEmpresa', 'error')} ">
 				<label for="direccionEmpresa" class="control-label"><g:message code="proveedor.direccionEmpresa.label" default="Direccion Empresa" /></label>
 				<div class="controls">
-					<g:select id="direccionEmpresa" name="direccionEmpresa.id" from="${org.gym.DireccionEmpresa.list()}" optionKey="id" value="${proveedorInstance?.direccionEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="direccionEmpresa" name="direccionEmpresa.id" from="${org.control.DireccionEmpresa.list()}" optionKey="id" value="${proveedorInstance?.direccionEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: proveedorInstance, field: 'direccionEmpresa', 'error')}</span>
 				</div>
 			</div>
@@ -69,7 +69,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: proveedorInstance, field: 'contacto', 'error')} required">
 				<label for="contacto" class="control-label"><g:message code="proveedor.contacto.label" default="Contacto" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="contacto" name="contacto.id" from="${org.gym.User.list()}" optionKey="id" required="" value="${proveedorInstance?.contacto?.id}" class="many-to-one"/>
+					<g:select id="contacto" name="contacto.id" from="${org.control.User.list()}" optionKey="id" required="" value="${proveedorInstance?.contacto?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: proveedorInstance, field: 'contacto', 'error')}</span>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: proveedorInstance, field: 'productos', 'error')} ">
 				<label for="productos" class="control-label"><g:message code="proveedor.productos.label" default="Productos" /></label>
 				<div class="controls">
-					<g:select name="productos" from="${org.gym.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.productos*.id}" class="many-to-many"/>
+					<g:select name="productos" from="${org.control.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.productos*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: proveedorInstance, field: 'productos', 'error')}</span>
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: proveedorInstance, field: 'usuarios', 'error')} ">
 				<label for="usuarios" class="control-label"><g:message code="proveedor.usuarios.label" default="Usuarios" /></label>
 				<div class="controls">
-					<g:select name="usuarios" from="${org.gym.User.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.usuarios*.id}" class="many-to-many"/>
+					<g:select name="usuarios" from="${org.control.User.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.usuarios*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: proveedorInstance, field: 'usuarios', 'error')}</span>
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: proveedorInstance, field: 'variantesProductos', 'error')} ">
 				<label for="variantesProductos" class="control-label"><g:message code="proveedor.variantesProductos.label" default="Variantes Productos" /></label>
 				<div class="controls">
-					<g:select name="variantesProductos" from="${org.gym.ventas.Variante.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.variantesProductos*.id}" class="many-to-many"/>
+					<g:select name="variantesProductos" from="${org.control.ventas.Variante.list()}" multiple="multiple" optionKey="id" size="5" value="${proveedorInstance?.variantesProductos*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: proveedorInstance, field: 'variantesProductos', 'error')}</span>
 				</div>
 			</div>

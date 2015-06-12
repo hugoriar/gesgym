@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Categoria" %>
+<%@ page import="org.control.ventas.Categoria" %>
 
 
 
@@ -55,7 +55,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: categoriaInstance, field: 'categoriaPadre', 'error')} ">
 				<label for="categoriaPadre" class="control-label"><g:message code="categoria.categoriaPadre.label" default="Categoria Padre" /></label>
 				<div class="controls">
-					<g:select id="categoriaPadre" name="categoriaPadre.id" from="${org.gym.ventas.Categoria.list()}" optionKey="id" value="${categoriaInstance?.categoriaPadre?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="categoriaPadre" name="categoriaPadre.id" from="${org.control.ventas.Categoria.list()}" optionKey="id" value="${categoriaInstance?.categoriaPadre?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: categoriaInstance, field: 'categoriaPadre', 'error')}</span>
 				</div>
 			</div>

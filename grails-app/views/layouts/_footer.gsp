@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Configuracion" %>
+<%@ page import="org.control.Configuracion" %>
 <footer class="footer">
     <div class="container">
 %{--        <div class="row">
@@ -63,7 +63,8 @@
         Information may be changed or updated without notice.
         </p>--}%
 
-        <p>Sistema desarrollado por Hugo Riveros para SPA Marcos Cafena
+        <p>Sistema desarrollado por Hugo Riveros A.
+        %{--<p>Sistema desarrollado por FixArray--}%
         </p>
         <ul class="unstyled">
             <li>
@@ -85,21 +86,25 @@
             </li>--}%
         </ul>
 
-        <g:if test="${Configuracion.findByNombre("MostrarIP")!=null}">
-            <g:if test="${Configuracion.findByNombre("MostrarIP").valor.equalsIgnoreCase("true")}">
+%{--
+        <g:if test="${Configuracion.getValor("mostrarIpEnPie")!=null}">
+            <g:if test="${Configuracion.getValor("mostrarIpEnPie").equalsIgnoreCase("true")}">
                 <g:set var="ips" value="${Configuracion.findByNombre("IPServidor")}"/>
                 <g:if test="${ips!=null}">
                     <g:if test="${!ips.valor.empty}">
                         <div style="float: left; display: block; padding: 10px 20px 10px; margin-left: -20px; font-size: 18px; font-weight: 200; color: red;">
                             <small>(IP del servidor: ${ips.valor.substring(1,ips.valor.size()-1)})</small>
-                            %{--<g:each in="${ipsServidor}" var="d">
+                            --}%
+%{--<g:each in="${ipsServidor}" var="d">
                                 ${d?.encodeAsHTML()}
-                            </g:each>--}%
+                            </g:each>--}%%{--
+
                         </div>
                     </g:if>
                 </g:if>
             </g:if>
         </g:if>
+--}%
         %{--<g:if test="${ipsServidor!=null}">
             <g:if test="${ipsServidor.size()>0}">
                 <div style="float: left; display: block; padding: 10px 20px 10px; margin-left: -20px; font-size: 18px; font-weight: 200; color: red;">

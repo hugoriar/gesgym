@@ -22,11 +22,11 @@ Total record found : ${jasperDTOList.size()}
             </tr>
         </g:each>
     </table>
-    <a href="/gesgym/jasperReport/generateReport?_format=XLS&_name=all_dto&_file=all_dto">
+    <a href="/control/jasperReport/generateReport?_format=XLS&_name=all_dto&_file=all_dto">
         XLS
     </a>
     |
-    <a href="/gesgym/jasperReport/generateReport?_format=PDF&_name=all_dto&_file=all_dto">
+    <a href="/control/jasperReport/generateReport?_format=PDF&_name=all_dto&_file=all_dto">
         PDF
     </a>
 

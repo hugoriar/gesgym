@@ -1,5 +1,5 @@
 
-<%@ page import="java.text.SimpleDateFormat; org.gym.UserSocio" %>
+<%@ page import="java.text.SimpleDateFormat; org.control.UserSocio" %>
 <!doctype html>
 <html>
 <head>

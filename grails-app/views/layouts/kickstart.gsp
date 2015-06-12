@@ -10,17 +10,47 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="${resource(plugin: 'kickstart-with-bootstrap', dir: 'images', file: 'favicon.ico')}"
-          type="image/x-icon"/>
+    <link rel="shortcut icon" href="${resource(plugin: 'kickstart-with-bootstrap', dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
 
     <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon.png">
     <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon-72x72.png" sizes="72x72">
     <link rel="apple-touch-icon" href="assets/ico/apple-touch-icon-114x114.png" sizes="114x114">
 
     <%-- Manual switch for the skin can be found in /view/_menu/_config.gsp --%>
-    %{--<r:require modules="jquery"/>--}%
+    <r:require modules="jquery"/>
+    <r:require modules="jquery-ui"/>
     <r:require modules="bootstrap"/>
     <r:require modules="bootstrap_utils"/>
+
+    <r:require modules="application"/>
+    <g:javascript>
+//        var $ = jQuery.noConflict();
+        $("#userTop").autocomplete({
+            source: function(request, response){
+                $.ajax({
+                    url: "${createLink(controller:'userSocio', action:'ajaxBuscadorSocio')}", // remote datasource
+                    data: request,
+                    success: function(data){
+                        response(data); // set the response
+                    }/*,
+                     error: function(){ // handle server errors
+                     $.jGrowl("Unable to retrieve Companies", {
+                     theme: 'ui-state-error ui-corner-all'
+                     });
+                     }*/
+                });
+            },
+            minLength: 2, // triggered only after minimum 2 characters have been entered.
+            select: function(event, ui) { // event handler when user selects a company from the list.
+                /*$("#company\\.id").val(ui.item.id); // update the hidden field.
+                 $("#empId").val(ui.item.nasSymbol + "-") // populate the employee field with the nasdaq symbol.*/
+                $('#userTop').val(ui.item.id);
+                $('#id').val(parseInt(ui.item.id));
+                $('#intelliSearch').submit();
+            }
+        });
+    </g:javascript>
+
 
     <r:layoutResources/>
     <g:layoutHead/>
@@ -28,6 +58,7 @@
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
 	<![endif]-->
 
     <%-- For Javascript see end of body --%>

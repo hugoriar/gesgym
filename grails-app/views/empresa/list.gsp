@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.UserSocio; org.gym.Empresa" %>
+<%@ page import="org.control.Empresa" %>
 <!doctype html>
 <html>
 <head>
@@ -20,11 +20,9 @@
 				<g:sortableColumn property="nombreEmpresa" title="${message(code: 'empresa.nombreEmpresa.label', default: 'Nombre Empresa')}" />
 			
 				<th><g:message code="empresa.direccionEmpresa.label" default="Direccion Empresa" /></th>
-
-                <g:sortableColumn property="fonoEmpresa" title="${message(code: 'empresa.fonoEmpresa.label', default: 'Fono Empresa')}" />
-
-                <th><g:message code="empresa.usuarios.label" default="Usuarios" /></th>
-
+			
+				<g:sortableColumn property="fonoEmpresa" title="${message(code: 'empresa.fonoEmpresa.label', default: 'Fono Empresa')}" />
+			
 			</tr>
 		</thead>
 		<tbody>
@@ -33,23 +31,10 @@
 			
 				<td><g:link action="show" id="${empresaInstance.id}">${fieldValue(bean: empresaInstance, field: "nombreEmpresa")}</g:link></td>
 			
-				<g:if test="empresaInstance.direccionEmpresa == ${null}">
-                    <td></td>
-				</g:if>
-                <g:else>
-                    <td>${fieldValue(bean: empresaInstance, field: "direccionEmpresa")}</td>
-                </g:else>
-
+				<td>${fieldValue(bean: empresaInstance, field: "direccionEmpresa")}</td>
+			
 				<td>${fieldValue(bean: empresaInstance, field: "fonoEmpresa")}</td>
-
-                <td>
-                    <ul>
-                    <g:each in="${UserSocio.findAllByEmpresa(empresaInstance)}" status="e" var="userSocioInstance">
-                        <li><g:link action="show" id="${userSocioInstance.id}">${userSocioInstance}</g:link></li>
-                    </g:each>
-                    </ul>
-                </td>
-
+			
 			</tr>
 		</g:each>
 		</tbody>

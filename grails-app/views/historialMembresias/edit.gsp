@@ -1,4 +1,4 @@
-<%@ page import="org.gym.HistorialMembresias" %>
+<%@ page import="org.control.HistorialMembresias" %>
 <!doctype html>
 <html>
 

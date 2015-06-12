@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Plan" %>
+<%@ page import="org.control.Plan" %>
 
 
 
@@ -7,6 +7,22 @@
 				<div class="controls">
 					<g:textField name="nombre" required="" value="${planInstance?.nombre}"/>
 					<span class="help-inline">${hasErrors(bean: planInstance, field: 'nombre', 'error')}</span>
+				</div>
+			</div>
+
+			<div class="control-group fieldcontain ${hasErrors(bean: planInstance, field: 'diasMembresia', 'error')} required">
+				<label for="diasMembresia" class="control-label"><g:message code="plan.diasMembresia.label" default="Dias Membresia" /><span class="required-indicator">*</span></label>
+				<div class="controls">
+					<g:field type="number" name="diasMembresia" required="" value="${planInstance.diasMembresia}"/>
+					<span class="help-inline">${hasErrors(bean: planInstance, field: 'diasMembresia', 'error')}</span>
+				</div>
+			</div>
+
+			<div class="control-group fieldcontain ${hasErrors(bean: planInstance, field: 'diasCongelacion', 'error')} required">
+				<label for="diasCongelacion" class="control-label"><g:message code="plan.diasCongelacion.label" default="Dias Congelacion" /><span class="required-indicator">*</span></label>
+				<div class="controls">
+					<g:field type="number" name="diasCongelacion" required="" value="${planInstance.diasCongelacion}"/>
+					<span class="help-inline">${hasErrors(bean: planInstance, field: 'diasCongelacion', 'error')}</span>
 				</div>
 			</div>
 

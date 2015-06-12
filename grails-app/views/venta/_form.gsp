@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Venta" %>
+<%@ page import="org.control.ventas.Venta" %>
 
 
 
@@ -37,7 +37,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: ventaInstance, field: 'estadoVenta', 'error')} required">
 				<label for="estadoVenta" class="control-label"><g:message code="venta.estadoVenta.label" default="Estado Venta" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="estadoVenta" name="estadoVenta.id" from="${org.gym.ventas.EstadoVenta.list()}" optionKey="id" required="" value="${ventaInstance?.estadoVenta?.id}" class="many-to-one"/>
+					<g:select id="estadoVenta" name="estadoVenta.id" from="${org.control.ventas.EstadoVenta.list()}" optionKey="id" required="" value="${ventaInstance?.estadoVenta?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: ventaInstance, field: 'estadoVenta', 'error')}</span>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: ventaInstance, field: 'vendedor', 'error')} ">
 				<label for="vendedor" class="control-label"><g:message code="venta.vendedor.label" default="Vendedor" /></label>
 				<div class="controls">
-					<g:select id="vendedor" name="vendedor.id" from="${org.gym.User.list()}" optionKey="id" value="${ventaInstance?.vendedor?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="vendedor" name="vendedor.id" from="${org.control.User.list()}" optionKey="id" value="${ventaInstance?.vendedor?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: ventaInstance, field: 'vendedor', 'error')}</span>
 				</div>
 			</div>

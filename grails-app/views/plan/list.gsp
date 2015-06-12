@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.Plan" %>
+<%@ page import="org.control.Plan" %>
 <!doctype html>
 <html>
 <head>
@@ -19,15 +19,15 @@
 			
 				<g:sortableColumn property="nombre" title="${message(code: 'plan.nombre.label', default: 'Nombre')}" />
 			
+				<g:sortableColumn property="diasMembresia" title="${message(code: 'plan.diasMembresia.label', default: 'Dias Membresia')}" />
+			
+				<g:sortableColumn property="diasCongelacion" title="${message(code: 'plan.diasCongelacion.label', default: 'Dias Congelacion')}" />
+			
 				<g:sortableColumn property="fechaInicioVigencia" title="${message(code: 'plan.fechaInicioVigencia.label', default: 'Fecha Inicio Vigencia')}" />
 			
 				<g:sortableColumn property="fechaTerminoVigencia" title="${message(code: 'plan.fechaTerminoVigencia.label', default: 'Fecha Termino Vigencia')}" />
 			
 				<g:sortableColumn property="valor" title="${message(code: 'plan.valor.label', default: 'Valor')}" />
-			
-				<g:sortableColumn property="descripcion" title="${message(code: 'plan.descripcion.label', default: 'Descripcion')}" />
-			
-				<g:sortableColumn property="lastUpdated" title="${message(code: 'plan.lastUpdated.label', default: 'Last Updated')}" />
 			
 			</tr>
 		</thead>
@@ -37,15 +37,15 @@
 			
 				<td><g:link action="show" id="${planInstance.id}">${fieldValue(bean: planInstance, field: "nombre")}</g:link></td>
 			
+				<td>${fieldValue(bean: planInstance, field: "diasMembresia")}</td>
+			
+				<td>${fieldValue(bean: planInstance, field: "diasCongelacion")}</td>
+			
 				<td><g:formatDate date="${planInstance.fechaInicioVigencia}" /></td>
 			
 				<td><g:formatDate date="${planInstance.fechaTerminoVigencia}" /></td>
 			
 				<td>${fieldValue(bean: planInstance, field: "valor")}</td>
-			
-				<td>${fieldValue(bean: planInstance, field: "descripcion")}</td>
-			
-				<td><g:formatDate date="${planInstance.lastUpdated}" /></td>
 			
 			</tr>
 		</g:each>

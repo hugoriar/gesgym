@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ConceptoPago" %>
+<%@ page import="org.control.ConceptoPago" %>
 
 
 
@@ -21,7 +21,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: conceptoPagoInstance, field: 'categoriaConceptoPago', 'error')} required">
 				<label for="categoriaConceptoPago" class="control-label"><g:message code="conceptoPago.categoriaConceptoPago.label" default="Categoria Concepto Pago" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="categoriaConceptoPago" name="categoriaConceptoPago.id" from="${org.gym.CategoriaConceptoPago.list()}" optionKey="id" required="" value="${conceptoPagoInstance?.categoriaConceptoPago?.id}" class="many-to-one"/>
+					<g:select id="categoriaConceptoPago" name="categoriaConceptoPago.id" from="${org.control.CategoriaConceptoPago.list()}" optionKey="id" required="" value="${conceptoPagoInstance?.categoriaConceptoPago?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: conceptoPagoInstance, field: 'categoriaConceptoPago', 'error')}</span>
 				</div>
 			</div>

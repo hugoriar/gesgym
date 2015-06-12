@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Matricula" %>
+<%@ page import="java.text.SimpleDateFormat; org.control.Matricula" %>
 <!doctype html>
 <html>
 
@@ -6,7 +6,21 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'matricula.label', default: 'Matricula')}" />
+    <g:set var="layout_nosecondarymenu"	value="${true}" scope="request"/>
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'util.css')}" type="text/css">
+    <r:require modules="datepicker"/>
+    %{--<webcam:head/>--}%
+    %{--<resource:lightBox labelImage="Bild" labelOf="von" />--}%
+
+    <script>
+
+        $(document).ready(function(){
+            $('#fechaMatricula').datepicker()
+        });
+
+    </script>
+
 </head>
 
 <body>
@@ -19,7 +33,7 @@
 	</div>
 	</g:hasErrors>
 
-    <table class="table">
+    %{--<table class="table">
         <tbody>
         <tr class="prop">
             <td valign="top" class="name"><g:message code="userSocio.nombre.label" default="Nombre" /></td>
@@ -45,9 +59,6 @@
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.diasCongelacion.label" default="Días Congelación" /></td>
             <td valign="top" class="value">
-                %{--<g:if test="${historialMembresiasInstance?.diasCongelacion}">
-                    ${fieldValue(bean: historialMembresiasInstance, field: "diasCongelacion")}
-                </g:if>--}%
             </td>
         </tr>
 
@@ -55,11 +66,6 @@
             <td valign="top" class="name"><g:message code="historialMembresias.fechaInicio.label" default="Fecha de Vigencia Plan Actual" /></td>
             <td valign="top" class="value"><g:formatDate date="${historialMembresiasInstance?.fechaInicio}" /> al <g:formatDate date="${historialMembresiasInstance?.fechaFin}" /></td>
         </tr>
-
-        %{-- <tr class="prop">
-             <td valign="top" class="name"><g:message code="historialMembresias.fechaFin.label" default="Fecha Fin" /></td>
-             <td valign="top" class="value"><g:formatDate date="${historialMembresiasInstance?.fechaFin}" /></td>
-         </tr>--}%
 
         <tr class="prop">
             <td valign="top" class="name"><g:message code="historialMembresias.autorizadoPor.label" default="Autorizado Por" /></td>
@@ -76,9 +82,11 @@
             <td valign="top" class="value"><g:link controller="pago" action="show" id="${historialMembresiasInstance?.pago?.id}">${historialMembresiasInstance?.pago}</g:link></td>
         </tr>
         </tbody>
-    </table>
+    </table>--}%
 	
-	<g:form action="save" class="form-horizontal" >
+	<g:form action="save" class="form-horizontal" enctype="multipart/form-data">
+	%{--<g:form action="save" class="form-horizontal" onsubmit="return alerta();" >--}%
+        <g:hiddenField name="socio.id" value="${userSocioInstance?.id}" />
         <g:hiddenField name="next" value="${next}" />
         <g:hiddenField name="id" value="${params.id}" />
 		<fieldset class="form">
@@ -95,4 +103,8 @@
 		
 </body>
 
+
+
 </html>
+
+

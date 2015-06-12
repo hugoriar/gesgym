@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.ubicacion.Ciudad" %>
+<%@ page import="org.control.ubicacion.Ciudad" %>
 <!doctype html>
 <html>
 <head>

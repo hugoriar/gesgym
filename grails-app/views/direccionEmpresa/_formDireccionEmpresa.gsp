@@ -1,4 +1,4 @@
-<%@ page import="org.gym.DireccionEmpresa" %>
+<%@ page import="org.control.DireccionEmpresa" %>
 
 
 
@@ -29,7 +29,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: direccionEmpresaInstance, field: 'sectorEmpresa', 'error')} ">
     <label for="sectorEmpresa" class="control-label"><g:message code="direccionEmpresa.sectorEmpresa.label" default="Sector Empresa" /></label>
     <div class="controls">
-        <g:select id="sectorEmpresa" name="sectorEmpresa.id" from="${org.gym.ubicacion.Sector.list()}" optionKey="id" value="${userSocioInstance?.empresa?.sectorEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
+        <g:select id="sectorEmpresa" name="sectorEmpresa.id" from="${org.control.ubicacion.Sector.list()}" optionKey="id" value="${userSocioInstance?.empresa?.sectorEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
         <span class="help-inline">${hasErrors(bean: direccionEmpresaInstance, field: 'sectorEmpresa', 'error')}</span>
     </div>
 </div>
@@ -37,7 +37,7 @@
 <div class="control-group fieldcontain ${hasErrors(bean: direccionEmpresaInstance, field: 'ciudadEmpresa', 'error')} ">
     <label for="ciudadEmpresa" class="control-label"><g:message code="direccionEmpresa.ciudadEmpresa.label" default="Ciudad Empresa" /></label>
     <div class="controls">
-        <g:select id="ciudadEmpresa" name="ciudadEmpresa.id" from="${org.gym.ubicacion.Ciudad.list()}" optionKey="id" value="${userSocioInstance?.empresa?.ciudadEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
+        <g:select id="ciudadEmpresa" name="ciudadEmpresa.id" from="${org.control.ubicacion.Ciudad.list()}" optionKey="id" value="${userSocioInstance?.empresa?.ciudadEmpresa?.id}" class="many-to-one" noSelection="['null': '']"/>
         <span class="help-inline">${hasErrors(bean: direccionEmpresaInstance, field: 'ciudadEmpresa', 'error')}</span>
     </div>
 </div>

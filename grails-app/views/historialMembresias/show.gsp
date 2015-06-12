@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.HistorialMembresias" %>
+<%@ page import="org.control.HistorialMembresias" %>
 <!doctype html>
 <html>
 
@@ -80,7 +80,7 @@
 		</tbody>
 	</table>
     <custom:jasperButtons delimiter=" " target="_blank" imgSrc="contrato_anversoAm.png" controller="userSocio" action="generateReport" format="pdf" jasper="datos_contrato" text="Contrato (Anverso)" class="btn3d"/>
-    <g:link action="downloadFile" id="contrato_reverso"><img border="0" src="${g.resource(dir: 'images/buttons', file: 'contrato_reversoAm.png')}"/></g:link>
+        <g:link action="downloadFile" id="contrato_reverso"><img border="0" src="${g.resource(dir: 'images/buttons', file: 'contrato_reversoAm.png')}"/></g:link>
     </custom:jasperForm>
 </section>
 

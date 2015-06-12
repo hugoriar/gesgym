@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.Huella" %>
+<%@ page import="org.control.Huella" %>
 <!doctype html>
 <html>
 <head>

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Huella" %>
+<%@ page import="org.control.Huella" %>
 
 
 
@@ -21,7 +21,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: huellaInstance, field: 'usuario', 'error')} required">
 				<label for="usuario" class="control-label"><g:message code="huella.usuario.label" default="Usuario" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="usuario" name="usuario.id" from="${org.gym.User.list()}" optionKey="id" required="" value="${huellaInstance?.usuario?.id}" class="many-to-one"/>
+					<g:select id="usuario" name="usuario.id" from="${org.control.User.list()}" optionKey="id" required="" value="${huellaInstance?.usuario?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: huellaInstance, field: 'usuario', 'error')}</span>
 				</div>
 			</div>

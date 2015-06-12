@@ -8,11 +8,11 @@
 				</g:link>
 			</li>
 		</g:each>--}%
-        <li class="controller${params.controller == "userSocio" ? " active" : ""}">             <g:link controller="userSocio" action="index">              <g:message code="userSocio.label" default="Socios"/></g:link></li>
+        %{--<li class="controller${params.controller == "userSocio" ? " active" : ""}">             <g:link controller="userSocio" action="index">              <g:message code="userSocio.label" default="Socios"/></g:link></li>--}%
         <li class="controller${params.controller == "visita" ? " active" : ""}">                <g:link controller="visita" action="index">                 <g:message code="visita.label" default="Asistencias"/></g:link></li>
-        <li class="controller${params.controller == "userPersonalInstructor" ? " active" : ""}"><g:link controller="userPersonalInstructor" action="index"> <g:message code="userPersonalInstructor.label" default="Instructores"/></g:link></li>
+        %{--<li class="controller${params.controller == "userPersonalInstructor" ? " active" : ""}"><g:link controller="userPersonalInstructor" action="index"> <g:message code="userPersonalInstructor.label" default="Instructores"/></g:link></li>--}%
         <li class="controller${params.controller == "userPersonal" ? " active" : ""}">          <g:link controller="userPersonal" action="index">           <g:message code="userPersonal.label" default="Personal"/></g:link></li>
-        <li class="controller${params.controller == "historialMembresias" ? " active" : ""}">   <g:link controller="historialMembresias" action="index">    <g:message code="historialMembresias.label" default="Membresías"/></g:link></li>
+        %{--<li class="controller${params.controller == "historialMembresias" ? " active" : ""}">   <g:link controller="historialMembresias" action="index">    <g:message code="historialMembresias.label" default="Membresías"/></g:link></li>--}%
         %{--<li class="controller${params.controller == "empresa" ? " active" : ""}">               <g:link controller="empresa" action="index">                <g:message code="empresa.label" default="Empresa"/></g:link></li>--}%
         <li class="controller${params.controller == "cargoInterno" ? " active" : ""}">          <g:link controller="cargoInterno" action="index">           <g:message code="cargoInterno.label" default="Cargos"/></g:link></li>
         <li class="controller${params.controller == "plan" ? " active" : ""}">                  <g:link controller="plan" action="index">                   <g:message code="plan.label" default="Planes"/></g:link></li>

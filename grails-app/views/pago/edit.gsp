@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Pago" %>
+<%@ page import="org.control.Pago" %>
 <!doctype html>
 <html>
 
@@ -20,6 +20,7 @@
 	</g:hasErrors>
 
 	<g:form method="post" class="form-horizontal" >
+        <g:hiddenField name="socio.id" value="${pagoInstance.socio?.id}" />
 		<g:hiddenField name="id" value="${pagoInstance?.id}" />
 		<g:hiddenField name="version" value="${pagoInstance?.version}" />
 		<fieldset class="form">

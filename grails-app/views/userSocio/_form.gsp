@@ -1,4 +1,4 @@
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'nombre', 'error')} required">
 				<label for="nombre" class="control-label"><g:message code="userSocio.nombre.label" default="Nombre" /><span class="required-indicator">*</span></label>
@@ -43,7 +43,25 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'foto', 'error')} ">
 				<label for="foto" class="control-label"><g:message code="userSocio.foto.label" default="Foto" /></label>
 				<div class="controls">
-                    %{--<webcam:webcamAnchor/> --}%<input type="file" id="foto" name="foto" />
+                    <webcam:webcamAnchor/>
+                    %{--<input type="file" id="foto" name="foto" value="${createLink(controller:'userSocio', action:'avatar_image', id:userSocioInstance.id)}" />--}%
+                    <input type="file" id="foto" name="foto" />
+                    %{--<input type="file" id="foto" name="foto" value="${userSocioInstance?.foto}" />--}%
+                    <div id="nozoom" style="text-align: center; display: block; max-width: 300px;">
+                        <g:if test="${userSocioInstance.foto}">
+                            <richui:lightBox href="${createLink(controller:'userSocio', action:'avatar_image', id:userSocioInstance.id)}">
+                                <img class="avatar" id="img1" style="" src="${createLink(controller:'userSocio', action:'avatar_image', id:userSocioInstance.id)}"/>
+                            </richui:lightBox>
+                        </g:if>
+                        %{--<g:else>
+                            <g:if test="${userSocioInstance.sexo?.id == 1}">
+                                <img style="border: 1px solid #dadada;" src="${resource(dir: 'images/',file: 'profile_man.jpg')}" />
+                            </g:if>
+                            <g:elseif test="${userSocioInstance.sexo?.id == 2}">
+                                <img style="border: 1px solid #dadada;"  src="${resource(dir: 'images/',file: 'profile_woman.jpg')}" />
+                            </g:elseif>
+                        </g:else>--}%
+                    </div>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'foto', 'error')}</span>
 				</div>
 			</div>
@@ -59,7 +77,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'sexo', 'error')} required">
 				<label for="sexo" class="control-label"><g:message code="userSocio.sexo.label" default="Sexo" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="sexo" name="sexo.id" from="${org.gym.Sexo.list()}" optionKey="id" required="" value="${userSocioInstance?.sexo?.id}" class="many-to-one"/>
+					<g:select id="sexo" name="sexo.id" from="${org.control.Sexo.list()}" optionKey="id" required="" value="${userSocioInstance?.sexo?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'sexo', 'error')}</span>
 				</div>
 			</div>
@@ -99,7 +117,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'ocupacion', 'error')} required">
 				<label for="ocupacion" class="control-label"><g:message code="userSocio.ocupacion.label" default="Ocupación" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="ocupacion" name="ocupacion.id" from="${org.gym.Ocupacion.list()}" optionKey="id" required="" value="${userSocioInstance?.ocupacion?.id}" class="many-to-one"/>
+					<g:select id="ocupacion" name="ocupacion.id" from="${org.control.Ocupacion.list()}" optionKey="id" required="" value="${userSocioInstance?.ocupacion?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'ocupacion', 'error')}</span>
 				</div>
 			</div>
@@ -122,7 +140,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')} required">
 				<label for="estadoMembresia" class="control-label"><g:message code="userSocio.estadoMembresia.label" default="Estado de Membresía" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="estadoMembresia" name="estadoMembresia.id" from="${org.gym.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
+					<g:select id="estadoMembresia" name="estadoMembresia.id" from="${org.control.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')}</span>
 				</div>
 			</div>
@@ -130,10 +148,19 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'instructor', 'error')} required">
 				<label for="instructor" class="control-label"><g:message code="userSocio.instructor.label" default="Instructor Asignado" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="instructor" name="instructor.id" from="${org.gym.UserPersonalInstructor.list()}" optionKey="id" required="" value="${userSocioInstance?.instructor?.id}" class="many-to-one"/>
+					<g:select id="instructor" name="instructor.id" from="${org.control.UserPersonalInstructor.list()}" optionKey="id" required="" value="${userSocioInstance?.instructor?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'instructor', 'error')}</span>
 				</div>
 			</div>
+
+      %{--      <div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'instructor', 'error')} required">
+                <label for="instructor" class="control-label"><g:message code="userSocio.tagAsignado.label" default="Tag Asignado" /><span class="required-indicator">*</span></label>
+                <div class="controls">
+                    --}%%{--<g:select id="tagAsociado" name="tagAsociado.id" from="${null}" optionKey="id" required="" value="${null}" class="many-to-one"/>--}%%{--
+                    <g:select id="tagAsociado" name="tagAsociado.id" from="${org.control.tag.Tag.list()}" optionKey="id" required="" value="${userSocioInstance?.tagAsociado?.id}" class="many-to-one"/>
+                    <span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'instructor', 'error')}</span>
+                </div>
+            </div>--}%
 
 
 <fieldset class="form">
@@ -161,10 +188,10 @@
     <g:render template="/pago/form"/>
 </fieldset>--}%
 
-<fieldset class="form">
+%{--<fieldset class="form">
     <legend>Empresa</legend>
     <g:render template="/empresa/form"/>
-</fieldset>
+</fieldset>--}%
 
 <fieldset class="form">
     <legend>Condición Médica</legend>

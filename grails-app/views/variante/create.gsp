@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Variante" %>
+<%@ page import="org.control.ventas.Variante" %>
 <!doctype html>
 <html>
 

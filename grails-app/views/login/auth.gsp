@@ -19,6 +19,7 @@
 				<div class="control-group fieldcontain ${hasErrors(bean: _DemoPageInstance, field: 'name', 'error')} ">
 					<label for='username' class="control-label"><g:message code="springSecurity.login.username.label"/>:</label>
 					<div class="controls">
+		          	%{--<input type='text' class='span4' name='j_username' id='username' value=' '/>--}%
 						<input type='text' class='span4' name='j_username' id='username'/>
 					</div>
 				</div>
@@ -26,7 +27,8 @@
 				<div class="control-group fieldcontain ${hasErrors(bean: _DemoPageInstance, field: 'name', 'error')} ">
 					<label for='password' class="control-label"><g:message code="springSecurity.login.password.label"/>:</label>
 					<div class="controls">
-						<input type='password' class='span4' name='j_password' id='password'/>
+						<input type='password' class='span4' name='j_password' id='password' value='' autocomplete="off"/>
+						%{--<input type='password' class='span4' name='j_password' id='password'/>--}%
 					</div>
 				</div>
 				

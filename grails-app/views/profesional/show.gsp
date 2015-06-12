@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.fichaMedica.Profesional" %>
+<%@ page import="org.control.fichaMedica.Profesional" %>
 <!doctype html>
 <html>
 

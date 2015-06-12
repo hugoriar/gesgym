@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.Producto" %>
+<%@ page import="org.control.ventas.Producto" %>
 
 
 
@@ -85,7 +85,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: productoInstance, field: 'categorias', 'error')} ">
 				<label for="categorias" class="control-label"><g:message code="producto.categorias.label" default="Categorias" /></label>
 				<div class="controls">
-                    <g:select name="categorias" from="${org.gym.ventas.Categoria.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.categorias*.id}" class="many-to-many"/>
+                    <g:select name="categorias" from="${org.control.ventas.Categoria.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.categorias*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: productoInstance, field: 'categorias', 'error')}</span>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: productoInstance, field: 'detallesBoleta', 'error')} ">
 				<label for="detallesBoleta" class="control-label"><g:message code="producto.detallesBoleta.label" default="Detalles Boleta" /></label>
 				<div class="controls">
-					<g:select name="detallesBoleta" from="${org.gym.ventas.Detalle.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.detallesBoleta*.id}" class="many-to-many"/>
+					<g:select name="detallesBoleta" from="${org.control.ventas.Detalle.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.detallesBoleta*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: productoInstance, field: 'detallesBoleta', 'error')}</span>
 				</div>
 			</div>
@@ -118,7 +118,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: productoInstance, field: 'fotosProducto', 'error')} ">
 				<label for="fotosProducto" class="control-label"><g:message code="producto.fotosProducto.label" default="Fotos Producto" /></label>
 				<div class="controls">
-					<g:select name="fotosProducto" from="${org.gym.ventas.FotoProducto.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.fotosProducto*.id}" class="many-to-many"/>
+					<g:select name="fotosProducto" from="${org.control.ventas.FotoProducto.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.fotosProducto*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: productoInstance, field: 'fotosProducto', 'error')}</span>
 				</div>
 			</div>
@@ -134,7 +134,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: productoInstance, field: 'variantes', 'error')} ">
 				<label for="variantes" class="control-label"><g:message code="producto.variantes.label" default="Variantes" /></label>
 				<div class="controls">
-					<g:select name="variantes" from="${org.gym.ventas.Variante.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.variantes*.id}" class="many-to-many"/>
+					<g:select name="variantes" from="${org.control.ventas.Variante.list()}" multiple="multiple" optionKey="id" size="5" value="${productoInstance?.variantes*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: productoInstance, field: 'variantes', 'error')}</span>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 <ul class="nav pull-right">
 	<li class="dropdown">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-    		<i class="icon-wrench"></i>
+    		<span class="icon-wrench glyphicon-inverse"></span>
 			<g:message code="default.admin.label"/><b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
@@ -10,27 +10,27 @@
 			</li>
             <li class="">
                 <a href="${createLink(uri: '/configuracion')}">
-                    <i class="icon-wrench"></i>
+                    <span class="icon-wrench glyphicon-inverse"></span>
                     <g:message code="default.configuration.label"/>
                 </a>
             </li>
 			<g:if env="development">
 			<li class="">
 				<a href="${createLink(uri: '/dbconsole')}">
-					<i class="icon-dashboard"></i>
+					<span class="icon-dashboard icon-white"></span>
 					<g:message code="default.dbconsole.label"/>
 				</a>
 			</li>
 			</g:if>
 			<li class="">
 				<a href="${createLink(uri: '/systeminfo')}">
-					<i class="icon-info-sign"></i>
+					<span class="icon-info-sign icon-white"></span>
 					<g:message code="default.systeminfo.label"/>
 				</a>
 			</li>
 			<li class="dropdown-submenu">
 				<a tabindex="-1" href="#">
-					<i class="icon-sitemap"></i>
+					<span class="icon-sitemap icon-white"></span>
 					All Controller
 				</a>
 				<ul class="dropdown-menu">

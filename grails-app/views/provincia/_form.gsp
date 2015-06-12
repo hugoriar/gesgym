@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ubicacion.Provincia" %>
+<%@ page import="org.control.ubicacion.Provincia" %>
 
 
 
@@ -30,7 +30,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: provinciaInstance, field: 'region', 'error')} required">
 				<label for="region" class="control-label"><g:message code="provincia.region.label" default="Region" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="region" name="region.id" from="${org.gym.ubicacion.Region.list()}" optionKey="id" required="" value="${provinciaInstance?.region?.id}" class="many-to-one"/>
+					<g:select id="region" name="region.id" from="${org.control.ubicacion.Region.list()}" optionKey="id" required="" value="${provinciaInstance?.region?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: provinciaInstance, field: 'region', 'error')}</span>
 				</div>
 			</div>

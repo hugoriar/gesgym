@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ContactoEmergencia" %>
+<%@ page import="org.control.ContactoEmergencia" %>
 
             <table>
                 <tbody>
@@ -66,7 +66,7 @@
 			%{--<div class="control-group fieldcontain ${hasErrors(bean: contactoEmergenciaInstance, field: 'parentescoContactoEmergencia', 'error')} ">
 				<label for="parentescoContactoEmergencia" class="control-label"><g:message code="contactoEmergencia.parentescoContactoEmergencia.label" default="Parentesco Contacto Emergencia" /></label>
 				<div class="controls">
-					<g:select id="parentescoContactoEmergencia" name="parentescoContactoEmergencia.id" from="${org.gym.Parentesco.list()}" optionKey="id" value="${contactoEmergenciaInstance?.parentescoContactoEmergencia?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="parentescoContactoEmergencia" name="parentescoContactoEmergencia.id" from="${org.control.Parentesco.list()}" optionKey="id" value="${contactoEmergenciaInstance?.parentescoContactoEmergencia?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: contactoEmergenciaInstance, field: 'parentescoContactoEmergencia', 'error')}</span>
 				</div>
 			</div>--}%

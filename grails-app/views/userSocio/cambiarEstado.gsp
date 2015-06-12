@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 <!doctype html>
 <html>
 
@@ -77,7 +77,7 @@
             <div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')} required">
                 <label for="estadoMembresia" class="control-label"><g:message code="userSocio.estadoMembresia.label" default="Estado Membresia" /><span class="required-indicator">*</span></label>
                 <div class="controls">
-                    <g:select id="estadoMembresia" name="estadoMembresiaNuevo" from="${org.gym.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
+                    <g:select id="estadoMembresia" name="estadoMembresiaNuevo" from="${org.control.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
                     <span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')}</span>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.fichaMedica.CondicionMedica" %>
+<%@ page import="org.control.fichaMedica.CondicionMedica" %>
 
 
 
@@ -14,7 +14,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: condicionMedicaInstance, field: 'profesional', 'error')} ">
 				<label for="profesional" class="control-label"><g:message code="condicionMedica.profesional.label" default="Profesional" /></label>
 				<div class="controls">
-					<g:select id="profesional" name="profesional.id" from="${org.gym.fichaMedica.Profesional.list()}" optionKey="id" value="${condicionMedicaInstance?.profesional?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="profesional" name="profesional.id" from="${org.control.fichaMedica.Profesional.list()}" optionKey="id" value="${condicionMedicaInstance?.profesional?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: condicionMedicaInstance, field: 'profesional', 'error')}</span>
 				</div>
 			</div>

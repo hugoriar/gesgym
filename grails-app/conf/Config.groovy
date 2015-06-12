@@ -12,9 +12,9 @@ import org.apache.log4j.Level
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
-grails.war.destFile = "gesgym.war"
+grails.war.destFile = "control.war"
 
-grails.project.groupId = 'org.gym' // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = 'org.control' // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [
@@ -42,9 +42,12 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.processing.enabled = true
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
+// En el futuro probar:
+//grails.views.default.codec = "html/utf8" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
 grails.converters.encoding = "UTF-8"
 // enable Sitemesh preprocessing of GSP pages
@@ -63,7 +66,6 @@ grails.web.disable.multipart=false
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
-grails.plugins.springsecurity.password.algorithm = 'SHA-512'
 
 grails.views.javascript.library="jquery"
 
@@ -93,11 +95,11 @@ log4j = {
         rollingFile name:'debugLog', file:"${logDirectory}/debug.log", append: true, layout: pattern(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{2}] %m%n'), threshold: Level.DEBUG
     }
     root {
-        info 'infoLog', 'errorLog', 'warnLog', 'debugLog', 'stdout'
-        /*info 'infoLog'
+//        info 'infoLog', 'errorLog', 'warnLog', 'debugLog', 'stdout'
+//        info 'infoLog'
         error 'errorLog', 'stdout'
-        warn 'warnLog'
-        debug 'debugLog'*/
+        warn 'warnLog', 'stdout'
+//        debug 'debugLog'
     }
 
     info 'grails.app'
@@ -111,7 +113,10 @@ log4j = {
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework',
             'org.hibernate',
-            'net.sf.ehcache.hibernate'
+            'net.sf.ehcache.hibernate',
+            'grails.app.services.org.grails.plugin.resource',
+            'grails.app.taglib.org.grails.plugin.resource',
+            'grails.app.resourceMappers.org.grails.plugin.resource'
 
     warn   'org.mortbay.log'
     debug 'grails.app'
@@ -119,10 +124,10 @@ log4j = {
 
 grails {
     mail {
-        host = "smtp.gmail.com"
+        host = "cpanel78.gzo.com"
         port = 465
-        username = "hugoriar@gmail.com"
-        password = "HRvalpo1234"
+        username = "comunicaciones@spafitnessclub.cl"
+        password = "comspa1234"
         props = ["mail.smtp.auth":"true",
                 "mail.smtp.socketFactory.port":"465",
                 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
@@ -139,9 +144,37 @@ company {
     country = "Chile"
 }
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.gym.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.gym.UserRole'
-grails.plugins.springsecurity.authority.className = 'org.gym.Role'
-grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/home'
 grails.config.defaults.locations = [KickstartResources]
+
+// Added by the Spring Security Core plugin:
+//grails.plugins.springsecurity.fii.rejectPublicInvocations = false
+//grails.plugins.springsecurity.rejectIfNoRule = false
+grails.plugins.springsecurity.securityConfigType = "Annotation"
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/home'
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.control.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.control.UserRole'
+grails.plugins.springsecurity.authority.className = 'org.control.Role'
+grails.plugins.springsecurity.controllerAnnotations.staticRules = [
+//        '/**':                                ['permitAll'],
+        '/**':                                ['ROLE_ADMIN'],
+//	    '/home':                          ['permitAll'],
+//        '/index':                         ['permitAll'],
+//        '/index.gsp':                     ['permitAll'],
+        '/assets/**':                     ['permitAll'],
+        '/**/js/**':                      ['permitAll'],
+        '/**/css/**':                     ['permitAll'],
+        '/**/images/**':                  ['permitAll'],
+        '/**/favicon.ico':                ['permitAll'],
+        '/login/**':                      ['permitAll'],
+        '/logout/**':                     ['permitAll']
+//        '/monitoring/**':                 ['permitAll']
+]
+//ROLE_ADMIN
+
+grails.plugins.springsecurity.failureHandler.exceptionMappings = [
+//        'org.springframework.security.authentication.LockedException':             '/user/accountLocked',
+//        'org.springframework.security.authentication.DisabledException':           '/user/accountDisabled',
+//        'org.springframework.security.authentication.AccountExpiredException':     '/user/accountExpired',
+        'org.springframework.security.authentication.CredentialsExpiredException':   '/userSocio/cambiarPassword'
+]
+

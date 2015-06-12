@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.LogCambiosDeEstado" %>
+<%@ page import="org.control.LogCambiosDeEstado" %>
 <!doctype html>
 <html>
 

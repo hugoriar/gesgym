@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.DireccionUsuario" %>
+<%@ page import="org.control.DireccionUsuario" %>
 <!doctype html>
 <html>
 <head>

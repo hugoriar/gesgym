@@ -1,11 +1,11 @@
-<%@ page import="org.gym.Visita" %>
+<%@ page import="org.control.Visita" %>
 
 
 
 			<div class="control-group fieldcontain ${hasErrors(bean: visitaInstance, field: 'usuario', 'error')} required">
 				<label for="usuario" class="control-label"><g:message code="visita.usuario.label" default="Usuario" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="usuario" name="usuario.id" from="${org.gym.UserSocio.list()}" optionKey="id" required="" value="${visitaInstance?.usuario?.id}" class="many-to-one"/>
+					<g:select id="usuario" name="usuario.id" from="${org.control.UserSocio.list()}" optionKey="id" required="" value="${visitaInstance?.usuario?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: visitaInstance, field: 'usuario', 'error')}</span>
 				</div>
 			</div>

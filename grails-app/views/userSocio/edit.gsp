@@ -1,12 +1,16 @@
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 <!doctype html>
 <html>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="layout" content="kickstart" />
+    <g:javascript src="validarut.js" />
 	<g:set var="entityName" value="${message(code: 'userSocio.label', default: 'UserSocio')}" />
 	<title><g:message code="default.edit.label" args="[entityName]" /></title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'util.css')}" type="text/css">
+    <webcam:head/>
+    <resource:lightBox labelImage="Bild" labelOf="von" />
 </head>
 
 <body>
@@ -19,6 +23,7 @@
 	</div>
 	</g:hasErrors>
 
+	%{--<g:form method="post" class="form-horizontal">--}%
 	<g:form method="post" class="form-horizontal"  enctype="multipart/form-data">
 		<g:hiddenField name="id" value="${userSocioInstance?.id}" />
 		<g:hiddenField name="version" value="${userSocioInstance?.version}" />

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Cheque" %>
+<%@ page import="org.control.Cheque" %>
 
             <table>
                 <tr>

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Modalidad" %>
+<%@ page import="org.control.Modalidad" %>
 <!doctype html>
 <html>
 

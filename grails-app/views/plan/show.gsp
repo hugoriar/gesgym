@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.Plan" %>
+<%@ page import="org.control.Plan" %>
 <!doctype html>
 <html>
 
@@ -21,6 +21,20 @@
 				<td valign="top" class="name"><g:message code="plan.nombre.label" default="Nombre" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: planInstance, field: "nombre")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="plan.diasMembresia.label" default="Dias Membresia" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: planInstance, field: "diasMembresia")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="plan.diasCongelacion.label" default="Dias Congelacion" /></td>
+				
+				<td valign="top" class="value">${fieldValue(bean: planInstance, field: "diasCongelacion")}</td>
 				
 			</tr>
 		

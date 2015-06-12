@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Parentesco" %>
+<%@ page import="org.control.Parentesco" %>
 <!doctype html>
 <html>
 

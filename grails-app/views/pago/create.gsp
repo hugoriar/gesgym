@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Pago" %>
+<%@ page import="org.control.Pago" %>
 <!doctype html>
 <html>
 

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.EstadoMembresia" %>
+<%@ page import="org.control.EstadoMembresia" %>
 
 
 

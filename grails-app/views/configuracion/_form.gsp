@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Configuracion" %>
+<%@ page import="org.control.Configuracion" %>
 
 
 

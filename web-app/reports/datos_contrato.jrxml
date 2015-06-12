@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="datos_contrato" language="groovy" pageWidth="612" pageHeight="935" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89b85722-ba33-45f9-8706-74b3dacad933">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="243"/>
+	<property name="ireport.y" value="390"/>
 	<parameter name="title" class="java.lang.String"/>
 	<parameter name="rut" class="java.lang.String"/>
 	<parameter name="operationTime" class="java.lang.String"/>
@@ -10,6 +10,7 @@
 	<parameter name="direccion" class="java.lang.String"/>
 	<parameter name="lbl_casoEmergencia" class="java.lang.String"/>
 	<parameter name="logoPath" class="java.lang.String"/>
+	<parameter name="importante" class="java.lang.String"/>
 	<field name="matriculaId" class="java.lang.String"/>
 	<field name="rut" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -1507,20 +1508,182 @@
 				<textFieldExpression><![CDATA[$F{observacionesContrato}]]></textFieldExpression>
 			</textField>
 		</band>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="15" width="572" height="15" uuid="83179d61-47e0-4226-8d7a-e3c7ba6ae4c5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[REGLAMENTOS DE CONGELACIONES]]></text>
+			</staticText>
+		</band>
+		<band height="10"/>
+		<band height="35">
+			<staticText>
+				<reportElement mode="Opaque" x="430" y="0" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="d035db1e-fc49-4c6b-adb7-60e1d703b06c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[PLAN ANUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="8d469932-a5ab-45dc-b49e-1b35f2e202b4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[PLAN MENSUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="144" y="0" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="ff2357d2-caf2-40a4-a505-cb4f59bcc313"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[PLAN TRIMESTRAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="287" y="0" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="d3214894-2c23-492f-b4c9-b45e536684a8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[PLAN SEMESTRAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="430" y="12" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="b2c9729d-4606-4d3b-bbbb-34ad8eaf4fdf"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Máximo 30 días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="12" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="4ffcef18-76e2-4903-8f05-c18a3f16db55"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Sin derecho a congelar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="144" y="12" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="8e8a808e-64e6-4da1-97a4-b74f988f87d5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Máximo 15 días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="287" y="12" width="143" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="2796288b-81fe-47cb-970a-23614a2d5da7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Máximo 21 días]]></text>
+			</staticText>
+		</band>
+		<band height="12">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="12" forecolor="#000000" uuid="230cb2e8-5f6e-46c3-b5ee-8f9ddbf5e198"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true"/>
+					<paragraph leftIndent="5" rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Todos los congelamientos se hacen personalmente, con a lo menos 7 días de anticipación]]></text>
+			</staticText>
+		</band>
+		<band height="60">
+			<textField>
+				<reportElement x="0" y="10" width="572" height="50" forecolor="#000000" uuid="cf0d8432-e4fe-40eb-9764-b19f88b72f39"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top" markup="none">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{importante}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="30">
 			<textField>
 				<reportElement mode="Opaque" x="0" y="17" width="515" height="13" backcolor="#E6E6E6" uuid="df503057-dcfe-47a4-ba3c-240611bdf374"/>
 				<textElement textAlignment="Right">
-					<font size="6"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="17" width="40" height="13" backcolor="#E6E6E6" uuid="361f0bb0-014d-402f-80f3-fe748ced00a9"/>
+				<reportElement mode="Opaque" x="515" y="17" width="56" height="13" backcolor="#E6E6E6" uuid="361f0bb0-014d-402f-80f3-fe748ced00a9"/>
 				<textElement>
-					<font size="6"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 <!doctype html>
 <html>
 <head>
@@ -39,7 +39,7 @@
                     </g:if>
                     <g:else>
                         <g:link action="${accion}" id="${userSocioInstance.id}">
-                            %{--<img class="accionIcon" alt="${accion}" src="${resource(dir: 'images/icons/acciones',file: accion+'.png')}" />--}%
+                            <img class="accionIcon" alt="${accion}" src="${resource(dir: 'images/icons/acciones',file: accion+'.png')}" />
                             ${message(code: 'userSocio.'+accion+'.label', default: 'Acción')}
                         </g:link>
                     </g:else>

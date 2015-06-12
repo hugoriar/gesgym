@@ -1,18 +1,27 @@
-import org.gym.CargoInterno
-import org.gym.Especializacion
-import org.gym.Modalidad
-import org.gym.Parentesco
-import org.gym.Plan
-import org.gym.ubicacion.Ciudad
-import org.gym.EstadoMembresia
-import org.gym.MedioPago
-import org.gym.Ocupacion
-import org.gym.ubicacion.Comuna
-import org.gym.ubicacion.Provincia
-import org.gym.ubicacion.Region
-import org.gym.ubicacion.Sector
-import org.gym.Sexo
-import org.gym.fichaMedica.Profesional
+import org.control.CargoInterno
+import org.control.Configuracion
+import org.control.ContactoEmergencia
+import org.control.Especializacion
+import org.control.Modalidad
+import org.control.Parentesco
+import org.control.Plan
+import org.control.Role
+import org.control.User
+import org.control.UserRole
+import org.control.tag.EstadoTag
+import org.control.tag.MarcaTag
+import org.control.tag.ModeloTag
+import org.control.tag.Tag
+import org.control.ubicacion.Ciudad
+import org.control.EstadoMembresia
+import org.control.MedioPago
+import org.control.Ocupacion
+import org.control.ubicacion.Comuna
+import org.control.ubicacion.Provincia
+import org.control.ubicacion.Region
+import org.control.ubicacion.Sector
+import org.control.Sexo
+import org.control.fichaMedica.Profesional
 
 class BootStrap {
 
@@ -181,6 +190,114 @@ class BootStrap {
             new CargoInterno(nombreCargo: "Aseo", descripcionCargo: "Realiza tareas de aseo en la empresa").save(failOnError: true)
             new CargoInterno(nombreCargo: "Otro", descripcionCargo: "Realiza otras tareas en la empresa").save(failOnError: true)
         }
+        println "OK"
+
+        print "### Creando marca(s) de tags... "
+        if (!MarcaTag.count()){
+            new MarcaTag(nombre: "Impinj").save(failOnError: true)
+            new MarcaTag(nombre: "Avery Dennison").save(failOnError: true)
+        }
+        println "OK"
+
+        print "### Creando estado(s) de tags... "
+        if (!EstadoTag.count()){
+            new EstadoTag(nombreEstado: "Activo", habilitado: true, descripcionEstado: "Activo").save(failOnError: true)
+            new EstadoTag(nombreEstado: "Inactivo", habilitado: false, descripcionEstado: "Inactivo").save(failOnError: true)
+        }
+        println "OK"
+
+        print "### Creando modelo(s) de tags... "
+        if (!ModeloTag.count()){
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "uh331").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "uh105").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "inskyl3").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "uh3d40").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "uh4411").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Impinj"), nombre: "uh600").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-223").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-230").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-240").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-805").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-814").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-815").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-826").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-827").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-828").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-833").save(failOnError: true)
+            new ModeloTag(marca: MarcaTag.findByNombre("Avery Dennison"), nombre: "AD-843").save(failOnError: true)
+        }
+        println "OK"
+
+        print "### Creando tag(s)... "
+        if (!Tag.count()){
+            new Tag(modelo: ModeloTag.findByNombre("uh331"),  epc: "E280-1130-2000-2444-DBA4-00AB", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("uh105"),  epc: "3008-33B2-DDD9-0140-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("inskyl3"),epc: "3008-33B2-DDD9-BD07-0001-4BE3", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("uh3d40"), epc: "3008-33B2-DDD9-BD04-00BB-9644", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("uh4411"), epc: "3008-33B2-DDD9-0140-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("uh600"),  epc: "3008-33B2-DDD9-BD05-00D6-F3EE", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-223"), epc: "AD8A-1700-1C7A-8992-1400-00F0", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-230"), epc: "AD0C-0101-1C72-1990-6A00-00ED", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-240"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-805"), epc: "AD11-2500-12F3-55FF-6A00-0065", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-814"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-815"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-826"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-827"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-828"), epc: "AD14-1501-4457-EF91-5600-005F", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-833"), epc: "AD04-2300-44CF-2153-4100-00D0", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+            new Tag(modelo: ModeloTag.findByNombre("AD-843"), epc: "3008-33B2-DDD9-06C0-0000-0000", estado: EstadoTag.findByNombreEstado("Activo")).save(failOnError: true)
+        }
+        println "OK"
+
+        print "### Creando roles"
+        def userRole = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save()
+        def adminRole = Role.findByAuthority("ROLE_ADMIN") ?: new Role(authority: "ROLE_ADMIN").save()
+        /*def staffRole = Role.findByAuthority("ROLE_STAFF") ?: new Role(authority: "ROLE_STAFF").save()
+        def guestRole = Role.findByAuthority("ROLE_GUEST") ?: new Role(authority: "ROLE_GUEST").save()
+        def superRole = Role.findByAuthority("ROLE_SUPERUSER") ?: new Role(authority: "ROLE_SUPERUSER").save()*/
+        println "OK"
+
+        print "### Creando usuario(s)... "
+        if (!User.count()) {
+            def adminUser = new User(
+                    username: "admin",
+                    password: "control1234",
+                    nombre: "Usuario Administrador",
+                    apellidoPaterno: "Apellido Paterno",
+                    apellidoMaterno: "Apellido Materno",
+                    rut: 1234,
+                    dv: "k",
+                    sexo: Sexo.get(1),
+                    contactoEmergencia: new ContactoEmergencia(nombreContactoEmergencia: "Nombre Contacto", apellidoPaternoContactoEmergencia: "Apellido Paterno Contacto", apellidoMaternoContactoEmergencia: "Apellido Materno Contacto"),
+                    enabled: true
+            ).save(failOnError: true)
+            UserRole.create(User.findByUsername("admin"), adminRole, true)
+
+            /*def userUser = new User(
+                    username: "user",
+                    password: "user1234",
+                    nombre: "Usuario de Prueba",
+                    apellidoPaterno: "Apellido Paterno",
+                    apellidoMaterno: "Apellido Materno",
+                    rut: 12345,
+                    dv: "k",
+                    sexo: Sexo.get(2),
+                    contactoEmergencia: new ContactoEmergencia(nombreContactoEmergencia: "Nombre Contacto", apellidoPaternoContactoEmergencia: "Apellido Paterno Contacto", apellidoMaternoContactoEmergencia: "Apellido Materno Contacto"),
+                    enabled: true
+            ).save(failOnError: true)
+            UserRole.create(User.findByUsername("user"), userRole, true)*/
+        }
+        println "OK"
+
+        print "### Actualizando uptime... "
+        Configuracion uptime = Configuracion.findByNombre("uptime")
+        if (!uptime){
+            uptime = new Configuracion(nombre: "uptime", descripcion: "Fecha de último inicio")
+        }
+
+        uptime.valor = new Date().toString()
+        uptime.save(failOnError: true, flush: true)
         println "OK"
 
     }

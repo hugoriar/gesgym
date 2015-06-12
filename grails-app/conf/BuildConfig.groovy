@@ -46,15 +46,26 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.8.3"
+    //    runtime ":jquery:1.8.3"
+//        runtime ":resources:1.2.8"
         runtime ":resources:1.1.6"
         runtime ":database-migration:1.3.2"
+//        runtime ":handlebars-resources:1.3.0"
 
         build ":tomcat:$grailsVersion"
 
         compile ':cache:1.0.1'
         compile ':tooltip:0.8'
         compile ':export:1.5'
+        compile ":spring-security-core:1.2.7.3"
+        compile ":spring-security-eventlog:0.3"
+//        compile ":raphael:2.1.2"
+//        compile ":twitter-typeahead:0.9.3.2"
+//        compile ":grails-melody:1.55.0"
+        /*runtime ':profiler:0.5'
+        runtime ':miniprofiler:0.4.1'*/
+//        compile ":kickstart-with-bootstrap:0.9.9.1"
+        //compile ":spring-security-core:2.0-RC4"
 
     }
 }

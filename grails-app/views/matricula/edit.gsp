@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Matricula" %>
+<%@ page import="org.control.Matricula" %>
 <!doctype html>
 <html>
 

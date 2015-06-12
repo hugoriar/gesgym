@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.Empresa" %>
+<%@ page import="org.control.Empresa" %>
 <!doctype html>
 <html>
 
@@ -27,7 +27,7 @@
 			<tr class="prop">
 				<td valign="top" class="name"><g:message code="empresa.direccionEmpresa.label" default="Direccion Empresa" /></td>
 				
-				<td valign="top" class="value"><g:link controller="direccionEmpresa" action="show" id="${empresaInstance?.direccionEmpresa?.id}">${empresaInstance?.direccionEmpresa}</g:link></td>
+				<td valign="top" class="value"><g:link controller="direccionEmpresa" action="show" id="${empresaInstance?.direccionEmpresa?.id}">${empresaInstance?.direccionEmpresa?.encodeAsHTML()}</g:link></td>
 				
 			</tr>
 		
@@ -35,6 +35,19 @@
 				<td valign="top" class="name"><g:message code="empresa.fonoEmpresa.label" default="Fono Empresa" /></td>
 				
 				<td valign="top" class="value">${fieldValue(bean: empresaInstance, field: "fonoEmpresa")}</td>
+				
+			</tr>
+		
+			<tr class="prop">
+				<td valign="top" class="name"><g:message code="empresa.usuarios.label" default="Usuarios" /></td>
+				
+				<td valign="top" style="text-align: left;" class="value">
+					<ul>
+					<g:each in="${empresaInstance.usuarios}" var="u">
+						<li><g:link controller="user" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></li>
+					</g:each>
+					</ul>
+				</td>
 				
 			</tr>
 		

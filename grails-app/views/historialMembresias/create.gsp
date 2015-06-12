@@ -1,4 +1,4 @@
-<%@ page import="org.gym.HistorialMembresias" %>
+<%@ page import="org.control.HistorialMembresias" %>
 <!doctype html>
 <html>
 
@@ -7,6 +7,9 @@
 	<meta name="layout" content="kickstart" />
 	<g:set var="entityName" value="${message(code: 'historialMembresias.label', default: 'HistorialMembresias')}" />
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'util.css')}" type="text/css">
+    <webcam:head/>
+    <resource:lightBox labelImage="Bild" labelOf="von" />
 </head>
 
 <body>
@@ -19,7 +22,7 @@
 	</div>
 	</g:hasErrors>
 	
-	<g:form action="save" class="form-horizontal" >
+	<g:form action="save" class="form-horizontal" enctype="multipart/form-data">
 		<fieldset class="form">
 			<g:render template="form"/>
 		</fieldset>

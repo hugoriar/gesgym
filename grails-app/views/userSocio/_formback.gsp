@@ -1,4 +1,4 @@
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 
 
 
@@ -77,7 +77,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'sexo', 'error')} required">
 				<label for="sexo" class="control-label"><g:message code="userSocio.sexo.label" default="Sexo" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="sexo" name="sexo.id" from="${org.gym.Sexo.list()}" optionKey="id" required="" value="${userSocioInstance?.sexo?.id}" class="many-to-one"/>
+					<g:select id="sexo" name="sexo.id" from="${org.control.Sexo.list()}" optionKey="id" required="" value="${userSocioInstance?.sexo?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'sexo', 'error')}</span>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 			%{--<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'domicilio', 'error')} ">
 				<label for="domicilio" class="control-label"><g:message code="userSocio.domicilio.label" default="Domicilio" /></label>
 				<div class="controls">
-					<g:select id="domicilio" name="domicilio.id" from="${org.gym.DireccionUsuario.list()}" optionKey="id" value="${userSocioInstance?.domicilio?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="domicilio" name="domicilio.id" from="${org.control.DireccionUsuario.list()}" optionKey="id" value="${userSocioInstance?.domicilio?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'domicilio', 'error')}</span>
 				</div>
 			</div>
@@ -125,7 +125,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'condicionMedica', 'error')} ">
 				<label for="condicionMedica" class="control-label"><g:message code="userSocio.condicionMedica.label" default="Condicion Medica" /></label>
 				<div class="controls">
-					<g:select id="condicionMedica" name="condicionMedica.id" from="${org.gym.fichaMedica.CondicionMedica.list()}" optionKey="id" value="${userSocioInstance?.condicionMedica?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="condicionMedica" name="condicionMedica.id" from="${org.control.fichaMedica.CondicionMedica.list()}" optionKey="id" value="${userSocioInstance?.condicionMedica?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'condicionMedica', 'error')}</span>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'contactoEmergencia', 'error')} required">
 				<label for="contactoEmergencia" class="control-label"><g:message code="userSocio.contactoEmergencia.label" default="Contacto Emergencia" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="contactoEmergencia" name="contactoEmergencia.id" from="${org.gym.ContactoEmergencia.list()}" optionKey="id" required="" value="${userSocioInstance?.contactoEmergencia?.id}" class="many-to-one"/>
+					<g:select id="contactoEmergencia" name="contactoEmergencia.id" from="${org.control.ContactoEmergencia.list()}" optionKey="id" required="" value="${userSocioInstance?.contactoEmergencia?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'contactoEmergencia', 'error')}</span>
 				</div>
 			</div>--}%
@@ -141,7 +141,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'ocupacion', 'error')} required">
 				<label for="ocupacion" class="control-label"><g:message code="userSocio.ocupacion.label" default="Ocupacion" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="ocupacion" name="ocupacion.id" from="${org.gym.Ocupacion.list()}" optionKey="id" required="" value="${userSocioInstance?.ocupacion?.id}" class="many-to-one"/>
+					<g:select id="ocupacion" name="ocupacion.id" from="${org.control.Ocupacion.list()}" optionKey="id" required="" value="${userSocioInstance?.ocupacion?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'ocupacion', 'error')}</span>
 				</div>
 			</div>
@@ -149,7 +149,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')} required">
 				<label for="estadoMembresia" class="control-label"><g:message code="userSocio.estadoMembresia.label" default="Estado Membresia" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="estadoMembresia" name="estadoMembresia.id" from="${org.gym.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
+					<g:select id="estadoMembresia" name="estadoMembresia.id" from="${org.control.EstadoMembresia.list()}" optionKey="id" required="" value="${userSocioInstance?.estadoMembresia?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'estadoMembresia', 'error')}</span>
 				</div>
 			</div>
@@ -157,7 +157,7 @@
 			%{--<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'enrolamiento', 'error')} required">
 				<label for="enrolamiento" class="control-label"><g:message code="userSocio.enrolamiento.label" default="Matricula" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="enrolamiento" name="enrolamiento.id" from="${org.gym.Matriculast()}" optionKey="id" required="" value="${userSocioInstance?.enrolamiento?.id}" class="many-to-one"/>
+					<g:select id="enrolamiento" name="enrolamiento.id" from="${org.control.Matriculast()}" optionKey="id" required="" value="${userSocioInstance?.enrolamiento?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'enrolamiento', 'error')}</span>
 				</div>
 			</div>--}%
@@ -181,7 +181,7 @@
 			%{--<div class="control-group fieldcontain ${hasErrors(bean: userSocioInstance, field: 'empresa', 'error')} ">
 				<label for="empresa" class="control-label"><g:message code="userSocio.empresa.label" default="Empresa" /></label>
 				<div class="controls">
-					<g:select id="empresa" name="empresa.id" from="${org.gym.Empresa.list()}" optionKey="id" value="${userSocioInstance?.empresa?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="empresa" name="empresa.id" from="${org.control.Empresa.list()}" optionKey="id" value="${userSocioInstance?.empresa?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: userSocioInstance, field: 'empresa', 'error')}</span>
 				</div>
 			</div>--}%

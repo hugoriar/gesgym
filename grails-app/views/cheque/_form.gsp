@@ -1,11 +1,11 @@
-<%@ page import="org.gym.Cheque" %>
+<%@ page import="org.control.Cheque" %>
 
 
 
 			<div class="control-group fieldcontain ${hasErrors(bean: chequeInstance, field: 'banco', 'error')} required">
 				<label for="banco" class="control-label"><g:message code="cheque.banco.label" default="Banco" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="banco" name="banco.id" from="${org.gym.Banco.list()}" optionKey="id" required="" value="${chequeInstance?.banco?.id}" class="many-to-one"/>
+					<g:select id="banco" name="banco.id" from="${org.control.Banco.list()}" optionKey="id" required="" value="${chequeInstance?.banco?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: chequeInstance, field: 'banco', 'error')}</span>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 			%{--<div class="control-group fieldcontain ${hasErrors(bean: chequeInstance, field: 'pago', 'error')} required">
 				<label for="pago" class="control-label"><g:message code="cheque.pago.label" default="Pago" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="pago" name="pago.id" from="${org.gym.Pago.list()}" optionKey="id" required="" value="${chequeInstance?.pago?.id}" class="many-to-one"/>
+					<g:select id="pago" name="pago.id" from="${org.control.Pago.list()}" optionKey="id" required="" value="${chequeInstance?.pago?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: chequeInstance, field: 'pago', 'error')}</span>
 				</div>
 			</div>--}%

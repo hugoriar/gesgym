@@ -1,4 +1,4 @@
-<%@ page import="org.gym.CargoInterno" %>
+<%@ page import="org.control.CargoInterno" %>
 
 
 

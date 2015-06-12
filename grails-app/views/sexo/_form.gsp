@@ -1,4 +1,4 @@
-<%@ page import="org.gym.Sexo" %>
+<%@ page import="org.control.Sexo" %>
 
 
 

@@ -1,4 +1,4 @@
-<%@ page import="org.gym.ventas.SubCategoria" %>
+<%@ page import="org.control.ventas.SubCategoria" %>
 
 
 
@@ -13,7 +13,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: subCategoriaInstance, field: 'categoria', 'error')} required">
 				<label for="categoria" class="control-label"><g:message code="subCategoria.categoria.label" default="Categoria" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="categoria" name="categoria.id" from="${org.gym.ventas.Categoria.list()}" optionKey="id" required="" value="${subCategoriaInstance?.categoria?.id}" class="many-to-one"/>
+					<g:select id="categoria" name="categoria.id" from="${org.control.ventas.Categoria.list()}" optionKey="id" required="" value="${subCategoriaInstance?.categoria?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: subCategoriaInstance, field: 'categoria', 'error')}</span>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: subCategoriaInstance, field: 'productos', 'error')} ">
 				<label for="productos" class="control-label"><g:message code="subCategoria.productos.label" default="Productos" /></label>
 				<div class="controls">
-					<g:select name="productos" from="${org.gym.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${subCategoriaInstance?.productos*.id}" class="many-to-many"/>
+					<g:select name="productos" from="${org.control.ventas.Producto.list()}" multiple="multiple" optionKey="id" size="5" value="${subCategoriaInstance?.productos*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: subCategoriaInstance, field: 'productos', 'error')}</span>
 				</div>
 			</div>

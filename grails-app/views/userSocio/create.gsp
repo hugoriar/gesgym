@@ -1,4 +1,4 @@
-<%@ page import="org.gym.UserSocio" %>
+<%@ page import="org.control.UserSocio" %>
 <!doctype html>
 <html>
 
@@ -7,8 +7,10 @@
 	<meta name="layout" content="kickstart" />
     <g:javascript src="validarut.js" />
 	<g:set var="entityName" value="${message(code: 'userSocio.label', default: 'UserSocio')}" />
-	<title><g:message code="default.create.label" args="[entityName]" /></title>
+    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'util.css')}" type="text/css">
     <webcam:head/>
+    <resource:lightBox labelImage="Bild" labelOf="von" />
 </head>
 
 <body>
@@ -26,7 +28,8 @@
 			<g:render template="form"/>
 		</fieldset>
 		<div class="form-actions">
-			<g:submitButton name="createAndContinue" class="btn btn-primary" value="${message(code: 'default.button.createAndContinue.label', default: 'Crear y Continuar')}" />
+			<g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Crear')}" />
+			%{--<g:submitButton name="createAndContinue" class="btn btn-primary" value="${message(code: 'default.button.createAndContinue.label', default: 'Crear y Continuar')}" />--}%
             <button class="btn" type="reset"><g:message code="default.button.reset.label" default="Reset" /></button>
 		</div>
 	</g:form>

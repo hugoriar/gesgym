@@ -1,5 +1,5 @@
 
-<%@ page import="org.gym.ventas.DetalleProducto" %>
+<%@ page import="org.control.ventas.DetalleProducto" %>
 <!doctype html>
 <html>
 <head>

@@ -1,8 +1,8 @@
-<%@ page import="org.gym.UserPersonalInstructor" %>
+<%@ page import="org.control.UserPersonalInstructor" %>
 
 
 
-			%{--<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'username', 'error')} ">
+			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'username', 'error')} ">
 				<label for="username" class="control-label"><g:message code="userPersonalInstructor.username.label" default="Username" /></label>
 				<div class="controls">
 					<g:textField name="username" value="${userPersonalInstructorInstance?.username}"/>
@@ -16,7 +16,7 @@
 					<g:field type="password" name="password" value="${userPersonalInstructorInstance?.password}"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'password', 'error')}</span>
 				</div>
-			</div>--}%
+			</div>
 
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'nombre', 'error')} required">
 				<label for="nombre" class="control-label"><g:message code="userPersonalInstructor.nombre.label" default="Nombre" /><span class="required-indicator">*</span></label>
@@ -77,7 +77,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'sexo', 'error')} required">
 				<label for="sexo" class="control-label"><g:message code="userPersonalInstructor.sexo.label" default="Sexo" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="sexo" name="sexo.id" from="${org.gym.Sexo.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.sexo?.id}" class="many-to-one"/>
+					<g:select id="sexo" name="sexo.id" from="${org.control.Sexo.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.sexo?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'sexo', 'error')}</span>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 %{--			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'domicilio', 'error')} ">
 				<label for="domicilio" class="control-label"><g:message code="userPersonalInstructor.domicilio.label" default="Domicilio" /></label>
 				<div class="controls">
-					<g:select id="domicilio" name="domicilio.id" from="${org.gym.DireccionUsuario.list()}" optionKey="id" value="${userPersonalInstructorInstance?.domicilio?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="domicilio" name="domicilio.id" from="${org.control.DireccionUsuario.list()}" optionKey="id" value="${userPersonalInstructorInstance?.domicilio?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'domicilio', 'error')}</span>
 				</div>
 			</div>
@@ -125,7 +125,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'condicionMedica', 'error')} ">
 				<label for="condicionMedica" class="control-label"><g:message code="userPersonalInstructor.condicionMedica.label" default="Condicion Medica" /></label>
 				<div class="controls">
-					<g:select id="condicionMedica" name="condicionMedica.id" from="${org.gym.fichaMedica.CondicionMedica.list()}" optionKey="id" value="${userPersonalInstructorInstance?.condicionMedica?.id}" class="many-to-one" noSelection="['null': '']"/>
+					<g:select id="condicionMedica" name="condicionMedica.id" from="${org.control.fichaMedica.CondicionMedica.list()}" optionKey="id" value="${userPersonalInstructorInstance?.condicionMedica?.id}" class="many-to-one" noSelection="['null': '']"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'condicionMedica', 'error')}</span>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'contactoEmergencia', 'error')} required">
 				<label for="contactoEmergencia" class="control-label"><g:message code="userPersonalInstructor.contactoEmergencia.label" default="Contacto Emergencia" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="contactoEmergencia" name="contactoEmergencia.id" from="${org.gym.ContactoEmergencia.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.contactoEmergencia?.id}" class="many-to-one"/>
+					<g:select id="contactoEmergencia" name="contactoEmergencia.id" from="${org.control.ContactoEmergencia.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.contactoEmergencia?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'contactoEmergencia', 'error')}</span>
 				</div>
 			</div>--}%
@@ -141,7 +141,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'alumnos', 'error')} ">
 				<label for="alumnos" class="control-label"><g:message code="userPersonalInstructor.alumnos.label" default="Alumnos" /></label>
 				<div class="controls">
-					<g:select name="alumnos" from="${org.gym.UserSocio.list()}" multiple="multiple" optionKey="id" size="5" value="${userPersonalInstructorInstance?.alumnos*.id}" class="many-to-many"/>
+					<g:select name="alumnos" from="${org.control.UserSocio.list()}" multiple="multiple" optionKey="id" size="5" value="${userPersonalInstructorInstance?.alumnos*.id}" class="many-to-many"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'alumnos', 'error')}</span>
 				</div>
 			</div>
@@ -149,7 +149,7 @@
 			<div class="control-group fieldcontain ${hasErrors(bean: userPersonalInstructorInstance, field: 'cargo', 'error')} required">
 				<label for="cargo" class="control-label"><g:message code="userPersonalInstructor.cargo.label" default="Cargo" /><span class="required-indicator">*</span></label>
 				<div class="controls">
-					<g:select id="cargo" name="cargo.id" from="${org.gym.CargoInterno.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.cargo?.id}" class="many-to-one"/>
+					<g:select id="cargo" name="cargo.id" from="${org.control.CargoInterno.list()}" optionKey="id" required="" value="${userPersonalInstructorInstance?.cargo?.id}" class="many-to-one"/>
 					<span class="help-inline">${hasErrors(bean: userPersonalInstructorInstance, field: 'cargo', 'error')}</span>
 				</div>
 			</div>
