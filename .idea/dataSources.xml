@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="608254608">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="control dev" uuid="f36f0e1e-8a66-4325-97b3-370125111968">
-      <driver-ref>mysql</driver-ref>
+      <driver-ref>d51a1264-b6e8-4589-9aff-efaa18967671</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost/control?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/control?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</jdbc-url>
       <libraries>
         <library>
-          <url>file://G:/jdk1.6.0_45/jre/lib/ext/mysql-connector-java-5.1.26-bin.jar</url>
+          <url>file://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar</url>
         </library>
       </libraries>
     </data-source>
   </component>
 </project>
-

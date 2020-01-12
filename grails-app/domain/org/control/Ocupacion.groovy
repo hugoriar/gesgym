@@ -27,6 +27,7 @@ class Ocupacion {
     }
 
     static constraints = {
+        descripcion nullable: true
     }
 
     /*

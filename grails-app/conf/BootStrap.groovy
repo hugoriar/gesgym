@@ -112,9 +112,9 @@ class BootStrap {
 
         print "### Creando membresía(s)... "
         if (!Plan.count()){
-            new Plan(nombre: "Normal", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía normal", valor: 100000, vigente: true).save(failOnError: true)
-            new Plan(nombre: "Vip", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía vip", valor: 200000, vigente: true).save(failOnError: true)
-            new Plan(nombre: "Personalizado", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía personalizado", valor: 300000, vigente: true).save(failOnError: true)
+            new Plan(nombre: "Normal", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía normal", valor: 100000, vigente: true, diasMembresia: 0, diasCongelacion: 0).save(failOnError: true)
+            new Plan(nombre: "Vip", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía vip", valor: 200000, vigente: true, diasMembresia: 0, diasCongelacion: 0).save(failOnError: true)
+            new Plan(nombre: "Personalizado", fechaInicioVigencia: new Date(1980, 01, 01), fechaTerminoVigencia: new Date(2200, 31, 31), descripcion: "Esta es la membresía personalizado", valor: 300000, vigente: true, diasMembresia: 0, diasCongelacion: 0).save(failOnError: true)
         }
         println "OK"
 

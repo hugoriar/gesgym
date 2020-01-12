@@ -124,7 +124,7 @@ log4j = {
 
 grails {
     mail {
-        host = "cpanel78.gzo.com"
+        host = "cpanel82.gzo.com"
         port = 465
         username = "comunicaciones@spafitnessclub.cl"
         password = "comspa1234"

@@ -2,8 +2,9 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="control dev" uuid="f36f0e1e-8a66-4325-97b3-370125111968">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <user-name>control</user-name>
-      <user-password>dfcddfd3dfc7df9bdf98df99df9e</user-password>
+      <schema-mapping />
     </data-source>
   </component>
 </project>
